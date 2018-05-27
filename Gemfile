@@ -13,6 +13,7 @@ gem 'pg'
 
 gem 'devise'
 gem 'devise_token_auth'
+gem 'omniauth'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
