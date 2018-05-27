@@ -11,7 +11,6 @@ gem 'puma', '~> 3.11'
 
 gem 'pg'
 
-gem 'devise'
 gem 'devise_token_auth'
 gem 'omniauth'
 
