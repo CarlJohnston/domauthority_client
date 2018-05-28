@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import jQuery from 'jquery';
 import 'foundation-sites/dist/css/foundation.min.css'
@@ -14,9 +14,9 @@ const Foundation = require('foundation-sites');
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
+      <Router>
+        <Route to='/' component={Layout} />
+      </Router>
     );
   }
 }
