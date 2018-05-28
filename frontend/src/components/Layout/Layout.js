@@ -33,7 +33,7 @@ class Layout extends Component {
             </div>
 
             <div className="small-12 medium-shrink cell">
-              <span>Copyright 2018</span>
+              <span>Copyright {(new Date().getFullYear())}</span>
             </div>
           </div>
         </div>
