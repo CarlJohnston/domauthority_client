@@ -1,9 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import TestRenderer from 'react-test-renderer';
+import { Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'
+
 import Layout from '../../../components/Layout/Layout';
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<Layout />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  const component = TestRenderer.create(
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
+  );
+  component.unmount();
 });
