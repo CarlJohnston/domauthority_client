@@ -17,6 +17,9 @@ class Layout extends Component {
               <ul className="menu">
                 <li><input type="search" placeholder="Search" /></li>
                 <li><button type="button" className="button">Search</button></li>
+
+                <li><Link to='/login'>Login</Link></li>
+                <li><Link to='/register'>Register</Link></li>
               </ul>
             </div>
           </div>
