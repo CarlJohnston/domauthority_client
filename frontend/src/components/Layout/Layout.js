@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
+
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import Home from '../Home/Home';
 
 class Layout extends Component {
   render() {
@@ -40,6 +44,10 @@ class Layout extends Component {
             </div>
           </div>
         </div>
+
+        <Route exact path='/' component={Home} />
+        <Route path='/login' component={Login} />
+        <Route path='/register' component={Register} />
       </div>
     );
   }
