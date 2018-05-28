@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
-import logo from './logo.svg';
 import './App.css';
 
-import Layout from './Layout';
+import Layout from '../Layout/Layout';
 
 class App extends Component {
   render() {
