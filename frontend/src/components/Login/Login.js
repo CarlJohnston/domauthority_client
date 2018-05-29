@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import 'whatwg-fetch';
+import PNotify from 'pnotify/dist/iife/PNotify';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;

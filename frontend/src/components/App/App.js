@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import 'promise-polyfill';
 
 import 'foundation-sites/dist/css/foundation.min.css'
+import 'pnotify/dist/PNotifyBrightTheme.css'
 
 import './App.css';
 
