@@ -5,9 +5,7 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <div className="grid-container">
-          <h1>Register</h1>
-        </div>
+        <h1>Register</h1>
       </div>
     );
   }

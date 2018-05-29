@@ -30,6 +30,12 @@ class Layout extends Component {
         </div>
 
         <div className="grid-container">
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
+        </div>
+
+        <div className="grid-container">
           <div className="grid-x align-justify align-middle">
             <div className="small-12 medium-shrink cell">
               <ul className="menu">
@@ -44,10 +50,6 @@ class Layout extends Component {
             </div>
           </div>
         </div>
-
-        <Route exact path='/' component={Home} />
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
       </div>
     );
   }
