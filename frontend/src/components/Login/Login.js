@@ -71,7 +71,7 @@ class Login extends Component {
           <span className="form-error" data-form-error-for="password">
             Please enter a valid password.
           </span>
-          <button type="submit" className="button">Login</button>
+          <button type="submit" className="button">Submit</button>
           <p><Link to='/password/forgot'>Forgot your password?</Link></p>
         </form>
       </div>
