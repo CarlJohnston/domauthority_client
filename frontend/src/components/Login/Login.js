@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
 import $ from 'jquery';
+window.jQuery = window.$ = $;
+require('foundation-sites');
 
 class Login extends Component {
   constructor(props) {
