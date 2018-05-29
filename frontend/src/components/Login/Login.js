@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import 'whatwg-fetch';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
@@ -13,7 +14,28 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    $(this.loginFormNode.current).foundation();
+    this.$form = $(this.loginFormNode.current);
+
+    this.$form.foundation();
+
+    this.$form.on('submit', (e) => {
+      e.preventDefault();
+    });
+
+    this.$form.on('formvalid.zf.abide', (e) => {
+      var email = this.$form.find('#email').val();
+      var password = this.$form.find('#password').val();
+      var request = new Request('/authenticate/sign_in', {
+        method: 'POST',
+        body: {
+          email: email,
+          password: password,
+        },
+      });
+      fetch(request)
+        .then((response) => {
+        });
+    });
   }
 
   render() {
