@@ -29,23 +29,39 @@ class Login extends Component {
       var password = this.$form.find('#password').val();
       var request = new Request('/authenticate/sign_in', {
         method: 'POST',
-        body: {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           email: email,
           password: password,
-        },
+        }),
       });
       fetch(request)
         .then((response) => {
-          var statusType;
-          if (response.status == 200) {
-            statusType = 'success';
+          return response.json();
+        }).then((body) => {
+          var messages = []
+          if (body.errors) {
+            if (body.errors.full_messages) {
+              body.errors.full_messages.forEach((error) => {
+                messages.push(error);
+              });
+            } else {
+              body.errors.forEach((error) => {
+                messages.push(error);
+              });
+            }
           } else {
-            statusType = 'error';
+            messages.push('Account successfully created.');
           }
-          PNotify.alert({
-            text: response.statusText,
-            type: statusType,
-            delay: 3000,
+
+          messages.forEach((message) => {
+            PNotify.alert({
+              text: message,
+              type: body.status || 'error',
+              delay: 3000,
+            });
           });
         });
     });
