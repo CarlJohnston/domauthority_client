@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import 'whatwg-fetch';
-import PNotify from 'pnotify/dist/iife/PNotify';
+import PNotify from 'pnotify/dist/umd/PNotify';
+import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
 require('foundation-sites');
+window.PNotify = PNotify;
 
 class Login extends Component {
   constructor(props) {
@@ -35,6 +37,17 @@ class Login extends Component {
       });
       fetch(request)
         .then((response) => {
+          var statusType;
+          if (response.status == 200) {
+            statusType = 'success';
+          } else {
+            statusType = 'error';
+          }
+          PNotify.alert({
+            text: response.statusText,
+            type: statusType,
+            delay: 3000,
+          });
         });
     });
   }
