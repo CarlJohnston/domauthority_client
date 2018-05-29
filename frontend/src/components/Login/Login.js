@@ -58,19 +58,19 @@ class Login extends Component {
         <form ref={this.loginFormNode} data-abide noValidate>
           <label>
             Email
-            <input id="email" type="email" placeholder="somebody@example.com" required pattern="email" />
+            <input id="email" name="email" type="email" placeholder="somebody@example.com" required pattern="email" />
           </label>
           <span className="form-error" data-form-error-for="email">
             Please enter a valid email address.
           </span>
           <label>
             Password
-            <input id="password" type="password" required />
+            <input id="password" name="password" type="password" required />
           </label>
           <span className="form-error" data-form-error-for="password">
             Please enter a valid password.
           </span>
-          <button type="submit" className="button">Submit</button>
+          <button className="button" type="submit">Submit</button>
           <p><Link to='/password/forgot'>Forgot your password?</Link></p>
         </form>
       </div>
