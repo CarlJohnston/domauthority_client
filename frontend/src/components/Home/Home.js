@@ -6,7 +6,6 @@ class Home extends Component {
     return (
       <div>
         <div className="grid-container">
-        <p>TEST</p>
         </div>
       </div>
     );
