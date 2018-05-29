@@ -7,8 +7,8 @@ import './App.css';
 
 import Layout from '../Layout/Layout';
 
-import jQuery from 'jquery';
-window.$ = window.jQuery = jQuery;
+import $ from 'jquery';
+window.$ = window.jQuery = $;
 require('foundation-sites');
 
 class App extends Component {

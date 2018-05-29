@@ -1,17 +1,39 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
+import $ from 'jquery';
+
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.loginFormNode = React.createRef();
+  }
+
+  componentDidMount() {
+    $(this.loginFormNode.current).foundation();
+  }
+
   render() {
     return (
       <div>
         <h1>Login</h1>
-        <form action="/authenticate/sign_in" method="POST">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="somebody@example.com" />
-          <label for="password">Password</label>
-          <input id="password" type="password" />
-          <input type="submit" className="button" value="Login" />
+        <form ref={this.loginFormNode} data-abide noValidate>
+          <label>
+            Email
+            <input id="email" type="email" placeholder="somebody@example.com" required pattern="email" />
+          </label>
+          <span className="form-error" data-form-error-for="email">
+            Please enter a valid email address.
+          </span>
+          <label>
+            Password
+            <input id="password" type="password" required />
+          </label>
+          <span className="form-error" data-form-error-for="password">
+            Please enter a valid password.
+          </span>
+          <button type="submit" className="button">Login</button>
           <p><Link to='/password/forgot'>Forgot your password?</Link></p>
         </form>
       </div>

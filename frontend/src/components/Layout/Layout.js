@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import $ from 'jquery';
-
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Forgot from '../Forgot/Forgot';
 import Home from '../Home/Home';
 
 class Layout extends Component {
-  componentDidMount() {
-    $(document).foundation();
-  }
-
   render() {
     return (
       <div>
