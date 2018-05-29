@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom';
 
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Forgot from '../Forgot/Forgot';
 import Home from '../Home/Home';
 
 class Layout extends Component {
@@ -33,6 +34,7 @@ class Layout extends Component {
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/password/forgot' component={Forgot} />
         </div>
 
         <div className="grid-container">
