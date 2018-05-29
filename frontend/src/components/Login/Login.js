@@ -7,7 +7,6 @@ import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
 import $ from 'jquery';
 window.jQuery = window.$ = $;
 require('foundation-sites');
-window.PNotify = PNotify;
 
 class Login extends Component {
   constructor(props) {
