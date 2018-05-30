@@ -64,6 +64,10 @@ class Login extends Component {
               delay: 2000,
             });
           });
+
+          if (status == STATUS.success) {
+            this.props.history.push('/');
+          }
         });
     });
   }
