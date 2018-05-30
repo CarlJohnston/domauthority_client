@@ -3,6 +3,8 @@ import { Route, Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
+import DeviseAuthTokenParser from '../../mixins/DeviseAuthTokenParser';
+import STATUS from '../../helpers/Status';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
@@ -13,6 +15,8 @@ class Login extends Component {
     super(props);
 
     this.loginFormNode = React.createRef();
+
+    this.deviseAuthTokenParser = new DeviseAuthTokenParser();
   }
 
   componentDidMount() {
@@ -41,27 +45,23 @@ class Login extends Component {
         .then((response) => {
           return response.json();
         }).then((body) => {
-          debugger;
-          var messages = []
-          if (body.errors) {
-            if (body.errors.full_messages) {
-              body.errors.full_messages.forEach((error) => {
-                messages.push(error);
-              });
-            } else {
-              body.errors.forEach((error) => {
-                messages.push(error);
-              });
-            }
+          this.deviseAuthTokenParser.setData(body);
+          var status = this.deviseAuthTokenParser.getStatus();
+          var messages = {};
+          if (status == STATUS.success) {
+            messages['Successfully authenticated.'] = STATUS.success;
           } else {
-            messages.push('Account successfully created.');
+            var errors = this.deviseAuthTokenParser.getErrors();
+            errors.forEach((error) => {
+              messages[error] = STATUS.error;
+            });
           }
 
-          messages.forEach((message) => {
+          Object.entries(messages).forEach((message) => {
             PNotify.alert({
-              text: message,
-              type: body.status || 'error',
-              delay: 3000,
+              text: message[0],
+              type: message[1],
+              delay: 2000,
             });
           });
         });
