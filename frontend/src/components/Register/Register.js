@@ -42,10 +42,9 @@ class Register extends Component {
       });
       fetch(request)
         .then((response) => {
-          var statusType;
-
           return response.json();
         }).then((body) => {
+          debugger;
           var messages = []
           if (body.errors) {
             if (body.errors.full_messages) {

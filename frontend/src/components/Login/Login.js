@@ -41,6 +41,7 @@ class Login extends Component {
         .then((response) => {
           return response.json();
         }).then((body) => {
+          debugger;
           var messages = []
           if (body.errors) {
             if (body.errors.full_messages) {
