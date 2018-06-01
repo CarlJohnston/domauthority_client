@@ -21,7 +21,12 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    var token = localStorage.getItem(TOKEN.authentication.key);
+    var tokenLocalStorage = localStorage.getItem(TOKEN.authentication.key);
+    var token;
+    if (tokenLocalStorage) {
+      token = JSON.parse(tokenLocalStorage);
+    }
+
     this.state = {
       currentUser: {
         uid: token ? token.uid : null,
