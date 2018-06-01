@@ -4,7 +4,9 @@ import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
 import DeviseAuthTokenParser from '../../mixins/DeviseAuthTokenParser';
+
 import STATUS from '../../helpers/Status';
+import TOKEN from '../../helpers/Token';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
@@ -41,8 +43,11 @@ class Login extends Component {
           password: password,
         }),
       });
+      var headers;
       fetch(request)
         .then((response) => {
+          headers = response.headers;
+
           return response.json();
         }).then((body) => {
           this.deviseAuthTokenParser.setData(body);
@@ -66,6 +71,19 @@ class Login extends Component {
           });
 
           if (status == STATUS.success) {
+            var data = body.data;
+            headers.forEach((value, key) => {
+              headers[key] = value;
+            });
+            var token = {
+              uid: data.uid,
+              name: data.name,
+              username: data.username,
+              accessToken: headers['access-token'],
+              client: headers.client,
+            };
+            localStorage.setItem(TOKEN.authentication.key, JSON.stringify(token));
+
             this.props.history.push('/');
           }
         });
