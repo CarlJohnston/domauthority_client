@@ -38,6 +38,17 @@ class App extends Component {
       setCurrentUser: (data) => {
         this.setState({currentUser: data});
       },
+      clearCurrentUser: () => {
+        this.setState({currentUser: {
+          uid: null,
+          name: null,
+          username: null,
+          accessToken: null,
+          client: null,
+        }});
+
+        localStorage.removeItem(TOKEN.authentication.key);
+      },
     };
   }
 

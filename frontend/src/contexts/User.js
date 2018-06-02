@@ -9,6 +9,7 @@ const CurrentUser = React.createContext({
     client: null,
   },
   setCurrentUser: (data) => {},
+  clearCurrentUser: () => {},
 });
 
 export default CurrentUser;

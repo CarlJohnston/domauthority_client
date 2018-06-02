@@ -11,8 +11,13 @@ function withCurrentUser(WrappedComponent) {
     render() {
       return (
         <CurrentUser.Consumer>
-          {({currentUser, setCurrentUser}) => (
-             <WrappedComponent {...this.props} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+          {({currentUser, setCurrentUser, clearCurrentUser}) => (
+            <WrappedComponent
+              {...this.props}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              clearCurrentUser={clearCurrentUser}
+            />
           )}
         </CurrentUser.Consumer>
       );
