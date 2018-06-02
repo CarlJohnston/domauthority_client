@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import CurrentUser from '../../contexts/User';
+import withCurrentUser from '../hocs/withCurrentUser';
 
 class Profile extends Component {
   render() {
     return (
-      <CurrentUser.Consumer>
-        {currentUser => (
-          <div>
-            <h1>@{currentUser.username}</h1>
-          </div>
-        )}
-      </CurrentUser.Consumer>
+      <div>
+        <h1>@{this.props.currentUser.username}</h1>
+      </div>
     );
   }
 }
 
-export default Profile;
+export default withCurrentUser(Profile);
