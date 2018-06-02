@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
+import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Forgot from '../Forgot/Forgot';
@@ -58,21 +59,7 @@ class Layout extends Component {
           <Route path='/users/:id' component={Profile} />
         </div>
 
-        <div className="grid-container">
-          <div className="grid-x align-justify align-middle">
-            <div className="small-12 medium-shrink cell">
-              <ul className="menu">
-                <li><Link to='/'>Home</Link></li>
-                <li><Link to='/about'>About</Link></li>
-                <li><Link to='/contact'>Contact</Link></li>
-              </ul>
-            </div>
-
-            <div className="small-12 medium-shrink cell">
-              <span>Copyright {(new Date().getFullYear())}</span>
-            </div>
-          </div>
-        </div>
+        <Footer />
       </div>
     );
   }
