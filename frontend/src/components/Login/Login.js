@@ -5,6 +5,10 @@ import PNotify from 'pnotify/dist/umd/PNotify';
 import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
 import DeviseAuthTokenParser from '../../mixins/DeviseAuthTokenParser';
 
+import CurrentUser from '../../contexts/User';
+
+import withCurrentUser from '../hocs/withCurrentUser';
+
 import STATUS from '../../helpers/Status';
 import TOKEN from '../../helpers/Token';
 
@@ -26,11 +30,7 @@ class Login extends Component {
 
     this.$form.foundation();
 
-    this.$form.on('submit', (e) => {
-      e.preventDefault();
-    });
-
-    this.$form.on('formvalid.zf.abide', (e) => {
+    this.$form.on('formvalid.zf.abide', function (e) {
       var email = this.$form.find('#email').val();
       var password = this.$form.find('#password').val();
       var request = new Request('/authenticate/sign_in', {
@@ -84,17 +84,23 @@ class Login extends Component {
             };
             localStorage.setItem(TOKEN.authentication.key, JSON.stringify(token));
 
+            this.props.setCurrentUser(token);
+
             this.props.history.push('/');
           }
         });
-    });
+    }.bind(this));
+  }
+
+  loginFormSubmit(e) {
+    e.preventDefault();
   }
 
   render() {
     return (
       <div>
         <h1>Login</h1>
-        <form ref={this.loginFormNode} data-abide noValidate>
+        <form ref={this.loginFormNode} data-abide noValidate onSubmit={this.loginFormSubmit}>
           <label>
             Email
             <input id="email" name="email" type="email" placeholder="somebody@example.com" required pattern="email" />
@@ -117,4 +123,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withCurrentUser(Login);

@@ -35,12 +35,15 @@ class App extends Component {
         accessToken: token ? token.accessToken : null,
         client: token ? token.client : null,
       },
+      setCurrentUser: (data) => {
+        this.setState({currentUser: data});
+      },
     };
   }
 
   render() {
     return (
-      <CurrentUser.Provider value={this.state.currentUser}>
+      <CurrentUser.Provider value={this.state}>
         <Router>
           <Route to='/' component={Layout} />
         </Router>

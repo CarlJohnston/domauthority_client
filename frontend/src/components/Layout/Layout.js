@@ -14,7 +14,7 @@ class Layout extends Component {
   render() {
     return (
       <CurrentUser.Consumer>
-        {currentUser => (
+        {({currentUser, setCurrentUser }) => (
           <div>
             <div className="grid-container">
               <div className="top-bar">
@@ -29,17 +29,17 @@ class Layout extends Component {
                     <li><input type="search" placeholder="Search" /></li>
                     <li><button type="button" className="button">Search</button></li>
 
-                    {currentUser !== {} &&
+                    {currentUser.uid &&
                      <li><Link to={`/users/${currentUser.username}`}>@{currentUser.username}</Link></li>
                     }
-                    {currentUser !== {} &&
+                    {currentUser.uid &&
                      <li><a href="#">Logout</a></li>
                     }
 
-                    {currentUser === {} &&
+                    {!currentUser.uid &&
                      <li><Link to='/login'>Login</Link></li>
                     }
-                    {currentUser === {} &&
+                    {!currentUser.uid &&
                      <li><Link to='/register'>Register</Link></li>
                     }
                   </ul>
