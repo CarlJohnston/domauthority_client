@@ -4,6 +4,12 @@ import { Route, Link } from 'react-router-dom';
 import withCurrentUser from '../hocs/withCurrentUser';
 
 class Header extends Component {
+  logout() {
+    this.props.clearCurrentUser();
+
+    this.props.history.push('/');
+  }
+
   render() {
     return (
       <div className="grid-container">
@@ -23,7 +29,7 @@ class Header extends Component {
                <li><Link to={`/users/${this.props.currentUser.username}`}>@{this.props.currentUser.username}</Link></li>
               }
               {this.props.currentUser.uid &&
-               <li><a href="#">Logout</a></li>
+               <li><a onClick={this.logout.bind(this)}>Logout</a></li>
               }
 
               {!this.props.currentUser.uid &&

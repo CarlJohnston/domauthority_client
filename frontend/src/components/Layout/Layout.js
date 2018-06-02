@@ -16,7 +16,7 @@ class Layout extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header {...this.props} />
 
         <div className="grid-container">
           <Route exact path='/' component={Home} />
@@ -31,7 +31,7 @@ class Layout extends Component {
           <Route path='/users/:id' component={Profile} />
         </div>
 
-        <Footer />
+        <Footer {...this.props }/>
       </div>
     );
   }
