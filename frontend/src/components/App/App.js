@@ -13,6 +13,8 @@ import CurrentUser from '../../contexts/User';
 
 import TOKEN from '../../configs/Token';
 
+import AuthenticationToken from '../../helpers/AuthenticationToken';
+
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 require('foundation-sites');
@@ -21,12 +23,9 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    var tokenLocalStorage = localStorage.getItem(TOKEN.authentication.key);
-    var token;
-    if (tokenLocalStorage) {
-      token = JSON.parse(tokenLocalStorage);
-    }
+    var authenticationToken = new AuthenticationToken();
 
+    var token = authenticationToken.get();
     this.state = {
       currentUser: {
         uid: token ? token.uid : null,
@@ -47,7 +46,7 @@ class App extends Component {
           client: null,
         }});
 
-        localStorage.removeItem(TOKEN.authentication.key);
+        authenticationToken.clear();
       },
     };
   }
