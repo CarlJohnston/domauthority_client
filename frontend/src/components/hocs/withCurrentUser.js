@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CurrentUserContext from '../../contexts/User';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function withCurrentUser(WrappedComponent) {
   return class extends Component {
@@ -19,7 +19,7 @@ function withCurrentUser(WrappedComponent) {
               clearCurrentUser={clearCurrentUser}
             />
           )}
-        </CurrentUser.Consumer>
+        </CurrentUserContext.Consumer>
       );
     }
   };

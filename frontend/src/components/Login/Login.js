@@ -5,8 +5,6 @@ import PNotify from 'pnotify/dist/umd/PNotify';
 import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
 import DeviseAuthTokenParser from '../../mixins/DeviseAuthTokenParser';
 
-import CurrentUser from '../../contexts/User';
-
 import withCurrentUser from '../hocs/withCurrentUser';
 
 import STATUS from '../../configs/Status';
