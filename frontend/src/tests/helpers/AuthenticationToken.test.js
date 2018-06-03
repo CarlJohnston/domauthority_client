@@ -1,5 +1,5 @@
-import AuthenticationToken from '../../helpers/AuthenticationToken';
-import TOKEN from '../../configs/Token';
+import AuthenticationToken from 'helpers/AuthenticationToken';
+import TOKEN from 'configs/Token';
 
 var VALID_DATA = {
   uid: 1,

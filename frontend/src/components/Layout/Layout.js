@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
-import Forgot from '../Forgot/Forgot';
-import Confirmed from '../Confirmed/Confirmed';
-import Home from '../Home/Home';
-import Profile from '../Profile/Profile';
+import Footer from 'components/Footer/Footer';
+import Header from 'components/Header/Header';
+import Login from 'components/Login/Login';
+import Register from 'components/Register/Register';
+import Forgot from 'components/Forgot/Forgot';
+import Confirmed from 'components/Confirmed/Confirmed';
+import Home from 'components/Home/Home';
+import Profile from 'components/Profile/Profile';
 
-import withCurrentUser from '../hocs/withCurrentUser';
+import withCurrentUser from 'components/hocs/withCurrentUser';
 
 class Layout extends Component {
   render() {

@@ -3,12 +3,12 @@ import { Route, Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
-import DeviseAuthTokenParser from '../../mixins/DeviseAuthTokenParser';
+import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
 
-import withCurrentUser from '../hocs/withCurrentUser';
+import withCurrentUser from 'components/hocs/withCurrentUser';
 
-import STATUS from '../../configs/Status';
-import TOKEN from '../../configs/Token';
+import STATUS from 'configs/Status';
+import TOKEN from 'configs/Token';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;

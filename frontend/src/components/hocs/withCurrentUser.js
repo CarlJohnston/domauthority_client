@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import CurrentUserContext from 'contexts/CurrentUserContext';
 
 function withCurrentUser(WrappedComponent) {
   return class extends Component {

@@ -1,4 +1,4 @@
-import Parser from '../../mixins/Parser';
+import Parser from 'mixins/Parser';
 
 describe('parser', () => {
   var parser;

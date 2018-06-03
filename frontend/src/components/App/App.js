@@ -7,13 +7,13 @@ import 'pnotify/dist/PNotifyBrightTheme.css'
 
 import './App.css';
 
-import Layout from '../Layout/Layout';
+import Layout from 'components/Layout/Layout';
 
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import CurrentUserContext from 'contexts/CurrentUserContext';
 
-import TOKEN from '../../configs/Token';
+import TOKEN from 'configs/Token';
 
-import AuthenticationToken from '../../helpers/AuthenticationToken';
+import AuthenticationToken from 'helpers/AuthenticationToken';
 
 import $ from 'jquery';
 window.$ = window.jQuery = $;

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
-import DeviseAuthTokenParser from '../../mixins/DeviseAuthTokenParser';
+import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
 
-import STATUS from '../../configs/Status';
+import STATUS from 'configs/Status';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;

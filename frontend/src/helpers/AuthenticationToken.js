@@ -1,5 +1,5 @@
 import Token from './Token';
-import TOKEN from '../configs/Token';
+import TOKEN from 'configs/Token';
 
 /*
  * class for dealing with authentication tokens

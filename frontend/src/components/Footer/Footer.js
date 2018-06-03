@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import withCurrentUser from '../hocs/withCurrentUser';
+import withCurrentUser from 'components/hocs/withCurrentUser';
 
 class Footer extends Component {
   render() {
