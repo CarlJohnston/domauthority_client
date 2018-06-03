@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
 
 import 'foundation-sites/dist/css/foundation.min.css'
@@ -10,8 +10,6 @@ import './App.css';
 import Layout from 'components/Layout/Layout';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
-
-import TOKEN from 'configs/Token';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
 

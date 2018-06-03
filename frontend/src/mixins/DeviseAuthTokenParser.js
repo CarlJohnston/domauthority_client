@@ -5,10 +5,6 @@ import STATUS from 'configs/Status';
   * Parser for devise_auth_token API Responses
   */
 class DeviseAuthTokenParser extends Parser {
-  constructor(data) {
-    super(data);
-  }
-
   /**
     * @returns {Array} array of error messages
     */

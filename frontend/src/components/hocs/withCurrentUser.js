@@ -4,10 +4,6 @@ import CurrentUserContext from 'contexts/CurrentUserContext';
 
 function withCurrentUser(WrappedComponent) {
   return class extends Component {
-    constructor(props) {
-      super(props);
-    }
-
     render() {
       return (
         <CurrentUserContext.Consumer>

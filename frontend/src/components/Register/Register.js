@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
 import PNotify from 'pnotify/dist/umd/PNotify';
-import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
 import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
 
 import STATUS from 'configs/Status';
@@ -54,7 +52,7 @@ class Register extends Component {
           this.deviseAuthTokenParser.setData(body);
           var status = this.deviseAuthTokenParser.getStatus();
           var messages = {};
-          if (status == STATUS.success) {
+          if (status === STATUS.success) {
             messages['Successfully registered. Please login using the login form.'] = STATUS.success;
           } else {
             var errors = this.deviseAuthTokenParser.getErrors();
@@ -71,7 +69,7 @@ class Register extends Component {
             });
           });
 
-          if (status == STATUS.success) {
+          if (status === STATUS.success) {
             that.props.history.push('/login');
           }
         });

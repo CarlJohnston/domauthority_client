@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
-import PNotifyButtons from 'pnotify/dist/umd/PNotifyButtons';
 import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
@@ -57,7 +56,7 @@ class Login extends Component {
         this.deviseAuthTokenParser.setData(body);
         var status = this.deviseAuthTokenParser.getStatus();
         var messages = {};
-        if (status == STATUS.success) {
+        if (status === STATUS.success) {
           messages['Successfully authenticated.'] = STATUS.success;
         } else {
           var errors = this.deviseAuthTokenParser.getErrors();
@@ -74,7 +73,7 @@ class Login extends Component {
           });
         });
 
-        if (status == STATUS.success) {
+        if (status === STATUS.success) {
           var data = body.data;
           headers.forEach((value, key) => {
             headers[key] = value;
