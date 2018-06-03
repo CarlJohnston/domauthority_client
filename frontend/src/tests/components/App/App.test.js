@@ -39,8 +39,9 @@ describe('app', () => {
     authenticationToken.clear();
     createApp();
 
-    expect(component.find(CurrentUserContext.Provider))
-    Object.values(component.prop('value').currentUser).forEach((value) => {
+    Object.values(
+      component.prop('value').currentUser
+    ).forEach((value) => {
       expect(value).toEqual(null);
     });
 
@@ -48,15 +49,58 @@ describe('app', () => {
     authenticationToken.set(VALID_CURRENT_USER_DATA);
     createApp();
 
-    expect(component.find(CurrentUserContext.Provider))
-    Object.entries(component.prop('value').currentUser).forEach(([key, value]) => {
+    Object.entries(
+      component.prop('value').currentUser
+    ).forEach(([key, value]) => {
       expect(value).toEqual(VALID_CURRENT_USER_DATA[key]);
     });
   });
 
   it('setCurrentUser sets currentUser', () => {
     // no prior currentUser
+    authenticationToken.clear();
+    createApp();
+
+    component.prop('value').setCurrentUser(VALID_CURRENT_USER_DATA);
+    component.update();
+    Object.entries(
+      component.prop('value').currentUser
+    ).forEach(([key, value]) => {
+      expect(value).toEqual(VALID_CURRENT_USER_DATA[key]);
+    });
 
     // prior currentUser
+    var data = Object.assign({}, VALID_CURRENT_USER_DATA);
+    data.uid = VALID_CURRENT_USER_DATA.uid + 1;
+    component.prop('value').setCurrentUser(data);
+    component.update(data);
+    Object.entries(
+      component.prop('value').currentUser
+    ).forEach(([key, value]) => {
+      expect(value).toEqual(data[key]);
+    });
+  });
+
+  it('clearCurrentUser clears user', () => {
+    // no prior user
+    authenticationToken.clear();
+    createApp();
+
+    component.prop('value').clearCurrentUser();
+    Object.entries(
+      component.prop('value').currentUser
+    ).forEach(([key, value]) => {
+      expect(value).toEqual(null);
+    });
+
+    // prior user
+    component.prop('value').setCurrentUser(VALID_CURRENT_USER_DATA);
+    component.prop('value').clearCurrentUser();
+
+    Object.entries(
+      component.prop('value').currentUser
+    ).forEach(([key, value]) => {
+      expect(value).toEqual(null);
+    });
   });
 });

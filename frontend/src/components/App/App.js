@@ -34,16 +34,32 @@ class App extends Component {
           client: token ? token.client : null,
         },
         setCurrentUser: (data) => {
-          this.setState({currentUser: data});
+          this.setState((prevState) => {
+            return {
+              currentUser: {
+                currentUser: data,
+                setCurrentUser: prevState.currentUser.setCurrentUser,
+                clearCurrentUser: prevState.currentUser.clearCurrentUser,
+              },
+            };
+          });
         },
         clearCurrentUser: () => {
-          this.setState({currentUser: {
-            uid: null,
-            name: null,
-            username: null,
-            accessToken: null,
-            client: null,
-          }});
+          this.setState((prevState) => {
+            return {
+              currentUser: {
+                currentUser: {
+                  uid: null,
+                  name: null,
+                  username: null,
+                  accessToken: null,
+                  client: null,
+                },
+                setCurrentUser: prevState.setCurrentUser,
+                clearCurrentUser: prevState.clearCurrentUser,
+              },
+            };
+          });
 
           authenticationToken.clear();
         },
