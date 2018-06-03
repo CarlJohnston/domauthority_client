@@ -11,7 +11,7 @@ import Layout from '../Layout/Layout';
 
 import CurrentUser from '../../contexts/User';
 
-import TOKEN from '../../helpers/Token';
+import TOKEN from '../../configs/Token';
 
 import $ from 'jquery';
 window.$ = window.jQuery = $;

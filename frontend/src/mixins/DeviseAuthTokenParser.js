@@ -1,5 +1,5 @@
 import Parser from './Parser';
-import STATUS from '../helpers/Status';
+import STATUS from '../configs/Status';
 
 /**
   * Parser for devise_auth_token API Responses

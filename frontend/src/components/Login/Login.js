@@ -9,8 +9,8 @@ import CurrentUser from '../../contexts/User';
 
 import withCurrentUser from '../hocs/withCurrentUser';
 
-import STATUS from '../../helpers/Status';
-import TOKEN from '../../helpers/Token';
+import STATUS from '../../configs/Status';
+import TOKEN from '../../configs/Token';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;

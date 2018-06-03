@@ -1,5 +1,5 @@
 import DeviseAuthTokenParser from '../../mixins/DeviseAuthTokenParser';
-import STATUS from '../../helpers/Status';
+import STATUS from '../../configs/Status';
 
 describe('devise_auth_token parser', () => {
   var parser;
