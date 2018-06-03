@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import CurrentUser from '../../contexts/User';
+import CurrentUserContext from '../../contexts/User';
 
 function withCurrentUser(WrappedComponent) {
   return class extends Component {
@@ -10,7 +10,7 @@ function withCurrentUser(WrappedComponent) {
 
     render() {
       return (
-        <CurrentUser.Consumer>
+        <CurrentUserContext.Consumer>
           {({currentUser, setCurrentUser, clearCurrentUser}) => (
             <WrappedComponent
               {...this.props}

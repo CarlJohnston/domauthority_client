@@ -9,7 +9,7 @@ import './App.css';
 
 import Layout from '../Layout/Layout';
 
-import CurrentUser from '../../contexts/User';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 import TOKEN from '../../configs/Token';
 
@@ -28,36 +28,38 @@ class App extends Component {
     var token = authenticationToken.get();
     this.state = {
       currentUser: {
-        uid: token ? token.uid : null,
-        name: token ? token.name : null,
-        username: token ? token.username : null,
-        accessToken: token ? token.accessToken : null,
-        client: token ? token.client : null,
-      },
-      setCurrentUser: (data) => {
-        this.setState({currentUser: data});
-      },
-      clearCurrentUser: () => {
-        this.setState({currentUser: {
-          uid: null,
-          name: null,
-          username: null,
-          accessToken: null,
-          client: null,
-        }});
+        currentUser: {
+          uid: token ? token.uid : null,
+          name: token ? token.name : null,
+          username: token ? token.username : null,
+          accessToken: token ? token.accessToken : null,
+          client: token ? token.client : null,
+        },
+        setCurrentUser: (data) => {
+          this.setState({currentUser: data});
+        },
+        clearCurrentUser: () => {
+          this.setState({currentUser: {
+            uid: null,
+            name: null,
+            username: null,
+            accessToken: null,
+            client: null,
+          }});
 
-        authenticationToken.clear();
+          authenticationToken.clear();
+        },
       },
     };
   }
 
   render() {
     return (
-      <CurrentUser.Provider value={this.state}>
+      <CurrentUserContext.Provider value={this.state.currentUser}>
         <Router>
           <Route to='/' component={Layout} />
         </Router>
-      </CurrentUser.Provider>
+      </CurrentUserContext.Provider>
     );
   }
 }
