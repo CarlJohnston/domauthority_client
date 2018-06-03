@@ -18,7 +18,7 @@ const VALID_CURRENT_USER_DATA = {
 describe('app', () => {
   var authenticationToken = new AuthenticationToken();
   var component;
-  var createApp = (props) => {
+  var createComponent = (props) => {
     if (component) {
       component.unmount();
     }
@@ -37,7 +37,7 @@ describe('app', () => {
   it('sets authentication token on initialization', () => {
     // no prior authentication token
     authenticationToken.clear();
-    createApp();
+    createComponent();
 
     Object.values(
       component.prop('value').currentUser
@@ -47,7 +47,7 @@ describe('app', () => {
 
     // prior authentication token
     authenticationToken.set(VALID_CURRENT_USER_DATA);
-    createApp();
+    createComponent();
 
     Object.entries(
       component.prop('value').currentUser
@@ -59,7 +59,7 @@ describe('app', () => {
   it('setCurrentUser sets currentUser', () => {
     // no prior currentUser
     authenticationToken.clear();
-    createApp();
+    createComponent();
 
     component.prop('value').setCurrentUser(VALID_CURRENT_USER_DATA);
     component.update();
@@ -84,7 +84,7 @@ describe('app', () => {
   it('clearCurrentUser clears user', () => {
     // no prior user
     authenticationToken.clear();
-    createApp();
+    createComponent();
 
     component.prop('value').clearCurrentUser();
     Object.entries(
