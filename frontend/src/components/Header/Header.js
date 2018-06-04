@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import ProfileLink from 'components/ProfileLink/ProfileLink';
+import LogoutLink from 'components/LogoutLink/LogoutLink';
+import LoginLink from 'components/LoginLink/LoginLink';
+import RegisterLink from 'components/RegisterLink/RegisterLink';
+
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 class Header extends Component {
-  logout() {
-    this.props.clearCurrentUser();
-
-    this.props.history.push('/');
-  }
-
   render() {
     return (
       <div className="grid-container">
@@ -26,17 +25,25 @@ class Header extends Component {
               <li><button type="button" className="button">Search</button></li>
 
               {this.props.currentUser.uid &&
-               <li><Link to={`/users/${this.props.currentUser.username}`}>@{this.props.currentUser.username}</Link></li>
+               <li>
+                 <ProfileLink />
+               </li>
               }
               {this.props.currentUser.uid &&
-               <li><a onClick={this.logout.bind(this)}>Logout</a></li>
+               <li>
+                 <LogoutLink {...this.props} />
+               </li>
               }
 
               {!this.props.currentUser.uid &&
-               <li><Link to='/login'>Login</Link></li>
+               <li>
+                 <LoginLink />
+               </li>
               }
               {!this.props.currentUser.uid &&
-               <li><Link to='/register'>Register</Link></li>
+               <li>
+                 <RegisterLink />
+               </li>
               }
             </ul>
           </div>
