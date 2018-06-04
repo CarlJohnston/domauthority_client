@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
-import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
+import AuthenticationResponse from 'mixins/AuthenticationResponse';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
 import withCurrentUser from 'components/hocs/withCurrentUser';
@@ -20,7 +20,7 @@ class Login extends Component {
 
     this.loginFormNode = React.createRef();
 
-    this.deviseAuthTokenParser = new DeviseAuthTokenParser();
+    this.authenticationResponse = new AuthenticationResponse();
   }
 
   componentDidMount() {
@@ -54,13 +54,13 @@ class Login extends Component {
 
         return response.json();
       }).then((body) => {
-        this.deviseAuthTokenParser.setData(body);
-        var status = this.deviseAuthTokenParser.getStatus();
+        this.authenticationResponse.setData(body);
+        var status = this.authenticationResponse.getStatus();
         var messages = {};
         if (status === STATUS.success) {
           messages['Successfully authenticated.'] = STATUS.success;
         } else {
-          var errors = this.deviseAuthTokenParser.getErrors();
+          var errors = this.authenticationResponse.getErrors();
           errors.forEach((error) => {
             messages[error] = STATUS.error;
           });

@@ -1,17 +1,17 @@
-import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
+import AuthenticationResponse from 'mixins/AuthenticationResponse';
 import STATUS from 'configs/Status';
 
-describe('devise_auth_token parser', () => {
-  var parser;
+describe('authentication response response', () => {
+  var response;
   beforeEach(() => {
-    parser = new DeviseAuthTokenParser();
+    response = new AuthenticationResponse();
   });
 
   it('parses errors properly', () => {
     // no errors key
     var data = {};
-    parser.setData(data);
-    var parsedErrors = parser.getErrors();
+    response.setData(data);
+    var parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([]);
 
     // errors key present
@@ -19,8 +19,8 @@ describe('devise_auth_token parser', () => {
     data = {
       errors: [],
     };
-    parser.setData(data);
-    parsedErrors = parser.getErrors();
+    response.setData(data);
+    parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([]);
 
     // errors is string
@@ -28,8 +28,8 @@ describe('devise_auth_token parser', () => {
     data = {
       errors: errorString,
     };
-    parser.setData(data);
-    parsedErrors = parser.getErrors();
+    response.setData(data);
+    parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([
       errorString,
     ]);
@@ -42,8 +42,8 @@ describe('devise_auth_token parser', () => {
     data = {
       errors: errorObject,
     };
-    parser.setData(data);
-    parsedErrors = parser.getErrors();
+    response.setData(data);
+    parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual(Object.values(errorObject));
 
     // errors is key-val object with full_messages object
@@ -58,8 +58,8 @@ describe('devise_auth_token parser', () => {
     data = {
       errors: errorObject,
     };
-    parser.setData(data);
-    parsedErrors = parser.getErrors();
+    response.setData(data);
+    parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual(errorObject.full_messages);
   });
 
@@ -68,8 +68,8 @@ describe('devise_auth_token parser', () => {
     var data = {
       key: 'value',
     };
-    parser.setData(data);
-    var parsedStatus = parser.getStatus();
+    response.setData(data);
+    var parsedStatus = response.getStatus();
     expect(parsedStatus).toEqual(STATUS.success);
 
     // errors key present
@@ -77,8 +77,8 @@ describe('devise_auth_token parser', () => {
     data = {
       errors: [],
     };
-    parser.setData(data);
-    parsedStatus = parser.getStatus();
+    response.setData(data);
+    parsedStatus = response.getStatus();
     expect(parsedStatus).toEqual(STATUS.success);
 
     // errors not empty
@@ -87,8 +87,8 @@ describe('devise_auth_token parser', () => {
         'error',
       ],
     };
-    parser.setData(data);
-    parsedStatus = parser.getStatus();
+    response.setData(data);
+    parsedStatus = response.getStatus();
     expect(parsedStatus).toEqual(STATUS.error);
   });
 
@@ -97,8 +97,8 @@ describe('devise_auth_token parser', () => {
     var data = {
       key: 'value',
     };
-    parser.setData(data);
-    var parsedData = parser.getData();
+    response.setData(data);
+    var parsedData = response.getData();
     expect(parsedData).toEqual({});
 
     // data key present
@@ -107,8 +107,8 @@ describe('devise_auth_token parser', () => {
         key: 'value',
       },
     };
-    parser.setData(data);
-    parsedData = parser.getData();
+    response.setData(data);
+    parsedData = response.getData();
     expect(parsedData).toEqual(data.data);
   });
 });

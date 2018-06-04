@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
-import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
+import AuthenticationResponse from 'mixins/AuthenticationResponse';
 
 import STATUS from 'configs/Status';
 
@@ -14,7 +14,7 @@ class Register extends Component {
 
     this.registerFormNode = React.createRef();
 
-    this.deviseAuthTokenParser = new DeviseAuthTokenParser();
+    this.authenticationResponse = new AuthenticationResponse();
   }
 
   componentDidMount() {
@@ -49,13 +49,13 @@ class Register extends Component {
         .then((response) => {
           return response.json();
         }).then((body) => {
-          this.deviseAuthTokenParser.setData(body);
-          var status = this.deviseAuthTokenParser.getStatus();
+          this.authenticationResponse.setData(body);
+          var status = this.authenticationResponse.getStatus();
           var messages = {};
           if (status === STATUS.success) {
             messages['Successfully registered. Please login using the login form.'] = STATUS.success;
           } else {
-            var errors = this.deviseAuthTokenParser.getErrors();
+            var errors = this.authenticationResponse.getErrors();
             errors.forEach((error) => {
               messages[error] = STATUS.error;
             });

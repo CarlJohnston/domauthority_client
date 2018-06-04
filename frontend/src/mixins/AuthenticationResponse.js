@@ -1,10 +1,17 @@
-import Parser from './Parser';
 import STATUS from 'configs/Status';
 
 /**
-  * Parser for devise_auth_token API Responses
+  * Helper for authentication API Responses
   */
-class DeviseAuthTokenParser extends Parser {
+class AuthenticationResponse {
+  constructor(data) {
+    this.setData(data);
+  }
+
+  setData(data) {
+    this.data = data;
+  }
+
   /**
     * @returns {Array} array of error messages
     */
@@ -54,4 +61,4 @@ class DeviseAuthTokenParser extends Parser {
   }
 }
 
-export default DeviseAuthTokenParser;
+export default AuthenticationResponse;
