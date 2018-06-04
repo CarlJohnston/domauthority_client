@@ -4,6 +4,7 @@ import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import DeviseAuthTokenParser from 'mixins/DeviseAuthTokenParser';
 
+import AuthenticationToken from 'helpers/AuthenticationToken';
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 import STATUS from 'configs/Status';
@@ -85,7 +86,8 @@ class Login extends Component {
             accessToken: headers['access-token'],
             client: headers.client,
           };
-          localStorage.setItem(TOKEN.authentication.key, JSON.stringify(token));
+          var authenticationToken = new AuthenticationToken();
+          authenticationToken.set(token);
 
           this.props.setCurrentUser(token);
 
