@@ -5,6 +5,7 @@ import ProfileLink from 'components/ProfileLink/ProfileLink';
 import LogoutLink from 'components/LogoutLink/LogoutLink';
 import LoginLink from 'components/LoginLink/LoginLink';
 import RegisterLink from 'components/RegisterLink/RegisterLink';
+import SettingsLink from 'components/SettingsLink/SettingsLink';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
@@ -27,6 +28,11 @@ class Header extends Component {
               {this.props.currentUser.uid &&
                <li>
                  <ProfileLink />
+               </li>
+              }
+              {this.props.currentUser.uid &&
+               <li>
+                 <SettingsLink />
                </li>
               }
               {this.props.currentUser.uid &&

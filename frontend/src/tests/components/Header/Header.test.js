@@ -7,6 +7,7 @@ import ProfileLink from 'components/ProfileLink/ProfileLink';
 import LogoutLink from 'components/LogoutLink/LogoutLink';
 import LoginLink from 'components/LoginLink/LoginLink';
 import RegisterLink from 'components/RegisterLink/RegisterLink';
+import SettingsLink from 'components/SettingsLink/SettingsLink';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
@@ -64,6 +65,7 @@ describe('header', () => {
     expect(component.find(RegisterLink)).toHaveLength(1);
 
     expect(component.find(ProfileLink)).toHaveLength(0);
+    expect(component.find(SettingsLink)).toHaveLength(0);
     expect(component.find(LogoutLink)).toHaveLength(0);
   });
 
@@ -75,6 +77,7 @@ describe('header', () => {
     expect(component.find(RegisterLink)).toHaveLength(0);
 
     expect(component.find(ProfileLink)).toHaveLength(1);
+    expect(component.find(SettingsLink)).toHaveLength(1);
     expect(component.find(LogoutLink)).toHaveLength(1);
   });
 });
