@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
+import Authentication from 'j-toker';
 
 import 'foundation-sites/dist/css/foundation.min.css'
 import 'pnotify/dist/PNotifyBrightTheme.css'
@@ -16,6 +17,10 @@ import AuthenticationToken from 'helpers/AuthenticationToken';
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 require('foundation-sites');
+
+Authentication.configure({
+  apiUrl: '/authenticate',
+});
 
 class App extends Component {
   constructor(props) {

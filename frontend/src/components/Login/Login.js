@@ -36,7 +36,7 @@ class Login extends Component {
   validLoginFormSubmit(e) {
     var email = this.$form.find('#email').val();
     var password = this.$form.find('#password').val();
-    var request = new Request('/authenticate/sign_in', {
+    var request = new Request('/auth/sign_in', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

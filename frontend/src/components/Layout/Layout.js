@@ -26,7 +26,7 @@ class Layout extends Component {
 
           <Route path='/password/forgot' component={Forgot} />
 
-          <Route path='/authenticate/confirmed' component={Confirmed} />
+          <Route path='/auth/confirmed' component={Confirmed} />
 
           <Route path='/users/:id' component={Profile} />
         </div>
