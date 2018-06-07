@@ -33,10 +33,8 @@ class App extends Component {
           accessToken: token ? token.accessToken : null,
           client: token ? token.client : null,
         },
-        setCurrentUser: (data) => {
+        setCurrentUser: function (data) {
           this.setState((prevState) => {
-            authenticationToken.set(data);
-
             return {
               currentUser: {
                 currentUser: data,
@@ -44,9 +42,11 @@ class App extends Component {
                 clearCurrentUser: prevState.currentUser.clearCurrentUser,
               },
             };
+          }, function () {
+            authenticationToken.set(data);
           });
-        },
-        clearCurrentUser: () => {
+        }.bind(this),
+        clearCurrentUser: function () {
           this.setState((prevState) => {
             return {
               currentUser: {
@@ -57,14 +57,14 @@ class App extends Component {
                   accessToken: null,
                   client: null,
                 },
-                setCurrentUser: prevState.setCurrentUser,
-                clearCurrentUser: prevState.clearCurrentUser,
+                setCurrentUser: prevState.currentUser.setCurrentUser,
+                clearCurrentUser: prevState.currentUser.clearCurrentUser,
               },
             };
+          }, function () {
+            authenticationToken.clear();
           });
-
-          authenticationToken.clear();
-        },
+        }.bind(this),
       },
     };
   }
