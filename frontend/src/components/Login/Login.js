@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
+
 import AuthenticationResponse from 'mixins/AuthenticationResponse';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
