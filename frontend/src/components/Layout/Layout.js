@@ -9,6 +9,7 @@ import Forgot from 'components/Forgot/Forgot';
 import Confirmed from 'components/Confirmed/Confirmed';
 import Home from 'components/Home/Home';
 import Profile from 'components/Profile/Profile';
+import Settings from 'components/Settings/Settings';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
@@ -25,10 +26,10 @@ class Layout extends Component {
           <Route path='/register' component={Register} />
 
           <Route path='/password/forgot' component={Forgot} />
-
           <Route path='/auth/confirmed' component={Confirmed} />
 
           <Route path='/users/:id' component={Profile} />
+          <Route path='/settings' component={Settings} />
         </div>
 
         <Footer {...this.props }/>
