@@ -8,7 +8,6 @@ import AuthenticationToken from 'helpers/AuthenticationToken';
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 import STATUS from 'configs/Status';
-import TOKEN from 'configs/Token';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
