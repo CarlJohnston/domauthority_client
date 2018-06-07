@@ -35,6 +35,8 @@ class App extends Component {
         },
         setCurrentUser: (data) => {
           this.setState((prevState) => {
+            authenticationToken.set(data);
+
             return {
               currentUser: {
                 currentUser: data,
