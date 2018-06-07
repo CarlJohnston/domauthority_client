@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import CurrentUserContext from 'contexts/CurrentUserContext';
+import Protected from 'components/Protected/Protected';
 
-class Settings extends Component {
+class Settings extends Protected {
   render() {
     return (
         <div>
