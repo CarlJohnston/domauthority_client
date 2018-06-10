@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 
+import AuthenticationProgress from 'components/AuthenticationProgress/AuthenticationProgress';
+
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 function Protected(WrappedComponent) {
   return withCurrentUser(class extends Component {
-    constructor(props) {
-      super(props);
-
-      if (!this.props.currentUser.uid) {
-        this.props.history.push('/login');
-      }
-    }
-
     render() {
       return (
-        <WrappedComponent {...this.props} />
+        <div>
+          {!this.props.isAuthenticated &&
+           <AuthenticationProgress />
+          }
+          {this.props.isAuthenticated &&
+           <WrappedComponent {...this.props} />
+          }
+        </div>
       );
     }
   });

@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Settings from 'components/Settings/Settings';
 import Home from 'components/Home/Home';
+import AuthenticationProgress from 'components/AuthenticationProgress/AuthenticationProgress';
+
+import AuthenticationToken from 'helpers/AuthenticationToken';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
@@ -23,12 +26,8 @@ describe('protected', () => {
       props: {},
       authenticated: false,
       protectedComponent: false,
-      path: '/',
     };
     options = Object.assign(defaultOptions, options);
-    history = [
-      options.path,
-    ];
 
     if (component) {
       component.unmount();
@@ -52,7 +51,7 @@ describe('protected', () => {
       component = mount(
         <Router>
           <CurrentUserContext.Provider value={currentUser}>
-            <Settings {...options.props} history={history} />
+            <Settings {...options.props} isAuthenticated={options.authenticated} />
           </CurrentUserContext.Provider>
         </Router>
       );
@@ -60,7 +59,7 @@ describe('protected', () => {
       component = mount(
         <Router>
           <CurrentUserContext.Provider value={currentUser}>
-            <Home {...options.props} history={history} />
+            <Home {...options.props} isAuthenticated={options.authenticated} />
           </CurrentUserContext.Provider>
         </Router>
       );
@@ -75,37 +74,29 @@ describe('protected', () => {
 
   it('protected component restricts route to authenticated users', () => {
     // not authenticated
-    var path = '/settings';
     createComponent({
-      path: path,
       authenticated: false,
       protectedComponent: true,
     });
-    expect(history[history.length - 1]).not.toEqual(path);
+    expect(component.find(AuthenticationProgress)).toHaveLength(1);
 
-    path = '/';
     createComponent({
-      path: path,
       authenticated: false,
       protectedComponent: false,
     });
-    expect(history[history.length - 1]).toEqual(path);
+    expect(component.find(AuthenticationProgress)).toHaveLength(0);
 
     // authenticated
-    path = '/settings';
     createComponent({
-      path: path,
       authenticated: true,
       protectedComponent: true,
     });
-    expect(history[history.length - 1]).toEqual(path);
+    expect(component.find(AuthenticationProgress)).toHaveLength(0);
 
-    path = '/';
     createComponent({
-      path: path,
       authenticated: true,
       protectedComponent: false,
     });
-    expect(history[history.length - 1]).toEqual(path);
+    expect(component.find(AuthenticationProgress)).toHaveLength(0);
   });
 });
