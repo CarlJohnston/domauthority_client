@@ -4,10 +4,10 @@ import AuthenticationProgress from 'components/AuthenticationProgress/Authentica
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-function renderWrappedComponent(WrappedComponent, props) {
+function renderProtectedComponent(ProtectedComponent, props) {
   if (props.isAuthenticated) {
     return (
-      <WrappedComponent {...props} />
+      <ProtectedComponent {...props} />
     );
   } else {
     return (
@@ -16,10 +16,10 @@ function renderWrappedComponent(WrappedComponent, props) {
   }
 }
 
-function Protected(WrappedComponent) {
+function Protected(ProtectedComponent) {
   return withCurrentUser(class extends Component {
     render() {
-      return renderWrappedComponent(WrappedComponent, this.props);
+      return renderProtectedComponent(ProtectedComponent, this.props);
     }
   });
 }
