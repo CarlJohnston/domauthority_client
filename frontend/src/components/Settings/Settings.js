@@ -5,8 +5,8 @@ import Protected from 'components/Protected/Protected';
 class Settings extends Component {
   render() {
     return (
-        <div>
-        </div>
+      <div>
+      </div>
     );
   }
 }
