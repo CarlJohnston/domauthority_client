@@ -39,10 +39,9 @@ describe('app', () => {
     authenticationToken.clear();
     createComponent();
 
+    var currentUserProvider = findCurrentUserProvider(component);
     Object.values(
-      component.findWhere((node) => {
-        return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
-      }).prop('value').currentUser
+      currentUserProvider.prop('value').currentUser
     ).forEach((value) => {
       expect(value).toEqual(null);
     });
@@ -51,10 +50,9 @@ describe('app', () => {
     authenticationToken.set(VALID_CURRENT_USER_DATA);
     createComponent();
 
+    currentUserProvider = findCurrentUserProvider(component);
     Object.entries(
-      component.findWhere((node) => {
-        return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
-      }).prop('value').currentUser
+      currentUserProvider.prop('value').currentUser
     ).forEach(([key, value]) => {
       expect(value).toEqual(VALID_CURRENT_USER_DATA[key]);
     });
@@ -65,15 +63,12 @@ describe('app', () => {
     authenticationToken.clear();
     createComponent();
 
-    var currentUserProvider = component.findWhere((node) => {
-      return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
-    });
+    var currentUserProvider = findCurrentUserProvider(component);
     currentUserProvider.prop('value').setCurrentUser(VALID_CURRENT_USER_DATA);
     component.update();
+    currentUserProvider = findCurrentUserProvider(component);
     Object.entries(
-      component.findWhere((node) => {
-        return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
-      }).prop('value').currentUser
+      currentUserProvider.prop('value').currentUser
     ).forEach(([key, value]) => {
       expect(value).toEqual(VALID_CURRENT_USER_DATA[key]);
     });
@@ -81,15 +76,12 @@ describe('app', () => {
     // prior currentUser
     var data = Object.assign({}, VALID_CURRENT_USER_DATA);
     data.uid = VALID_CURRENT_USER_DATA.uid + 1;
-    var currentUserProvider = component.findWhere((node) => {
-      return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
-    });
+    var currentUserProvider = findCurrentUserProvider(component);
     currentUserProvider.prop('value').setCurrentUser(data);
     component.update(data);
+    currentUserProvider = findCurrentUserProvider(component);
     Object.entries(
-      component.findWhere((node) => {
-        return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
-      }).prop('value').currentUser
+      currentUserProvider.prop('value').currentUser
     ).forEach(([key, value]) => {
       expect(value).toEqual(data[key]);
     });
@@ -100,9 +92,7 @@ describe('app', () => {
     authenticationToken.clear();
     createComponent();
 
-    var currentUserProvider = component.findWhere((node) => {
-      return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
-    });
+    var currentUserProvider = findCurrentUserProvider(component);
     currentUserProvider.prop('value').clearCurrentUser();
     Object.entries(
       currentUserProvider.prop('value').currentUser
@@ -121,3 +111,9 @@ describe('app', () => {
     });
   });
 });
+
+function findCurrentUserProvider(component) {
+  return component.findWhere((node) => {
+    return node.prop('value') !== undefined && 'currentUser' in node.prop('value');
+  });
+}
