@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
+import createHistory from "history/createBrowserHistory";
 
 import 'foundation-sites/dist/css/foundation.min.css'
 import 'pnotify/dist/PNotifyBrightTheme.css'
@@ -21,9 +22,12 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.history = createHistory();
+
     var authenticationToken = new AuthenticationToken();
 
     var token = authenticationToken.get();
+
     this.state = {
       currentUser: {
         currentUser: {
@@ -72,7 +76,7 @@ class App extends Component {
   render() {
     return (
       <CurrentUserContext.Provider value={this.state.currentUser}>
-        <Router>
+        <Router history={this.history}>
           <Route to='/' component={Layout} />
         </Router>
       </CurrentUserContext.Provider>
