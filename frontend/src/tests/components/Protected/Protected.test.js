@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Settings from 'components/Settings/Settings';
+import Settings, { SettingsUnprotected } from 'components/Settings/Settings';
 import Home from 'components/Home/Home';
 import AuthenticationProgress from 'components/AuthenticationProgress/AuthenticationProgress';
 
@@ -79,12 +79,14 @@ describe('protected', () => {
       protectedComponent: true,
     });
     expect(component.find(AuthenticationProgress)).toHaveLength(1);
+    expect(component.find(SettingsUnprotected).exists()).toBe(false);
 
     createComponent({
       authenticated: false,
       protectedComponent: false,
     });
     expect(component.find(AuthenticationProgress)).toHaveLength(0);
+    expect(component.find(Home).exists()).toBe(true);
 
     // authenticated
     createComponent({
@@ -92,11 +94,13 @@ describe('protected', () => {
       protectedComponent: true,
     });
     expect(component.find(AuthenticationProgress)).toHaveLength(0);
+    expect(component.find(SettingsUnprotected).exists()).toBe(true);
 
     createComponent({
       authenticated: true,
       protectedComponent: false,
     });
     expect(component.find(AuthenticationProgress)).toHaveLength(0);
+    expect(component.find(Home).exists()).toBe(true);
   });
 });

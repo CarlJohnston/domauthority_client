@@ -12,3 +12,5 @@ class Settings extends Component {
 }
 
 export default Protected(Settings);
+
+export { Settings as SettingsUnprotected };
