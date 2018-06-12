@@ -61,8 +61,8 @@ class Authenticate {
                   uid: data.uid,
                   name: data.name,
                   username: data.username,
-                  accessToken: headers.get('access-token'),
-                  client: headers.get('client'),
+                  accessToken: accessToken,
+                  client: client,
                 });
               } else {
                 reject({
