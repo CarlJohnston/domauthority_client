@@ -24,5 +24,15 @@ describe('register response', () => {
     expect(messages).toEqual({
       'error': STATUS.error,
     });
+
+    // no errors present
+    data = {
+      body: {},
+    };
+    response.set(data);
+    messages = response.getMessages();
+    var expectedMessages = {};
+    expectedMessages[options.messages.success] = STATUS.success;
+    expect(messages).toEqual(expectedMessages);
   });
 });
