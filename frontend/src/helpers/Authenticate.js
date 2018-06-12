@@ -181,6 +181,88 @@ class Authenticate {
       }
     });
   }
+
+  /*
+   * Login user and return logged-in user
+   *
+   * @param data {Object}  data object for token to register
+   *                        {
+   *                          email: {String},
+   *                          password: {String},
+   *                        }
+   *
+   * @returns {Object}     response object for newly issued user
+   *                       with JSON already streamed into body property
+   *                        {
+   *                          body: {Object},
+   *                          headers: {Headers},
+   *                        }
+   */
+  static login(data) {
+    return new Promise((resolve, reject) => {
+      if (data && typeof data === 'object') {
+        var url = urlPrefix + '/sign_in';
+        var request = new Request(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        var headers;
+        fetch(request)
+          .then((response) => {
+            headers = response.headers;
+
+            return response.json();
+          }).then((body) => {
+            if (body.success === undefined) {
+              data = body.data;
+              if (data && typeof data === 'object') {
+                resolve({
+                  body: body,
+                  headers: headers,
+                });
+              } else {
+                reject({
+                  body: {
+                    success: false,
+                    errors: [
+                      'Unprocessable Entity'
+                    ],
+                  },
+                  headers: headers,
+                });
+              }
+            } else {
+              reject({
+                body: {
+                  success: false,
+                  errors: body.errors,
+                },
+                headers: headers,
+              });
+            }
+          }).catch((error) => {
+            reject({
+              body: {
+                success: false,
+                errors: [
+                  error.message,
+                ],
+              },
+              headers: headers,
+            });
+          });
+      } else {
+        reject({
+          body: {},
+          headers: new Headers(),
+        });
+      }
+    });
+  }
 }
 
 export default Authenticate;

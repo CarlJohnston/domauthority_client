@@ -317,4 +317,122 @@ describe('authenticate', () => {
     );
     await expectation;
   });
+
+  it('login user', async () => {
+    expect.assertions(4);
+
+    // login user with well-formed correct data
+    var data = {
+      email: 'email@email.com',
+      password: 'password',
+    };
+    var expectation = expect(Authenticate.login(data)).resolves.toEqual({
+      body: {
+        data: data,
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    var request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        data: data,
+      }),
+    );
+    await expectation;
+
+    // does not login user with well-formed but incorrect data
+    data = {
+      email: 'email@email.com',
+    };
+    expectation = expect(Authenticate.login(data)).rejects.toEqual({
+      body: {
+        success: false,
+        errors: [
+          'Invalid login credentials. Please try again.',
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        success: false,
+        errors: [
+          'Invalid login credentials. Please try again.',
+        ],
+      }),
+    );
+    await expectation;
+
+    data = {};
+    expectation = expect(Authenticate.login(data)).rejects.toEqual({
+      body: {
+        success: false,
+        errors: [
+          'Invalid login credentials. Please try again.',
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        success: false,
+        errors: [
+          'Invalid login credentials. Please try again.',
+        ],
+      }),
+    );
+    await expectation;
+
+    // does not login user with poorly-formed data
+    data = {
+      email: 'email@email.com',
+    };
+    expectation = expect(Authenticate.login({
+      email: data.email,
+    })).rejects.toEqual({
+      body: {
+        success: false,
+        errors: [
+          'Invalid login credentials. Please try again.',
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    request = requests.pop();
+    request.respond(
+      422,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        success: false,
+        errors: [
+          'Invalid login credentials. Please try again.',
+        ],
+      }),
+    );
+    await expectation;
+  });
 });
