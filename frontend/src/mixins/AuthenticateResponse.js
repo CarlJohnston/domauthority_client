@@ -8,6 +8,14 @@ class AuthenticateResponse {
     this.setBody(body);
   }
 
+  /*
+   * @param {Object} body  an object with the following properties
+   *                         {
+   *                           [status: {Boolean}],
+   *                           data: {Object},
+   *                           [errors: {Array}],
+   *                         }
+   */
   setBody(body) {
     if (body && typeof body === 'object') {
       this.body = body;
@@ -42,16 +50,16 @@ class AuthenticateResponse {
   }
 
   /*
-   * @returns {String} response status
+   * @returns {String} normalized response status to STATUS type
    */
   getStatus() {
     var status = '';
 
-    if ('errors' in this.body &&
-       this.body.errors.length !== 0) {
-      status = STATUS.error;
-    } else {
+    if (!this.body.errors ||
+        (this.body.errors && this.body.errors.length === 0)) {
       status = STATUS.success;
+    } else {
+      status = STATUS.error;
     }
 
     return status;
