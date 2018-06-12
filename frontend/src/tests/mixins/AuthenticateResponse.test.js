@@ -43,8 +43,7 @@ describe('authenticate response response', () => {
     };
     response.set(data);
     errors = response.getMessages();
-    expect(errors).toEqual({
-    });
+    expect(errors).toEqual({});
 
     // errors is string
     var errorString = 'string';
@@ -100,8 +99,8 @@ describe('authenticate response response', () => {
       email: 'error1',
       password: 'error2',
       full_messages: [
-        'error1',
-        'error2',
+        'error1 full',
+        'error2 full',
       ],
     };
     data = {

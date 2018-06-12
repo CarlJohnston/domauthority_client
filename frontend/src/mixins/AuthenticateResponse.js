@@ -4,12 +4,14 @@ import STATUS from 'configs/Status';
  * Helper for authentication API Responses
  */
 class AuthenticateResponse {
-  constructor(data) {
+  constructor(data, options) {
     this.set(data);
 
-    this.defaults = {
-      success: 'Success.',
-    };
+    this.options = Object.assign({
+      messages: {
+        success: 'Success.',
+      },
+    }, options);
   }
 
   /*
@@ -65,7 +67,7 @@ class AuthenticateResponse {
         messages[this.data.body.errors] = STATUS.error;
       }
     } else {
-      messages[this.defaults.success] = STATUS.success;
+      messages[this.options.messages.success] = STATUS.success;
     }
 
     return messages;
