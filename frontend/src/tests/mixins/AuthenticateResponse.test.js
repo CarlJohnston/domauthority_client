@@ -2,6 +2,9 @@ import AuthenticateResponse from 'mixins/AuthenticateResponse';
 import STATUS from 'configs/Status';
 
 describe('authenticate response response', () => {
+  var defaults = {
+    success: 'Success.',
+  };
   var response;
   beforeEach(() => {
     response = new AuthenticateResponse();
@@ -10,52 +13,69 @@ describe('authenticate response response', () => {
   it('parses errors properly', () => {
     // bad data
     var data = '';
-    response.setBody(data);
-    var parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual([]);
+    response.set(data);
+    var errors = response.getMessages();
+    expect(errors).toEqual({
+      'Success.': STATUS.success,
+    });
 
     data = 'string';
-    response.setBody(data);
-    parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual([]);
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual({
+      'Success.': STATUS.success,
+    });
 
     // no errors key
     data = {};
-    response.setBody(data);
-    parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual([]);
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual({
+      'Success.': STATUS.success,
+    });
 
     // errors key present
     // errors is empty array
     data = {
-      errors: [],
+      body: {
+        errors: [],
+      },
     };
-    response.setBody(data);
-    parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual([]);
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual({
+    });
 
     // errors is string
     var errorString = 'string';
     data = {
-      errors: errorString,
+      body: {
+        errors: errorString,
+      },
     };
-    response.setBody(data);
-    parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual([
-      errorString,
-    ]);
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual({
+      'string': STATUS.error,
+    });
 
     // errors is array
     var errorArray = [
       'error1',
       'error2',
     ];
+    var expectedErrorObject = {};
+    errorArray.forEach((error) => {
+      expectedErrorObject[error] = STATUS.error;
+    });
     data = {
-      errors: errorArray,
+      body: {
+        errors: errorArray,
+      },
     };
-    response.setBody(data);
-    parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual(errorArray);
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual(expectedErrorObject);
 
     // errors is key-val object without full_messages object
     var errorObject = {
@@ -63,11 +83,17 @@ describe('authenticate response response', () => {
       1: 'error',
     };
     data = {
-      errors: errorObject,
+      body: {
+        errors: expectedErrorObject,
+      },
     };
-    response.setBody(data);
-    parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual(Object.values(errorObject));
+    expectedErrorObject = {};
+    Object.entries(errorObject).forEach(([key, error]) => {
+      expectedErrorObject[error] = STATUS.error;
+    });
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual(expectedErrorObject);
 
     // errors is key-val object with full_messages object
     errorObject = {
@@ -79,59 +105,16 @@ describe('authenticate response response', () => {
       ],
     };
     data = {
-      errors: errorObject,
-    };
-    response.setBody(data);
-    parsedErrors = response.getErrors();
-    expect(parsedErrors).toEqual(errorObject.full_messages);
-  });
-
-  it('parses status properly', () => {
-    // errors key not present
-    var data = {
-      key: 'value',
-    };
-    response.setBody(data);
-    var parsedStatus = response.getStatus();
-    expect(parsedStatus).toEqual(STATUS.success);
-
-    // errors key present
-    // errors empty
-    data = {
-      errors: [],
-    };
-    response.setBody(data);
-    parsedStatus = response.getStatus();
-    expect(parsedStatus).toEqual(STATUS.success);
-
-    // errors not empty
-    data = {
-      errors: [
-        'error',
-      ],
-    };
-    response.setBody(data);
-    parsedStatus = response.getStatus();
-    expect(parsedStatus).toEqual(STATUS.error);
-  });
-
-  it('parses data properly', () => {
-    // no data key present
-    var data = {
-      key: 'value',
-    };
-    response.setBody(data);
-    var parsedData = response.getData();
-    expect(parsedData).toEqual({});
-
-    // data key present
-    data = {
-      data: {
-        key: 'value',
+      body: {
+        errors: errorObject,
       },
     };
-    response.setBody(data);
-    parsedData = response.getData();
-    expect(parsedData).toEqual(data.data);
+    expectedErrorObject = {};
+    errorObject['full_messages'].forEach((error) => {
+      expectedErrorObject[error] = STATUS.error;
+    });
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual(expectedErrorObject);
   });
 });
