@@ -26,7 +26,7 @@ class Authenticate {
    */
   static validate(data) {
     return new Promise((resolve, reject) => {
-      if (data && typeof data == 'object') {
+      if (data && typeof data === 'object') {
         var url = urlPrefix + '/validate_token';
         var params = URL.format({
           query: {
@@ -57,16 +57,15 @@ class Authenticate {
               if (data && typeof data === 'object' &&
                   accessToken &&
                   client) {
-                resolve({
-                  uid: data.uid,
-                  name: data.name,
-                  username: data.username,
-                  accessToken: accessToken,
-                  client: client,
-                });
+                resolve(Object.assign(body, {
+                  headers: {
+                    'access-token': accessToken,
+                    client: client,
+                  },
+                }));
               } else {
                 reject({
-                  status: 422,
+                  success: false,
                   errors: [
                     'Unprocessable Entity'
                   ],
@@ -74,20 +73,20 @@ class Authenticate {
               }
             } else {
               reject({
-                status: status,
+                success: false,
                 errors: body.errors,
               });
             }
           }).catch((error) => {
             reject({
-              status: 500,
+              success: false,
               errors: [
                 error.message,
               ],
             });
           });
-    } else {
-        resolve(null);
+      } else {
+        reject(null);
       }
     });
   }
