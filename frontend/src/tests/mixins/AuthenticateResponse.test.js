@@ -115,5 +115,26 @@ describe('authenticate response response', () => {
     response.set(data);
     errors = response.getMessages();
     expect(errors).toEqual(expectedErrorObject);
+
+    // wrong body type
+    data = {
+      body: 'string',
+    };
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual({
+      'Success.': STATUS.success,
+    });
+
+    // wrong headers type
+    // wrong body type
+    data = {
+      headers: 'string',
+    };
+    response.set(data);
+    errors = response.getMessages();
+    expect(errors).toEqual({
+      'Success.': STATUS.success,
+    });
   });
 });

@@ -25,11 +25,13 @@ class AuthenticateResponse {
     if (data && typeof data === 'object') {
       this.data = data;
 
-      if (!('body' in this.data)) {
+      if (!('body' in this.data) ||
+         typeof this.data.body !== 'object') {
         this.data.body = {};
       }
 
-      if (!('headers' in this.data)) {
+      if (!('headers' in this.data) ||
+          !(this.data.headers instanceof Headers)) {
         this.data.headers = new Headers();
       }
     } else {
