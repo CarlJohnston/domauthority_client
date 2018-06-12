@@ -11,7 +11,7 @@ class AuthenticateResponse {
   /*
    * @param {Object} body  an object with the following properties
    *                         {
-   *                           [status: {Boolean}],
+   *                           [success: {Boolean}],
    *                           data: {Object},
    *                           [errors: {Array}],
    *                         }
