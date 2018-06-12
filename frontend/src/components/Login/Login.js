@@ -45,8 +45,7 @@ class Login extends Component {
 
           var token = loginResponse.getToken();
 
-          var authenticationToken = new AuthenticationToken();
-          authenticationToken.set(token);
+          AuthenticationToken.set(token);
 
           this.props.setCurrentUser(token);
 

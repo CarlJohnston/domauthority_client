@@ -14,7 +14,6 @@ const VALID_CURRENT_USER_DATA = {
 };
 
 describe('home', () => {
-  var authenticationToken = new AuthenticationToken();
   var component;
   var createComponent = (props) => {
     if (component) {

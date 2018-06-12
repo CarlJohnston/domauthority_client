@@ -24,9 +24,7 @@ class App extends Component {
 
     this.history = createHistory();
 
-    var authenticationToken = new AuthenticationToken();
-
-    var token = authenticationToken.get();
+    var token = AuthenticationToken.get();
 
     this.state = {
       currentUser: {
@@ -47,7 +45,7 @@ class App extends Component {
               },
             };
           }, function () {
-            authenticationToken.set(data);
+            AuthenticationToken.set(data);
           });
         }.bind(this),
         clearCurrentUser: function () {
@@ -66,7 +64,7 @@ class App extends Component {
               },
             };
           }, function () {
-            authenticationToken.clear();
+            AuthenticationToken.clear();
           });
         }.bind(this),
       },

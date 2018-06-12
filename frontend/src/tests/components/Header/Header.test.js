@@ -22,7 +22,6 @@ const VALID_CURRENT_USER_DATA = {
 };
 
 describe('header', () => {
-  var authenticationToken = new AuthenticationToken();
   var component;
   var createComponent = (props, authenticated) => {
     if (component) {
@@ -58,7 +57,7 @@ describe('header', () => {
   });
 
   it('displays login/register when logged out', () => {
-    authenticationToken.clear();
+    AuthenticationToken.clear();
     createComponent(null, false);
 
     expect(component.find(LoginLink)).toHaveLength(1);
@@ -70,7 +69,7 @@ describe('header', () => {
   });
 
   it('displays link to profile/logout links when logged in', () => {
-    authenticationToken.set(VALID_CURRENT_USER_DATA);
+    AuthenticationToken.set(VALID_CURRENT_USER_DATA);
     createComponent(null, true);
 
     expect(component.find(LoginLink)).toHaveLength(0);

@@ -9,40 +9,35 @@ var VALID_DATA = {
   client: 'blah',
 };
 describe('authentication token', () => {
-  var authenticationToken;
-  beforeEach(() => {
-    authenticationToken = new AuthenticationToken();
-  });
-
   it('authentication token gets authentication token', () => {
     // no token present
-    authenticationToken.clear();
-    var value = authenticationToken.get();
+    AuthenticationToken.clear();
+    var value = AuthenticationToken.get();
     expect(value).toEqual(null);
 
     // token present
-    authenticationToken.set(VALID_DATA);
-    value = authenticationToken.get();
+    AuthenticationToken.set(VALID_DATA);
+    value = AuthenticationToken.get();
     expect(value).toEqual(VALID_DATA);
 
     // non-JSON parsable token not fetched
     global.localStorage.setItem(TOKEN.authentication.key, "object");
-    value = authenticationToken.get();
+    value = AuthenticationToken.get();
     expect(value).toEqual(null);
   });
 
   it('authentication token sets authentication token', () => {
     // no previous token
-    authenticationToken.clear();
-    authenticationToken.set(VALID_DATA);
-    var value = authenticationToken.get();
+    AuthenticationToken.clear();
+    AuthenticationToken.set(VALID_DATA);
+    var value = AuthenticationToken.get();
     expect(value).toEqual(VALID_DATA);
 
     // previous token
     var newData = Object.assign({}, VALID_DATA);
     newData.uid = VALID_DATA.uid + 1;
-    authenticationToken.set(newData);
-    value = authenticationToken.get();
+    AuthenticationToken.set(newData);
+    value = AuthenticationToken.get();
     expect(value).toEqual(newData);
 
     // invalid value for storing cyclical reference value
@@ -51,15 +46,15 @@ describe('authentication token', () => {
 
   it('clear removes authentication token', () => {
     // no previous token
-    authenticationToken.set(null);
-    authenticationToken.clear();
-    var value = authenticationToken.get();
+    AuthenticationToken.set(null);
+    AuthenticationToken.clear();
+    var value = AuthenticationToken.get();
     expect(value).toEqual(null);
 
     // previous token
-    authenticationToken.set(VALID_DATA);
-    authenticationToken.clear();
-    value = authenticationToken.get();
+    AuthenticationToken.set(VALID_DATA);
+    AuthenticationToken.clear();
+    value = AuthenticationToken.get();
     expect(value).toEqual(null);
   });
 });

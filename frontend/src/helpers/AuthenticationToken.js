@@ -5,13 +5,9 @@ import TOKEN from 'configs/Token';
  * class for dealing with authentication tokens
  */
 class AuthenticationToken extends Token {
-  constructor() {
-    super();
+  static key = TOKEN.authentication.key;
 
-    this.key = TOKEN.authentication.key;
-  }
-
-  get() {
+  static get() {
     var value;
     try {
       value = JSON.parse(localStorage.getItem(this.key));
@@ -21,11 +17,11 @@ class AuthenticationToken extends Token {
     return value;
   }
 
-  set(data) {
+  static set(data) {
     localStorage.setItem(this.key, JSON.stringify(data));
   }
 
-  clear() {
+  static clear() {
     localStorage.removeItem(this.key);
   }
 }

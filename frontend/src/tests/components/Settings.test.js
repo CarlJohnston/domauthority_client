@@ -16,7 +16,6 @@ const VALID_CURRENT_USER_DATA = {
 };
 
 describe('settings', () => {
-  var authenticationToken = new AuthenticationToken();
   var component;
   var createComponent = (props) => {
     if (component) {
@@ -36,7 +35,7 @@ describe('settings', () => {
 
   it('sets authentication token on initialization', () => {
     // no prior authentication token
-    authenticationToken.clear();
+    AuthenticationToken.clear();
     createComponent();
 
     var currentUserProvider = findCurrentUserProvider(component);
@@ -47,7 +46,7 @@ describe('settings', () => {
     });
 
     // prior authentication token
-    authenticationToken.set(VALID_CURRENT_USER_DATA);
+    AuthenticationToken.set(VALID_CURRENT_USER_DATA);
     createComponent();
 
     currentUserProvider = findCurrentUserProvider(component);
@@ -60,7 +59,7 @@ describe('settings', () => {
 
   it('setCurrentUser sets currentUser', () => {
     // no prior currentUser
-    authenticationToken.clear();
+    AuthenticationToken.clear();
     createComponent();
 
     var currentUserProvider = findCurrentUserProvider(component);
@@ -89,7 +88,7 @@ describe('settings', () => {
 
   it('clearCurrentUser clears user', () => {
     // no prior user
-    authenticationToken.clear();
+    AuthenticationToken.clear();
     createComponent();
 
     var currentUserProvider = findCurrentUserProvider(component);
