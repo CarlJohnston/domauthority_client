@@ -211,13 +211,16 @@ class Authenticate {
         });
 
         var headers;
+        var initialResponse;
         fetch(request)
           .then((response) => {
+            initialResponse = response;
             headers = response.headers;
 
             return response.json();
           }).then((body) => {
-            if (body.success === undefined) {
+            if (initialResponse.ok &&
+                body.success === undefined) {
               data = body.data;
               if (data && typeof data === 'object') {
                 resolve({

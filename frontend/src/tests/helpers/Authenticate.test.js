@@ -241,7 +241,7 @@ describe('authenticate', () => {
   });
 
   it('registers user', async () => {
-    expect.assertions(2);
+    expect.assertions(5);
 
     // registers user with well-formed data
     var data = {
@@ -316,10 +316,55 @@ describe('authenticate', () => {
       }),
     );
     await expectation;
+
+    // no registration data
+    data = null;
+    await expect(Authenticate.register(data)).rejects.toEqual({
+      body: {},
+      headers: new Headers(),
+    });
+
+    // bad input
+    data = 'string';
+    await expect(Authenticate.register(data)).rejects.toEqual({
+      body: {},
+      headers: new Headers(),
+    });
+
+    errors = {
+      one: 'error1',
+      two: 'error2',
+      'full_messages': [
+        'error1',
+        'error2',
+      ],
+    };
+    expectation = expect(Authenticate.register([])).rejects.toEqual({
+      body: {
+        status: 'error',
+        errors: errors,
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    request = requests.pop();
+    request.respond(
+      422,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        status: 'error',
+        data: data,
+        errors: errors,
+      }),
+    );
+    await expectation;
   });
 
   it('login user', async () => {
-    expect.assertions(4);
+    expect.assertions(8);
 
     // login user with well-formed correct data
     var data = {
@@ -434,5 +479,74 @@ describe('authenticate', () => {
       }),
     );
     await expectation;
+
+    // no login data
+    data = null;
+    await expect(Authenticate.login(data)).rejects.toEqual({
+      body: {},
+      headers: new Headers(),
+    });
+
+    // bad input
+    data = 'string';
+    await expect(Authenticate.login(data)).rejects.toEqual({
+      body: {},
+      headers: new Headers(),
+    });
+
+    var errors = {
+      one: 'error1',
+      two: 'error2',
+      'full_messages': [
+        'error1',
+        'error2',
+      ],
+    };
+    expectation = expect(Authenticate.login([])).rejects.toEqual({
+      body: {
+        success: false,
+        errors: errors,
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    request = requests.pop();
+    request.respond(
+      422,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        success: false,
+        data: data,
+        errors: errors,
+      }),
+    );
+    await expectation;
+
+    // success undefined but bad response
+    expectation = expect(Authenticate.login([])).rejects.toEqual({
+      body: {
+        success: false,
+        errors: errors,
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    request = requests.pop();
+    request.respond(
+      422,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        data: data,
+        errors: errors,
+      }),
+    );
+    await expectation;
+
   });
 });
