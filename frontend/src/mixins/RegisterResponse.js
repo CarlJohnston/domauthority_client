@@ -1,7 +1,7 @@
 import AuthenticateResponse from 'mixins/AuthenticateResponse';
 
 /*
- * Helper for authentication API Responses
+ * Helper for registration specific authentication API Responses
  */
 class RegisterResponse extends AuthenticateResponse {
   constructor(data, options) {
