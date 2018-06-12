@@ -8,10 +8,21 @@ describe('authenticate response response', () => {
   });
 
   it('parses errors properly', () => {
-    // no errors key
-    var data = {};
+    // bad data
+    var data = '';
     response.setData(data);
     var parsedErrors = response.getErrors();
+    expect(parsedErrors).toEqual([]);
+
+    data = 'string';
+    response.setData(data);
+    parsedErrors = response.getErrors();
+    expect(parsedErrors).toEqual([]);
+
+    // no errors key
+    data = {};
+    response.setData(data);
+    parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([]);
 
     // errors key present

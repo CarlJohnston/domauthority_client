@@ -9,7 +9,11 @@ class AuthenticateResponse {
   }
 
   setData(data) {
-    this.data = data;
+    if (data && typeof data === 'object') {
+      this.data = data;
+    } else {
+      this.data = {};
+    }
   }
 
   /*
