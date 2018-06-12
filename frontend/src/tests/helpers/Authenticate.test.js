@@ -547,6 +547,5 @@ describe('authenticate', () => {
       }),
     );
     await expectation;
-
   });
 });
