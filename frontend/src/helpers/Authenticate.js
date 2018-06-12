@@ -7,8 +7,8 @@ import URL from 'url';
 const urlPrefix = '/auth';
 class Authenticate {
   /*
-   * Validate data from token and issue/return a new
-   * token, otherwise reject and return status/message
+   * Validate data from token and issue/return a promise for a new
+   * token in data, otherwise reject and return any error messages
    *
    * @param data {Object}  data object for token to validate
    *                        {
