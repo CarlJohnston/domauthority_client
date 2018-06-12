@@ -45,6 +45,18 @@ describe('authenticate response response', () => {
       errorString,
     ]);
 
+    // errors is array
+    var errorArray = [
+      'error1',
+      'error2',
+    ];
+    data = {
+      errors: errorArray,
+    };
+    response.setBody(data);
+    parsedErrors = response.getErrors();
+    expect(parsedErrors).toEqual(errorArray);
+
     // errors is key-val object without full_messages object
     var errorObject = {
       0: 'error',
