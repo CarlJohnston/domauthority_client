@@ -19,9 +19,9 @@ class Authenticate {
    *
    * @returns {Object}   data object for newly issue token
    *                      {
-   *                        status: {Boolean}
-   *                        client: {String},
-   *                        accessToken: {String},
+   *                        success: {Boolean}
+   *                        data: {Object},
+   *                        headers: {Object},
    *                      }
    */
   static validate(data) {
