@@ -200,11 +200,17 @@ describe('authenticate', () => {
 
     // no current token
     data = null;
-    await expect(Authenticate.validate(data)).rejects.toBe(null);
+    await expect(Authenticate.validate(data)).rejects.toEqual({
+      body: {},
+      headers: new Headers(),
+    });
 
     // bad input
     data = 'string';
-    await expect(Authenticate.validate(data)).rejects.toBe(null);
+    await expect(Authenticate.validate(data)).rejects.toEqual({
+      body: {},
+      headers: new Headers(),
+    });
 
     data = [];
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({

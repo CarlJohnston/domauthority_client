@@ -93,7 +93,10 @@ class Authenticate {
             });
           });
       } else {
-        reject(null);
+        reject({
+          body: {},
+          headers: new Headers(),
+        });
       }
     });
   }
