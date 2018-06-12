@@ -103,7 +103,7 @@ class Authenticate {
   /*
    * Register user and return new user
    *
-   * @param data {Object}  data object for token to validate
+   * @param data {Object}  data object for token to register
    *                        {
    *                          email: {String},
    *                          [username: {String}],
@@ -129,7 +129,7 @@ class Authenticate {
             'access-token': data.accessToken,
           },
         });
-        var request = new Request(urlPrefix + '/validate_token' + params, {
+        var request = new Request(url + params, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
