@@ -1,8 +1,8 @@
 import STATUS from 'configs/Status';
 
-/**
-  * Helper for authentication API Responses
-  */
+/*
+ * Helper for authentication API Responses
+ */
 class AuthenticateResponse {
   constructor(data) {
     this.setData(data);
@@ -12,9 +12,9 @@ class AuthenticateResponse {
     this.data = data;
   }
 
-  /**
-    * @returns {Array} array of error messages
-    */
+  /*
+   * @returns {Array} array of error messages
+   */
   getErrors() {
     var errors = [];
 
@@ -37,7 +37,7 @@ class AuthenticateResponse {
     return errors;
   }
 
-  /**
+  /*
    * @returns {String} response status
    */
   getStatus() {
@@ -53,7 +53,7 @@ class AuthenticateResponse {
     return status;
   }
 
-  /**
+  /*
    * @returns {String} response data
    */
   getData() {
