@@ -106,6 +106,7 @@ class Authenticate {
    * @param data {Object}  data object for token to validate
    *                        {
    *                          email: {String},
+   *                          [username: {String}],
    *                          password: {String},
    *                          password_confirmation: {String},
    *                        }
