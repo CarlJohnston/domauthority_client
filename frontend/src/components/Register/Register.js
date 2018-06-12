@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
+
+import Authenticate from 'helpers/Authenticate';
 import AuthenticateResponse from 'mixins/AuthenticateResponse';
 
 import STATUS from 'configs/Status';
@@ -31,48 +33,46 @@ class Register extends Component {
       var username = this.$form.find('#username').val();
       var passwordInitial = this.$form.find('#password-initial').val();
       var passwordConfirm = this.$form.find('#password-confirm').val();
-      var request = new Request('/authenticate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          password: passwordInitial,
-          password_confirmation: passwordConfirm,
-        }),
-      });
 
-      var that = this;
-      fetch(request)
-        .then((response) => {
-          return response.json();
-        }).then((body) => {
-          this.authenticateResponse.setBody(body);
-          var status = this.authenticateResponse.getStatus();
-          var messages = {};
-          if (status === STATUS.success) {
-            messages['Successfully registered. Please login using the login form.'] = STATUS.success;
-          } else {
-            var errors = this.authenticateResponse.getErrors();
-            errors.forEach((error) => {
-              messages[error] = STATUS.error;
-            });
-          }
+      Authenticate.register({
+        email: email,
+        username: username,
+        password: passwordInitial,
+        'password_confirmation': passwordConfirm,
+      }).then((response) => {
+        var messages = {};
 
-          Object.entries(messages).forEach((message) => {
-            PNotify.alert({
-              text: message[0],
-              type: message[1],
-              delay: 2000,
-            });
+        this.authenticateResponse.setBody(response.body);
+
+        messages['Successfully registered. Please login using the login form.'] = STATUS.success;
+
+        Object.entries(messages).forEach((message) => {
+          PNotify.alert({
+            text: message[0],
+            type: message[1],
+            delay: 2000,
           });
-
-          if (status === STATUS.success) {
-            that.props.history.push('/login');
-          }
         });
+
+        this.props.history.push('/login');
+      }).catch((response) => {
+        var messages = {};
+
+        this.authenticateResponse.setBody(response.body);
+
+        var errors = this.authenticateResponse.getErrors();
+        errors.forEach((error) => {
+          messages[error] = STATUS.error;
+        });
+
+        Object.entries(messages).forEach((message) => {
+          PNotify.alert({
+            text: message[0],
+            type: message[1],
+            delay: 2000,
+          });
+        });
+      });
     });
   }
 

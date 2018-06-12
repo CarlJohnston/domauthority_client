@@ -42,11 +42,9 @@ class Authenticate {
         });
 
         var headers;
-        var status;
         fetch(request)
           .then((response) => {
             headers = response.headers;
-            status = response.status;
 
             return response.json();
           }).then((body) => {
@@ -122,26 +120,18 @@ class Authenticate {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
         var url = urlPrefix + '/';
-        var params = URL.format({
-          query: {
-            uid: data.uid,
-            client: data.client,
-            'access-token': data.accessToken,
-          },
-        });
-        var request = new Request(url + params, {
+        var request = new Request(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify(data),
         });
 
         var headers;
-        var status;
         fetch(request)
           .then((response) => {
             headers = response.headers;
-            status = response.status;
 
             return response.json();
           }).then((body) => {
