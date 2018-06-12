@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
 
 import Authenticate from 'helpers/Authenticate';
-import AuthenticateResponse from 'mixins/AuthenticateResponse';
-
-import STATUS from 'configs/Status';
+import RegisterResponse from 'mixins/RegisterResponse';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
@@ -15,8 +13,6 @@ class Register extends Component {
     super(props);
 
     this.registerFormNode = React.createRef();
-
-    this.authenticateResponse = new AuthenticateResponse();
   }
 
   componentDidMount() {
@@ -40,35 +36,26 @@ class Register extends Component {
         password: passwordInitial,
         'password_confirmation': passwordConfirm,
       }).then((response) => {
-        var messages = {};
+        var registerResponse = new RegisterResponse(response);
+        var messages = registerResponse.getMessages();
 
-        this.authenticateResponse.setBody(response.body);
-
-        messages['Successfully registered. Please login using the login form.'] = STATUS.success;
-
-        Object.entries(messages).forEach((message) => {
+        Object.entries(messages).forEach(([message, status]) => {
           PNotify.alert({
-            text: message[0],
-            type: message[1],
+            text: message,
+            type: status,
             delay: 2000,
           });
         });
 
         this.props.history.push('/login');
       }).catch((response) => {
-        var messages = {};
+        var registerResponse = new RegisterResponse(response);
+        var messages = registerResponse.getMessages();
 
-        this.authenticateResponse.setBody(response.body);
-
-        var errors = this.authenticateResponse.getErrors();
-        errors.forEach((error) => {
-          messages[error] = STATUS.error;
-        });
-
-        Object.entries(messages).forEach((message) => {
+        Object.entries(messages).forEach(([message, status]) => {
           PNotify.alert({
-            text: message[0],
-            type: message[1],
+            text: message,
+            type: status,
             delay: 2000,
           });
         });

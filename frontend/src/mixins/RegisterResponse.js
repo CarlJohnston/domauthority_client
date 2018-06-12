@@ -1,7 +1,5 @@
 import AuthenticateResponse from 'mixins/AuthenticateResponse';
 
-import STATUS from 'configs/Status';
-
 /*
  * Helper for authentication API Responses
  */
