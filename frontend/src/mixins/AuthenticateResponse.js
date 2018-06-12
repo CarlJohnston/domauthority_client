@@ -29,8 +29,8 @@ class AuthenticateResponse {
             errors.push(error);
           });
         } else {
-          Object.entries(this.body.errors).forEach((error) => {
-            errors.push(error[1]);
+          Object.entries(this.body.errors).forEach(([key, value]) => {
+            errors.push(value);
           });
         }
       } else {
