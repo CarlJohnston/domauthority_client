@@ -17,11 +17,12 @@ class Authenticate {
    *                          accessToken: {String},
    *                        }
    *
-   * @returns {Object}   data object for newly issued token
-   *                      {
-   *                        success: {Boolean}
-   *                        data: {Object},
-   *                      }
+   * @returns {Object}     response object for newly issued token
+   *                       with JSON already streamed into body property
+   *                        {
+   *                          body: {Object},
+   *                          headers: {Headers},
+   *                        }
    */
   static validate(data) {
     return new Promise((resolve, reject) => {
@@ -56,32 +57,39 @@ class Authenticate {
               if (data && typeof data === 'object' &&
                   accessToken &&
                   client) {
-                Object.assign(body.data, {
-                  accessToken: accessToken,
-                  client: client,
+                resolve({
+                  body: body,
+                  headers: headers,
                 });
-
-                resolve(body);
               } else {
                 reject({
-                  success: false,
-                  errors: [
-                    'Unprocessable Entity'
-                  ],
+                  body: {
+                    success: false,
+                    errors: [
+                      'Unprocessable Entity'
+                    ],
+                  },
+                  headers: headers,
                 });
               }
             } else {
               reject({
-                success: false,
-                errors: body.errors,
+                body: {
+                  success: false,
+                  errors: body.errors,
+                },
+                headers: headers,
               });
             }
           }).catch((error) => {
             reject({
-              success: false,
-              errors: [
-                error.message,
-              ],
+              body: {
+                success: false,
+                errors: [
+                  error.message,
+                ],
+              },
+              headers: headers,
             });
           });
       } else {

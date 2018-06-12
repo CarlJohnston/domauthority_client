@@ -15,12 +15,15 @@ const VALID_CURRENT_USER_DATA = {
   nickname: 'nickname',
   image: null,
   email: 'email@email.com',
-  accessToken: 'blah',
+};
+const VALID_CURRENT_USER_HEADERS = {
+  'access-token': 'blah',
   client: 'blah',
 };
 
-const NEXT_CURRENT_USER_DATA = Object.assign(VALID_CURRENT_USER_DATA, {
-  accessToken: 'new',
+const NEXT_CURRENT_USER_DATA = VALID_CURRENT_USER_DATA;
+const NEXT_CURRENT_USER_HEADERS = Object.assign(VALID_CURRENT_USER_HEADERS, {
+  'access-token': 'new',
 });
 
 describe('authenticate', () => {
@@ -43,28 +46,33 @@ describe('authenticate', () => {
     // valid token
     var data = VALID_CURRENT_USER_DATA;
     var expectation = expect(Authenticate.validate(data)).resolves.toEqual({
-      success: true,
-      data: {
-        id: NEXT_CURRENT_USER_DATA.id,
-        provider: NEXT_CURRENT_USER_DATA.provider,
-        uid: NEXT_CURRENT_USER_DATA.uid,
-        allow_password_change: NEXT_CURRENT_USER_DATA.allow_password_change,
-        username: NEXT_CURRENT_USER_DATA.username,
-        name: NEXT_CURRENT_USER_DATA.name,
-        nickname: NEXT_CURRENT_USER_DATA.nickname,
-        image: NEXT_CURRENT_USER_DATA.image,
-        email: NEXT_CURRENT_USER_DATA.email,
-        accessToken: NEXT_CURRENT_USER_DATA.accessToken,
-        client: NEXT_CURRENT_USER_DATA.client,
+      body: {
+        success: true,
+        data: {
+          id: NEXT_CURRENT_USER_DATA.id,
+          provider: NEXT_CURRENT_USER_DATA.provider,
+          uid: NEXT_CURRENT_USER_DATA.uid,
+          allow_password_change: NEXT_CURRENT_USER_DATA.allow_password_change,
+          username: NEXT_CURRENT_USER_DATA.username,
+          name: NEXT_CURRENT_USER_DATA.name,
+          nickname: NEXT_CURRENT_USER_DATA.nickname,
+          image: NEXT_CURRENT_USER_DATA.image,
+          email: NEXT_CURRENT_USER_DATA.email,
+        },
       },
+      headers: new Headers({
+        'content-type': 'application/json',
+        'access-token': NEXT_CURRENT_USER_HEADERS['access-token'],
+        client: NEXT_CURRENT_USER_HEADERS.client,
+      }),
     });
     var request = requests.pop();
     request.respond(
       200,
       {
         'Content-Type': 'application/json',
-        'access-token': NEXT_CURRENT_USER_DATA.accessToken,
-        client: NEXT_CURRENT_USER_DATA.client,
+        'access-token': NEXT_CURRENT_USER_HEADERS['access-token'],
+        client: NEXT_CURRENT_USER_HEADERS.client,
       },
       JSON.stringify({
         success: true,
@@ -76,17 +84,21 @@ describe('authenticate', () => {
     // valid token but missing headers in response
     data = VALID_CURRENT_USER_DATA;
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
-      success: false,
-      errors: [
-        'Unprocessable Entity',
-      ],
+      body: {
+        success: false,
+        errors: [
+          'Unprocessable Entity',
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      })
     });
     request = requests.pop();
     request.respond(
       200,
       {
         'Content-Type': 'application/json',
-        client: NEXT_CURRENT_USER_DATA.client,
       },
       JSON.stringify({
         success: true,
@@ -103,18 +115,25 @@ describe('authenticate', () => {
       expectedError = e.message;
     }
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
-      success: false,
-      errors: [
-        expectedError,
-      ],
+      body: {
+        success: false,
+        errors: [
+          expectedError,
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+        'access-token': NEXT_CURRENT_USER_HEADERS['access-token'],
+        client: NEXT_CURRENT_USER_HEADERS.client,
+      }),
     });
     request = requests.pop();
     request.respond(
       200,
       {
         'Content-Type': 'application/json',
-        'access-token': NEXT_CURRENT_USER_DATA.accessToken,
-        client: data.client,
+        'access-token': NEXT_CURRENT_USER_HEADERS['access-token'],
+        client: NEXT_CURRENT_USER_HEADERS.client,
       },
       'string',
     );
@@ -122,18 +141,25 @@ describe('authenticate', () => {
 
     // valid token but bad data in response body
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
-      success: false,
-      errors: [
-        'Unprocessable Entity'
-      ],
+      body: {
+        success: false,
+        errors: [
+          'Unprocessable Entity'
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+        'access-token': NEXT_CURRENT_USER_HEADERS['access-token'],
+        client: NEXT_CURRENT_USER_HEADERS.client,
+      }),
     });
     request = requests.pop();
     request.respond(
       200,
       {
         'Content-Type': 'application/json',
-        'access-token': NEXT_CURRENT_USER_DATA.accessToken,
-        client: data.client,
+        'access-token': NEXT_CURRENT_USER_HEADERS['access-token'],
+        client: NEXT_CURRENT_USER_HEADERS.client,
       },
       JSON.stringify({
         success: true,
@@ -147,10 +173,15 @@ describe('authenticate', () => {
       blah: 'blah',
     };
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
-      success: false,
-      errors: [
-        'Invalid login credentials',
-      ],
+      body: {
+        success: false,
+        errors: [
+          'Invalid login credentials',
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
     });
     request = requests.pop();
     request.respond(
@@ -177,10 +208,15 @@ describe('authenticate', () => {
 
     data = [];
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
-      success: false,
-      errors: [
-        'Invalid login credentials',
-      ],
+      body: {
+        success: false,
+        errors: [
+          'Invalid login credentials',
+        ],
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
     });
     request = requests.pop();
     request.respond(
