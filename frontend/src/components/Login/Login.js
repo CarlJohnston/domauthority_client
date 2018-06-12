@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
 
-import AuthenticateResponse from 'mixins/AuthenticateResponse';
+import Authenticate from 'helpers/Authenticate';
+import LoginResponse from 'mixins/LoginResponse';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
 import withCurrentUser from 'components/hocs/withCurrentUser';
-
-import STATUS from 'configs/Status';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
@@ -19,8 +18,6 @@ class Login extends Component {
     super(props);
 
     this.loginFormNode = React.createRef();
-
-    this.authenticateResponse = new AuthenticateResponse();
   }
 
   componentDidMount() {
@@ -36,64 +33,41 @@ class Login extends Component {
   validLoginFormSubmit(e) {
     var email = this.$form.find('#email').val();
     var password = this.$form.find('#password').val();
-    var request = new Request('/auth/sign_in', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+    Authenticate.login({
+      email: email,
+      password: password,
+    }).then((response) => {
+      var loginResponse = new LoginResponse(response);
+      var messages = loginResponse.getMessages();
 
-    var headers;
-    fetch(request)
-      .then((response) => {
-        headers = response.headers;
-
-        return response.json();
-      }).then((body) => {
-        this.authenticateResponse.setBody(body);
-        var status = this.authenticateResponse.getStatus();
-        var messages = {};
-        if (status === STATUS.success) {
-          messages['Successfully authenticated.'] = STATUS.success;
-        } else {
-          var errors = this.authenticateResponse.getErrors();
-          errors.forEach((error) => {
-            messages[error] = STATUS.error;
-          });
-        }
-
-        Object.entries(messages).forEach((message) => {
-          PNotify.alert({
-            text: message[0],
-            type: message[1],
-            delay: 2000,
-          });
+      Object.entries(messages).forEach(([message, status]) => {
+        PNotify.alert({
+          text: message,
+          type: status,
+          delay: 2000,
         });
-
-        if (status === STATUS.success) {
-          var data = body.data;
-          headers.forEach((value, key) => {
-            headers[key] = value;
-          });
-          var token = {
-            uid: data.uid,
-            name: data.name,
-            username: data.username,
-            accessToken: headers['access-token'],
-            client: headers.client,
-          };
-          var authenticationToken = new AuthenticationToken();
-          authenticationToken.set(token);
-
-          this.props.setCurrentUser(token);
-
-          this.props.history.push('/');
-        }
       });
+
+      var token = loginResponse.getToken();
+
+      var authenticationToken = new AuthenticationToken();
+      authenticationToken.set(token);
+
+      this.props.setCurrentUser(token);
+
+      this.props.history.push('/');
+    }).catch((response) => {
+      var loginResponse = new LoginResponse(response);
+      var messages = loginResponse.getMessages();
+
+      Object.entries(messages).forEach(([message, status]) => {
+        PNotify.alert({
+          text: message,
+          type: status,
+          delay: 2000,
+        });
+      });
+    });
   }
 
   loginFormSubmit(e) {
