@@ -10,19 +10,19 @@ class Authenticate {
    * Validate data from token and issue/return a new
    * token, otherwise reject and return status/message
    *
-   * @param data  data object for token to validate
-   *              {
-   *                uid: [String],
-   *                client: [String],
-   *                accessToken: [String],
-   *              }
+   * @param data {Object}  data object for token to validate
+   *                        {
+   *                          uid: {String},
+   *                          client: {String},
+   *                          accessToken: {String},
+   *                        }
    *
-   * @returns    data object for newly issue token
-   *              {
-   *                uid: [String],
-   *                client: [String],
-   *                accessToken: [String],
-   *              }
+   * @returns {Object}   data object for newly issue token
+   *                      {
+   *                        status: {Boolean}
+   *                        client: {String},
+   *                        accessToken: {String},
+   *                      }
    */
   static validate(data) {
     return new Promise((resolve, reject) => {
