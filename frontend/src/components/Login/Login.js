@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
+import Async from 'async';
 
 import Authenticate from 'helpers/Authenticate';
 import LoginResponse from 'mixins/LoginResponse';
@@ -33,41 +34,40 @@ class Login extends Component {
   validLoginFormSubmit(e) {
     var email = this.$form.find('#email').val();
     var password = this.$form.find('#password').val();
-    Authenticate.login({
-      email: email,
-      password: password,
-    }).then((response) => {
-      var loginResponse = new LoginResponse(response);
-      var messages = loginResponse.getMessages();
+    Async.waterfall([
+      (callback) => {
+        Authenticate.login({
+          email: email,
+          password: password,
+        }).then((response) => {
+          var loginResponse = new LoginResponse(response);
+          var messages = loginResponse.getMessages();
 
-      Object.entries(messages).forEach(([message, status]) => {
-        PNotify.alert({
-          text: message,
-          type: status,
-          delay: 2000,
+          var token = loginResponse.getToken();
+
+          var authenticationToken = new AuthenticationToken();
+          authenticationToken.set(token);
+
+          this.props.setCurrentUser(token);
+
+          this.props.history.push('/');
+
+          callback(null, messages);
+        }).catch((response) => {
+          var loginResponse = new LoginResponse(response);
+          var messages = loginResponse.getMessages();
+
+          callback(null, messages);
+        });
+      }], (error, messages) => {
+        Object.entries(messages).forEach(([message, status]) => {
+          PNotify.alert({
+            text: message,
+            type: status,
+            delay: 2000,
+          });
         });
       });
-
-      var token = loginResponse.getToken();
-
-      var authenticationToken = new AuthenticationToken();
-      authenticationToken.set(token);
-
-      this.props.setCurrentUser(token);
-
-      this.props.history.push('/');
-    }).catch((response) => {
-      var loginResponse = new LoginResponse(response);
-      var messages = loginResponse.getMessages();
-
-      Object.entries(messages).forEach(([message, status]) => {
-        PNotify.alert({
-          text: message,
-          type: status,
-          delay: 2000,
-        });
-      });
-    });
   }
 
   loginFormSubmit(e) {

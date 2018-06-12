@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
+import Async from 'async';
 
 import Authenticate from 'helpers/Authenticate';
 import RegisterResponse from 'mixins/RegisterResponse';
@@ -30,36 +31,35 @@ class Register extends Component {
       var passwordInitial = this.$form.find('#password-initial').val();
       var passwordConfirm = this.$form.find('#password-confirm').val();
 
-      Authenticate.register({
-        email: email,
-        username: username,
-        password: passwordInitial,
-        'password_confirmation': passwordConfirm,
-      }).then((response) => {
-        var registerResponse = new RegisterResponse(response);
-        var messages = registerResponse.getMessages();
+      Async.waterfall([
+        (callback) => {
+          Authenticate.register({
+            email: email,
+            username: username,
+            password: passwordInitial,
+            'password_confirmation': passwordConfirm,
+          }).then((response) => {
+            var registerResponse = new RegisterResponse(response);
+            var messages = registerResponse.getMessages();
 
-        Object.entries(messages).forEach(([message, status]) => {
-          PNotify.alert({
-            text: message,
-            type: status,
-            delay: 2000,
+            this.props.history.push('/login');
+
+            callback(null, messages);
+          }).catch((response) => {
+            var registerResponse = new RegisterResponse(response);
+            var messages = registerResponse.getMessages();
+
+            callback(null, messages);
+          });
+        }], (error, messages) => {
+          Object.entries(messages).forEach(([message, status]) => {
+            PNotify.alert({
+              text: message,
+              type: status,
+              delay: 2000,
+            });
           });
         });
-
-        this.props.history.push('/login');
-      }).catch((response) => {
-        var registerResponse = new RegisterResponse(response);
-        var messages = registerResponse.getMessages();
-
-        Object.entries(messages).forEach(([message, status]) => {
-          PNotify.alert({
-            text: message,
-            type: status,
-            delay: 2000,
-          });
-        });
-      });
     });
   }
 
