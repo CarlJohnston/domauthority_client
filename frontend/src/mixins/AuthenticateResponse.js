@@ -3,7 +3,7 @@ import STATUS from 'configs/Status';
 /**
   * Helper for authentication API Responses
   */
-class AuthenticationResponse {
+class AuthenticateResponse {
   constructor(data) {
     this.setData(data);
   }
@@ -61,4 +61,4 @@ class AuthenticationResponse {
   }
 }
 
-export default AuthenticationResponse;
+export default AuthenticateResponse;

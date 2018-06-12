@@ -1,10 +1,10 @@
-import AuthenticationResponse from 'mixins/AuthenticationResponse';
+import AuthenticateResponse from 'mixins/AuthenticateResponse';
 import STATUS from 'configs/Status';
 
-describe('authentication response response', () => {
+describe('authenticate response response', () => {
   var response;
   beforeEach(() => {
-    response = new AuthenticationResponse();
+    response = new AuthenticateResponse();
   });
 
   it('parses errors properly', () => {
