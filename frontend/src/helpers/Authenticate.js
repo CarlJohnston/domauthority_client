@@ -100,6 +100,96 @@ class Authenticate {
       }
     });
   }
+  /*
+   * Register user and return new user
+   *
+   * @param data {Object}  data object for token to validate
+   *                        {
+   *                          email: {String},
+   *                          password: {String},
+   *                          password_confirmation: {String},
+   *                        }
+   *
+   * @returns {Object}     response object for newly issued user
+   *                       with JSON already streamed into body property
+   *                        {
+   *                          body: {Object},
+   *                          headers: {Headers},
+   *                        }
+   */
+  static register(data) {
+    return new Promise((resolve, reject) => {
+      if (data && typeof data === 'object') {
+        var url = urlPrefix + '/';
+        var params = URL.format({
+          query: {
+            uid: data.uid,
+            client: data.client,
+            'access-token': data.accessToken,
+          },
+        });
+        var request = new Request(urlPrefix + '/validate_token' + params, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        var headers;
+        var status;
+        fetch(request)
+          .then((response) => {
+            headers = response.headers;
+            status = response.status;
+
+            return response.json();
+          }).then((body) => {
+            if (body.status === 'success') {
+              data = body.data;
+              if (data && typeof data === 'object') {
+                resolve({
+                  body: body,
+                  headers: headers,
+                });
+              } else {
+                reject({
+                  body: {
+                    status: 'error',
+                    errors: [
+                      'Unprocessable Entity'
+                    ],
+                  },
+                  headers: headers,
+                });
+              }
+            } else {
+              reject({
+                body: {
+                  status: 'error',
+                  errors: body.errors,
+                },
+                headers: headers,
+              });
+            }
+          }).catch((error) => {
+            reject({
+              body: {
+                status: 'error',
+                errors: [
+                  error.message,
+                ],
+              },
+              headers: headers,
+            });
+          });
+      } else {
+        reject({
+          body: {},
+          headers: new Headers(),
+        });
+      }
+    });
+  }
 }
 
 export default Authenticate;

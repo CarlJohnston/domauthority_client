@@ -239,4 +239,82 @@ describe('authenticate', () => {
     );
     await expectation;
   });
+
+  it('registers user', async () => {
+    expect.assertions(2);
+
+    // registers user with well-formed data
+    var data = {
+      uid: 'new@new.com',
+      id: 21,
+      email: 'new@new.com',
+      provider: 'email',
+      allow_password_change: false,
+      username: 'new',
+      name: null,
+      nickname: null,
+      image: null,
+    };
+    var expectation = expect(Authenticate.register({
+      email: data.email,
+      password: 'password',
+      'password_confirmation': 'password',
+    })).resolves.toEqual({
+      body: {
+        status: 'success',
+        data: data,
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    var request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        status: 'success',
+        data: data,
+      }),
+    );
+    await expectation;
+
+    // does not register user with poorly-formed data
+    var errors = {
+      one: 'error1',
+      two: 'error2',
+      'full_messages': [
+        'error1',
+        'error2',
+      ],
+    };
+    expectation = expect(Authenticate.register({
+      email: data.email,
+      password: 'password',
+      'password_confirmation': 'password_invalid',
+    })).rejects.toEqual({
+      body: {
+        status: 'error',
+        errors: errors,
+      },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
+    });
+    request = requests.pop();
+    request.respond(
+      422,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify({
+        status: 'error',
+        data: data,
+        errors: errors,
+      }),
+    );
+    await expectation;
+  });
 });
