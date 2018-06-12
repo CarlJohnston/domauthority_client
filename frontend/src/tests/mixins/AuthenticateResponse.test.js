@@ -10,18 +10,18 @@ describe('authenticate response response', () => {
   it('parses errors properly', () => {
     // bad data
     var data = '';
-    response.setData(data);
+    response.setBody(data);
     var parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([]);
 
     data = 'string';
-    response.setData(data);
+    response.setBody(data);
     parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([]);
 
     // no errors key
     data = {};
-    response.setData(data);
+    response.setBody(data);
     parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([]);
 
@@ -30,7 +30,7 @@ describe('authenticate response response', () => {
     data = {
       errors: [],
     };
-    response.setData(data);
+    response.setBody(data);
     parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([]);
 
@@ -39,7 +39,7 @@ describe('authenticate response response', () => {
     data = {
       errors: errorString,
     };
-    response.setData(data);
+    response.setBody(data);
     parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual([
       errorString,
@@ -53,7 +53,7 @@ describe('authenticate response response', () => {
     data = {
       errors: errorObject,
     };
-    response.setData(data);
+    response.setBody(data);
     parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual(Object.values(errorObject));
 
@@ -69,7 +69,7 @@ describe('authenticate response response', () => {
     data = {
       errors: errorObject,
     };
-    response.setData(data);
+    response.setBody(data);
     parsedErrors = response.getErrors();
     expect(parsedErrors).toEqual(errorObject.full_messages);
   });
@@ -79,7 +79,7 @@ describe('authenticate response response', () => {
     var data = {
       key: 'value',
     };
-    response.setData(data);
+    response.setBody(data);
     var parsedStatus = response.getStatus();
     expect(parsedStatus).toEqual(STATUS.success);
 
@@ -88,7 +88,7 @@ describe('authenticate response response', () => {
     data = {
       errors: [],
     };
-    response.setData(data);
+    response.setBody(data);
     parsedStatus = response.getStatus();
     expect(parsedStatus).toEqual(STATUS.success);
 
@@ -98,7 +98,7 @@ describe('authenticate response response', () => {
         'error',
       ],
     };
-    response.setData(data);
+    response.setBody(data);
     parsedStatus = response.getStatus();
     expect(parsedStatus).toEqual(STATUS.error);
   });
@@ -108,7 +108,7 @@ describe('authenticate response response', () => {
     var data = {
       key: 'value',
     };
-    response.setData(data);
+    response.setBody(data);
     var parsedData = response.getData();
     expect(parsedData).toEqual({});
 
@@ -118,7 +118,7 @@ describe('authenticate response response', () => {
         key: 'value',
       },
     };
-    response.setData(data);
+    response.setBody(data);
     parsedData = response.getData();
     expect(parsedData).toEqual(data.data);
   });

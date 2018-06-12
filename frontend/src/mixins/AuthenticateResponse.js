@@ -4,15 +4,15 @@ import STATUS from 'configs/Status';
  * Helper for authentication API Responses
  */
 class AuthenticateResponse {
-  constructor(data) {
-    this.setData(data);
+  constructor(body) {
+    this.setBody(body);
   }
 
-  setData(data) {
-    if (data && typeof data === 'object') {
-      this.data = data;
+  setBody(body) {
+    if (body && typeof body === 'object') {
+      this.body = body;
     } else {
-      this.data = {};
+      this.body = {};
     }
   }
 
@@ -22,19 +22,19 @@ class AuthenticateResponse {
   getErrors() {
     var errors = [];
 
-    if ('errors' in this.data) {
-      if (typeof this.data.errors === 'object') {
-        if ('full_messages' in this.data.errors) {
-          this.data.errors.full_messages.forEach((error) => {
+    if ('errors' in this.body) {
+      if (typeof this.body.errors === 'object') {
+        if ('full_messages' in this.body.errors) {
+          this.body.errors.full_messages.forEach((error) => {
             errors.push(error);
           });
         } else {
-          Object.entries(this.data.errors).forEach((error) => {
+          Object.entries(this.body.errors).forEach((error) => {
             errors.push(error[1]);
           });
         }
       } else {
-        errors.push(this.data.errors);
+        errors.push(this.body.errors);
       }
     }
 
@@ -47,8 +47,8 @@ class AuthenticateResponse {
   getStatus() {
     var status = '';
 
-    if ('errors' in this.data &&
-       this.data.errors.length !== 0) {
+    if ('errors' in this.body &&
+       this.body.errors.length !== 0) {
       status = STATUS.error;
     } else {
       status = STATUS.success;
@@ -58,10 +58,10 @@ class AuthenticateResponse {
   }
 
   /*
-   * @returns {String} response data
+   * @returns {Object} response body
    */
   getData() {
-    return this.data.data || {};
+    return this.body.data || {};
   }
 }
 

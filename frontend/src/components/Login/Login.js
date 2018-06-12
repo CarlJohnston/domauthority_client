@@ -54,7 +54,7 @@ class Login extends Component {
 
         return response.json();
       }).then((body) => {
-        this.authenticateResponse.setData(body);
+        this.authenticateResponse.setBody(body);
         var status = this.authenticateResponse.getStatus();
         var messages = {};
         if (status === STATUS.success) {

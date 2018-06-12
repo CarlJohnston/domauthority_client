@@ -49,7 +49,7 @@ class Register extends Component {
         .then((response) => {
           return response.json();
         }).then((body) => {
-          this.authenticateResponse.setData(body);
+          this.authenticateResponse.setBody(body);
           var status = this.authenticateResponse.getStatus();
           var messages = {};
           if (status === STATUS.success) {
