@@ -35,7 +35,7 @@ class Authenticate {
             'access-token': data.accessToken,
           },
         });
-        var request = new Request(urlPrefix + '/validate_token' + params, {
+        var request = new Request(url + params, {
           headers: {
             'Content-Type': 'application/json',
           },
