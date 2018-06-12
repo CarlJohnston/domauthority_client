@@ -58,7 +58,7 @@ class AuthenticateResponse {
   }
 
   /*
-   * @returns {Object} response body
+   * @returns {Object} response body data
    */
   getData() {
     return this.body.data || {};

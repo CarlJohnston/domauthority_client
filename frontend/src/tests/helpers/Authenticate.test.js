@@ -15,14 +15,11 @@ const VALID_CURRENT_USER_DATA = {
   nickname: 'nickname',
   image: null,
   email: 'email@email.com',
-};
-const VALID_CURRENT_USER_HEADERS = {
   accessToken: 'blah',
   client: 'blah',
 };
 
-const NEXT_CURRENT_USER_DATA = VALID_CURRENT_USER_DATA;
-const NEXT_CURRENT_USER_HEADERS = Object.assign(VALID_CURRENT_USER_HEADERS, {
+const NEXT_CURRENT_USER_DATA = Object.assign(VALID_CURRENT_USER_DATA, {
   accessToken: 'new',
 });
 
@@ -57,10 +54,8 @@ describe('authenticate', () => {
         nickname: NEXT_CURRENT_USER_DATA.nickname,
         image: NEXT_CURRENT_USER_DATA.image,
         email: NEXT_CURRENT_USER_DATA.email,
-      },
-      headers: {
-        'access-token': NEXT_CURRENT_USER_HEADERS.accessToken,
-        client: NEXT_CURRENT_USER_HEADERS.client,
+        accessToken: NEXT_CURRENT_USER_DATA.accessToken,
+        client: NEXT_CURRENT_USER_DATA.client,
       },
     });
     var request = requests.pop();
@@ -68,8 +63,8 @@ describe('authenticate', () => {
       200,
       {
         'Content-Type': 'application/json',
-        'access-token': NEXT_CURRENT_USER_HEADERS.accessToken,
-        client: NEXT_CURRENT_USER_HEADERS.client,
+        'access-token': NEXT_CURRENT_USER_DATA.accessToken,
+        client: NEXT_CURRENT_USER_DATA.client,
       },
       JSON.stringify({
         success: true,
@@ -91,7 +86,7 @@ describe('authenticate', () => {
       200,
       {
         'Content-Type': 'application/json',
-        client: NEXT_CURRENT_USER_HEADERS.client,
+        client: NEXT_CURRENT_USER_DATA.client,
       },
       JSON.stringify({
         success: true,

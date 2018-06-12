@@ -17,11 +17,10 @@ class Authenticate {
    *                          accessToken: {String},
    *                        }
    *
-   * @returns {Object}   data object for newly issue token
+   * @returns {Object}   data object for newly issued token
    *                      {
    *                        success: {Boolean}
    *                        data: {Object},
-   *                        headers: {Object},
    *                      }
    */
   static validate(data) {
@@ -57,12 +56,12 @@ class Authenticate {
               if (data && typeof data === 'object' &&
                   accessToken &&
                   client) {
-                resolve(Object.assign(body, {
-                  headers: {
-                    'access-token': accessToken,
-                    client: client,
-                  },
-                }));
+                Object.assign(body.data, {
+                  accessToken: accessToken,
+                  client: client,
+                });
+
+                resolve(body);
               } else {
                 reject({
                   success: false,
