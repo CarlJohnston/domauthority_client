@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
-import AuthenticationResponse from 'mixins/AuthenticationResponse';
+import AuthenticateResponse from 'mixins/AuthenticateResponse';
 
 import STATUS from 'configs/Status';
 
@@ -14,7 +14,7 @@ class Register extends Component {
 
     this.registerFormNode = React.createRef();
 
-    this.authenticationResponse = new AuthenticationResponse();
+    this.authenticateResponse = new AuthenticateResponse();
   }
 
   componentDidMount() {
@@ -49,13 +49,13 @@ class Register extends Component {
         .then((response) => {
           return response.json();
         }).then((body) => {
-          this.authenticationResponse.setData(body);
-          var status = this.authenticationResponse.getStatus();
+          this.authenticateResponse.setData(body);
+          var status = this.authenticateResponse.getStatus();
           var messages = {};
           if (status === STATUS.success) {
             messages['Successfully registered. Please login using the login form.'] = STATUS.success;
           } else {
-            var errors = this.authenticationResponse.getErrors();
+            var errors = this.authenticateResponse.getErrors();
             errors.forEach((error) => {
               messages[error] = STATUS.error;
             });

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
 
-import AuthenticationResponse from 'mixins/AuthenticationResponse';
+import AuthenticateResponse from 'mixins/AuthenticateResponse';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
 import withCurrentUser from 'components/hocs/withCurrentUser';
@@ -20,7 +20,7 @@ class Login extends Component {
 
     this.loginFormNode = React.createRef();
 
-    this.authenticationResponse = new AuthenticationResponse();
+    this.authenticateResponse = new AuthenticateResponse();
   }
 
   componentDidMount() {
@@ -54,13 +54,13 @@ class Login extends Component {
 
         return response.json();
       }).then((body) => {
-        this.authenticationResponse.setData(body);
-        var status = this.authenticationResponse.getStatus();
+        this.authenticateResponse.setData(body);
+        var status = this.authenticateResponse.getStatus();
         var messages = {};
         if (status === STATUS.success) {
           messages['Successfully authenticated.'] = STATUS.success;
         } else {
-          var errors = this.authenticationResponse.getErrors();
+          var errors = this.authenticateResponse.getErrors();
           errors.forEach((error) => {
             messages[error] = STATUS.error;
           });
