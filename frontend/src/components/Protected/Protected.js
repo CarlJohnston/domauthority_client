@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-
-import AuthenticationProgress from 'components/AuthenticationProgress/AuthenticationProgress';
+import { Redirect } from 'react-router';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 function renderProtectedComponent(ProtectedComponent, props) {
-  if (props.isAuthenticated) {
+  if (props.currentUser.uid) {
     return (
       <ProtectedComponent {...props} />
     );
   } else {
     return (
-      <AuthenticationProgress />
+      <Redirect to='/login' />
     );
   }
 }
