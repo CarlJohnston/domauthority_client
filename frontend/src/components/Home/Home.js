@@ -22,14 +22,14 @@ class Home extends Component {
 		var width = 900 - margin.left - margin.right;
 		var height = 440 - margin.top - margin.bottom;
 
-	  var svg = d3.select("#d3-graph").append("svg")
-			          .attr("id", "chart")
-			          .attr("viewBox", "0 0 960 500")
-			          .attr("preserveAspectRatio", "xMidYMid")
-			          .attr("width", width + margin.left + margin.right)
-			          .attr("height", height + margin.top + margin.bottom)
-			          .append("g")
-			          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	  var svg = d3.select('#d3-graph').append('svg')
+			          .attr('id', 'chart')
+			          .attr('viewBox', '0 0 960 500')
+			          .attr('preserveAspectRatio', 'xMidYMid')
+			          .attr('width', width + margin.left + margin.right)
+			          .attr('height', height + margin.top + margin.bottom)
+			          .append('g')
+			          .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 	  function renderNewData(data) {
 		  var parsedData = JSON.parse(data);
@@ -41,7 +41,7 @@ class Home extends Component {
 
 	  function updateData(data) {
 
-		  var parseDate = d3.time.format("%Y-%m-%d").parse;
+		  var parseDate = d3.time.format('%Y-%m-%d').parse;
 
 		  var x = d3.time.scale()
 				        .range([0, width]);
@@ -53,16 +53,16 @@ class Home extends Component {
 
 		  var xAxis = d3.svg.axis()
 				            .scale(x)
-				            .orient("bottom")
+				            .orient('bottom')
 				            .outerTickSize(0);
 
 		  var yAxis = d3.svg.axis()
 				            .scale(y)
-				            .orient("left")
+				            .orient('left')
 				            .outerTickSize(0);
 
 		  var line = d3.svg.line()
-				           .interpolate("linear")
+				           .interpolate('linear')
 				           .x(function (d) {
 					           return x(d.date);
 				           })
@@ -88,30 +88,30 @@ class Home extends Component {
 			  return d.da;
 		  }));
 
-		  if (svg.selectAll(".y.axis")[0].length < 1) {
+		  if (svg.selectAll('.y.axis')[0].length < 1) {
 			  // Draw new y axis
-			  svg.append("g")
-				   .attr("class", "y axis")
+			  svg.append('g')
+				   .attr('class', 'y axis')
 				   .call(yAxis)
-				   .append("text")
-				   .attr("transform", "rotate(-90)")
-				   .attr("y", 6)
-				   .attr("dy", ".71em")
-				   .style("text-anchor", "end")
-				   .text("DA ");
+				   .append('text')
+				   .attr('transform', 'rotate(-90)')
+				   .attr('y', 6)
+				   .attr('dy', '.71em')
+				   .style('text-anchor', 'end')
+				   .text('DA ');
 		  } else {
-			  svg.selectAll(".y.axis").transition().duration(1500).call(yAxis);
+			  svg.selectAll('.y.axis').transition().duration(1500).call(yAxis);
 		  }
 
 		  // Draw new x axis if none exists, else transition to a new x axis
-		  if (svg.selectAll(".x.axis")[0].length < 1) {
-			  svg.append("g")
-				   .attr("class", "x axis")
+		  if (svg.selectAll('.x.axis')[0].length < 1) {
+			  svg.append('g')
+				   .attr('class', 'x axis')
 				   .call(xAxis)
-				   .attr("transform", "translate(0," + height + ")")
+				   .attr('transform', 'translate(0,' + height + ')')
 				   .call(xAxis);
 		  } else {
-			  svg.selectAll(".x.axis").transition().duration(1500).call(xAxis);
+			  svg.selectAll('.x.axis').transition().duration(1500).call(xAxis);
 		  }
 
 		  var myNewData = [];
@@ -121,72 +121,72 @@ class Home extends Component {
 			  listOfSiteNames.push(key);
 		  }
 
-		  if (d3.selectAll(".line")[0].length < 1) {
-			  var myNewSvg = svg.selectAll(".line").data(myNewData);
+		  if (d3.selectAll('.line')[0].length < 1) {
+			  var myNewSvg = svg.selectAll('.line').data(myNewData);
 			  myNewSvg.enter()
-				        .append("path")
-				        .attr("class", "line")
-				        .style("stroke", function (d, i) {
+				        .append('path')
+				        .attr('class', 'line')
+				        .style('stroke', function (d, i) {
 					        listOfSiteColors.push(color(i));
 					        return color(i);
 				        })
-				        .style("fill", "none")
-				        .attr("d", line)
-				        .attr("id", function(d, i) { return i; })
-				        .append("svg:title")
+				        .style('fill', 'none')
+				        .attr('d', line)
+				        .attr('id', function(d, i) { return i; })
+				        .append('svg:title')
 				        .text(function(d, i) { return listOfSiteNames[i]; });
 
-			  var legend = svg.append("g").attr("class", "legend").selectAll(".color").data(listOfSiteColors)
+			  var legend = svg.append('g').attr('class', 'legend').selectAll('.color').data(listOfSiteColors)
 					              .enter()
-					              .append("g");
+					              .append('g');
 
-			  legend.append("text")
-				      .attr("x", function(d, i) { return width + 50; })
-				      .attr("y", function(d, i) { return 22.21*(i+1); })
-				      .style("font-size", "12px")
+			  legend.append('text')
+				      .attr('x', function(d, i) { return width + 50; })
+				      .attr('y', function(d, i) { return 22.21*(i+1); })
+				      .style('font-size', '12px')
 				      .text(function(d, i) { return listOfSiteNames[i]; });
 
-			  legend.append("rect")
-				      .attr("x", function(d, i) { return width + 25; })
-				      .attr("y", function(d, i) { return 12+22*i; })
-				      .attr("width", 15)
-				      .attr("height", 15)
-				      .style("fill", function(d, i) { return d; });
+			  legend.append('rect')
+				      .attr('x', function(d, i) { return width + 25; })
+				      .attr('y', function(d, i) { return 12+22*i; })
+				      .attr('width', 15)
+				      .attr('height', 15)
+				      .style('fill', function(d, i) { return d; });
 
-			  var myCircleGroups = svg.selectAll("circle").data(myNewData)
+			  var myCircleGroups = svg.selectAll('circle').data(myNewData)
 					                      .enter()
-					                      .append("g")
-					                      .attr("class", "dot")
-					                      .attr("id", function(d, i) { return i })
-					                      .selectAll("circle")
+					                      .append('g')
+					                      .attr('class', 'dot')
+					                      .attr('id', function(d, i) { return i })
+					                      .selectAll('circle')
 					                      .data(function(d, i) { return myNewData[i]; })
 
 			  myCircleGroups.enter()
-				                        .append("circle")
-				                        .attr("cx", function(d) { return x(d.date); })
-				                        .attr("cy", function(d) { return y(d.da); })
-				                        .attr("fill", function(d, i) { return listOfSiteColors[$(this).closest('g').attr('id')]; })
-				                        .attr("r", 4)
-				                        .attr("id", function(d) { return d.da; });
+				                        .append('circle')
+				                        .attr('cx', function(d) { return x(d.date); })
+				                        .attr('cy', function(d) { return y(d.da); })
+				                        .attr('fill', function(d, i) { return listOfSiteColors[$(this).closest('g').attr('id')]; })
+				                        .attr('r', 4)
+				                        .attr('id', function(d) { return d.da; });
 		  } else {
-			  svg.selectAll(".line").data(myNewData)
+			  svg.selectAll('.line').data(myNewData)
 				   .transition()
 				   .duration(1500)
-				   .attr("d", line);
-			  var newSvg = svg.selectAll(".dot").data(myNewData);
-			  var newCircles = newSvg.selectAll("circle")
+				   .attr('d', line);
+			  var newSvg = svg.selectAll('.dot').data(myNewData);
+			  var newCircles = newSvg.selectAll('circle')
 					                     .data(function(d, i) { return myNewData[i]; });
 
 			  newCircles.enter()
-				          .append("circle")
-				          .attr("cx", function(d) { return x(d.date); })
-				          .attr("cy", function(d) { return y(d.da); })
-				          .attr("fill", function() { return listOfSiteColors[$(this).closest('g').attr('id')]; })
-				          .attr("r", 4)
-				          .attr("id", function(d) { return d.da; });
+				          .append('circle')
+				          .attr('cx', function(d) { return x(d.date); })
+				          .attr('cy', function(d) { return y(d.da); })
+				          .attr('fill', function() { return listOfSiteColors[$(this).closest('g').attr('id')]; })
+				          .attr('r', 4)
+				          .attr('id', function(d) { return d.da; });
 
-			  newCircles.transition().duration(1500).attr("cx", function(d) { return x(d.date); })
-				          .attr("cy", function(d) { return y(d.da); });
+			  newCircles.transition().duration(1500).attr('cx', function(d) { return x(d.date); })
+				          .attr('cy', function(d) { return y(d.da); });
 
 			  newCircles.exit().remove();
 		  }
@@ -195,7 +195,7 @@ class Home extends Component {
 			  gravity: 'w',
 			  html: true,
 			  title: function() {
-				  var d = $(this).attr("id");
+				  var d = $(this).attr('id');
 				  return d;
 			  }
 		  });
@@ -274,14 +274,14 @@ class Home extends Component {
 		  }, 2300);
 	  })();
 
-	  var chart = $("#chart"),
+	  var chart = $('#chart'),
 			  aspect = chart.width() / chart.height(),
 			  container = chart.parent();
-	  $(window).on("resize", function() {
+	  $(window).on('resize', function() {
 		  var targetWidth = container.width();
-		  chart.attr("width", targetWidth);
-		  chart.attr("height", Math.round(targetWidth / aspect));
-	  }).trigger("resize");
+		  chart.attr('width', targetWidth);
+		  chart.attr('height', Math.round(targetWidth / aspect));
+	  }).trigger('resize');
   }
 
   render() {
