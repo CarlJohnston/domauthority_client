@@ -19,9 +19,9 @@ class Layout extends Component {
       <div>
         <Header {...this.props} />
 
-        <div className="grid-container">
-          <Route exact path='/' component={Home} />
+        <Route exact path='/' component={Home} />
 
+        <div className='grid-container'>
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
 
