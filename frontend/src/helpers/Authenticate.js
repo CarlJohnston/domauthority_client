@@ -98,6 +98,7 @@ class Authenticate {
       }
     });
   }
+
   /*
    * Register user and return new user
    *
