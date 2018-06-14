@@ -25,9 +25,6 @@ class Header extends Component {
             </div>
             <div className="top-bar-right">
               <ul className="menu">
-                <li><input type="search" placeholder="Search" /></li>
-                <li><button type="button" className="button">Search</button></li>
-
                 {this.props.currentUser.uid &&
                  <li>
                    <ProfileLink />
