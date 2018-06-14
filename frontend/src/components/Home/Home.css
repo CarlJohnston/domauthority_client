@@ -19,3 +19,7 @@
 .alternate-container-fluid {
   background: #4DBCE9;
 }
+
+.features-grid i {
+  font-size: 3rem;
+}
