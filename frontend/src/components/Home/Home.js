@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import 'jquery.tipsy/src/jquery.tipsy.css';
+
 import d3 from 'd3';
 import $ from 'jquery';
 import tipsy from 'jquery.tipsy';
