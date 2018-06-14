@@ -8,7 +8,7 @@ import Data from './Data';
 
 import d3 from 'd3';
 import $ from 'jquery';
-import tipsy from 'jquery.tipsy';
+import 'jquery.tipsy';
 window.$ = window.jQuery = $;
 
 class Home extends Component {
@@ -30,12 +30,6 @@ class Home extends Component {
 			          .attr('height', height + margin.top + margin.bottom)
 			          .append('g')
 			          .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-	  function renderNewData(data) {
-		  var parsedData = JSON.parse(data);
-      debugger;
-		  updateData(parsedData);
-	  }
 
 	  var listOfSiteColors = [];
 
@@ -116,7 +110,7 @@ class Home extends Component {
 
 		  var myNewData = [];
 		  var listOfSiteNames = [];
-		  for (var key in data) {
+		  for (key in data) {
 			  myNewData.push(data[key]);
 			  listOfSiteNames.push(key);
 		  }
@@ -245,7 +239,7 @@ class Home extends Component {
 
 		  setTimeout(function() {
 			  for (var i = 0; i < 4; i++) {
-				  var currentSite = Data.data9['Site' + parseInt(i+1)];
+				  var currentSite = Data.data9['Site' + parseInt(i+1, 10)];
 
 				  var lastItemObject = currentSite[currentSite.length-1];
 
@@ -266,7 +260,7 @@ class Home extends Component {
 				  var currentDate = new Date(previousYear, previousMonth-1, previousDay);
 				  currentDate.addMonths(1);
 
-				  Data.data9['Site' + parseInt(i+1)].push({'da': newNumber, 'date': currentDate.toISOString().slice(0,10)});
+				  Data.data9['Site' + parseInt(i+1, 10)].push({'da': newNumber, 'date': currentDate.toISOString().slice(0,10)});
 			  };
 			  var copiedData = JSON.parse(JSON.stringify(Data.data9));
 			  updateData(copiedData);
