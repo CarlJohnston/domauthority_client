@@ -5,3 +5,7 @@
 .top-bar li a {
   padding: 1.6rem 1rem;
 }
+
+.logo {
+  text-transform: lowercase;
+}
