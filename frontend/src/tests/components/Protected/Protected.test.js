@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Settings, { SettingsUnprotected } from 'components/Settings/Settings';
+import Settings, { SettingsWithoutAuthenticated } from 'components/Settings/Settings';
 import Home from 'components/Home/Home';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
@@ -18,7 +18,7 @@ const VALID_CURRENT_USER_DATA = {
   client: 'blah',
 };
 
-describe('protected', () => {
+describe('withAuthenticated', () => {
   var component;
   var history;
   var createComponent = (options) => {
@@ -79,7 +79,7 @@ describe('protected', () => {
       protectedComponent: true,
     });
     expect(component.find(Redirect)).toHaveLength(1);
-    expect(component.find(SettingsUnprotected).exists()).toBe(false);
+    expect(component.find(SettingsWithoutAuthenticated).exists()).toBe(false);
 
     createComponent({
       authenticated: false,
@@ -94,7 +94,7 @@ describe('protected', () => {
       protectedComponent: true,
     });
     expect(component.find(Redirect)).toHaveLength(0);
-    expect(component.find(SettingsUnprotected).exists()).toBe(true);
+    expect(component.find(SettingsWithoutAuthenticated).exists()).toBe(true);
 
     createComponent({
       authenticated: true,

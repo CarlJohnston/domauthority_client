@@ -3,10 +3,10 @@ import { Redirect } from 'react-router';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-function renderProtectedComponent(ProtectedComponent, props) {
+function renderAuthenticatedComponent(AuthenticatedComponent, props) {
   if (props.currentUser.uid) {
     return (
-      <ProtectedComponent {...props} />
+      <AuthenticatedComponent {...props} />
     );
   } else {
     return (
@@ -15,12 +15,12 @@ function renderProtectedComponent(ProtectedComponent, props) {
   }
 }
 
-function Protected(ProtectedComponent) {
+function withAuthenticated(AuthenticatedComponent) {
   return withCurrentUser(class extends Component {
     render() {
-      return renderProtectedComponent(ProtectedComponent, this.props);
+      return renderAuthenticatedComponent(AuthenticatedComponent, this.props);
     }
   });
 }
 
-export default Protected;
+export default withAuthenticated;

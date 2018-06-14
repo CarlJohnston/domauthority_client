@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Protected from 'components/Protected/Protected';
+import withAuthenticated from 'components/hocs/withAuthenticated';
 
 class Settings extends Component {
   render() {
@@ -12,6 +12,6 @@ class Settings extends Component {
   }
 }
 
-export default Protected(Settings);
+export default withAuthenticated(Settings);
 
-export { Settings as SettingsUnprotected };
+export { Settings as SettingsWithoutAuthenticated };
