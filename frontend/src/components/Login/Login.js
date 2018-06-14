@@ -8,7 +8,9 @@ import Authenticate from 'helpers/Authenticate';
 import LoginResponse from 'mixins/LoginResponse';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
+
 import withCurrentUser from 'components/hocs/withCurrentUser';
+import withUnauthenticated from 'components/hocs/withUnauthenticated';
 
 import $ from 'jquery';
 window.jQuery = window.$ = $;
@@ -100,4 +102,6 @@ class Login extends Component {
   }
 }
 
-export default withCurrentUser(Login);
+export default withUnauthenticated(withCurrentUser(Login));
+
+export { Login as LoginWithoutUnauthenticated };
