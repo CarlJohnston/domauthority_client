@@ -16,7 +16,7 @@ class Header extends Component {
         <div className="top-bar">
           <div className="top-bar-left">
             <ul className="dropdown menu" data-dropdown-menu>
-              <li><Link to='/'>Simplicify</Link></li>
+              <li><Link to='/'>Domauthority</Link></li>
               <li><Link to='/topics'>Topics</Link></li>
             </ul>
           </div>

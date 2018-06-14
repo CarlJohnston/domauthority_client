@@ -1,4 +1,4 @@
-# simplicify
+# domauthority
 
 A summarizing tool for a variety of topics.
 
