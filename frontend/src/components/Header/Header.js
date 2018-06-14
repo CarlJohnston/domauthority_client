@@ -14,17 +14,17 @@ import withCurrentUser from 'components/hocs/withCurrentUser';
 class Header extends Component {
   render() {
     return (
-      <div class="top-bar-container">
-        <div className="grid-container">
-          <div className="top-bar">
-            <div className="top-bar-left">
-              <ul className="dropdown menu" data-dropdown-menu>
+      <div className='top-bar-container'>
+        <div className='grid-container'>
+          <div className='top-bar'>
+            <div className='top-bar-left'>
+              <ul className='dropdown menu' data-dropdown-menu>
                 <li><Link to='/'>Domauthority</Link></li>
                 <li><Link to='/topics'>Topics</Link></li>
               </ul>
             </div>
-            <div className="top-bar-right">
-              <ul className="menu">
+            <div className='top-bar-right'>
+              <ul className='menu'>
                 {this.props.currentUser.uid &&
                  <li>
                    <ProfileLink />
