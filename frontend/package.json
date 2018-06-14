@@ -9,6 +9,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-context-patch": "^0.0.7",
+    "foundation-icons": "^1.0.1",
     "foundation-sites": "zurb/foundation-sites#develop",
     "jquery": "^3.3.1",
     "jquery.tipsy": "^1.0.3",

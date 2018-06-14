@@ -8,6 +8,8 @@ import 'pnotify/dist/PNotifyBrightTheme.css'
 
 import './App.css';
 
+import 'foundation-icons/foundation-icons.css';
+
 import Layout from 'components/Layout/Layout';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';

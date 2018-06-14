@@ -2904,6 +2904,10 @@ forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
 
+foundation-icons@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/foundation-icons/-/foundation-icons-1.0.1.tgz#006a8e7808ce964e0326f0f4c49d653d4840c4df"
+
 foundation-sites@zurb/foundation-sites#develop:
   version "6.4.3"
   resolved "https://codeload.github.com/zurb/foundation-sites/tar.gz/c715b552ea7641689919778c59b23c085e0741e5"
