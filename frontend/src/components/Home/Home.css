@@ -1,6 +1,6 @@
 .section-container {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .section-container-alternate {
@@ -13,7 +13,7 @@
 }
 
 .graph-container {
-  padding: 4rem 0 0;
+  padding: 5rem 0 2.5rem;
 }
 
 .alternate-container-fluid {
