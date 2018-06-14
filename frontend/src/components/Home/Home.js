@@ -1171,18 +1171,18 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <section class='grid-container-fluid alternate-container-fluid callout-container'>
-          <div class='grid-container'>
-            <div class='grid-x'>
-              <div class='cell medium-offset-2 medium-4 text-center'>
+        <section className='grid-container-fluid alternate-container-fluid callout-container'>
+          <div className='grid-container'>
+            <div className='grid-x'>
+              <div className='cell medium-offset-2 medium-4 text-center'>
 				        <h2>Domain Tracking & Visualization</h2>
-                <p class='lead'>Made for SEO Professionals</p>
+                <p className='lead'>Made for SEO Professionals</p>
               </div>
-              <div class='cell medium-4 text-center'>
-				        <svg width='400' height='200' viewbox='0 0 340 200' id='top-graph'>
+              <div className='cell medium-4 text-center'>
+				        <svg width='400' height='200' viewBox='0 0 340 200' id='top-graph'>
 					        <line x1='20' y1='155' x2='320' y2='155' style={{ stroke: 'black' }} />
 					        <line x1='20' y1='0' x2='20' y2='155' style={{ stroke: 'black' }} />
-					        <circle cx='50' cy='50' r='3' stroke='black' stroke-width='3' fill='black'>
+					        <circle cx='50' cy='50' r='3' stroke='black' strokeWidth='3' fill='black'>
 						        <animate attributeName='cy' begin='0s' dur='4s' values='50;70;70;35;35;50;50' keySplines='0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
@@ -1204,7 +1204,7 @@ class Home extends Component {
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1' calcMode='spline' repeatCount='indefinite'/>
 					        </line>
-					        <circle cx='100' cy='100' r='3' stroke='black' stroke-width='3' fill='black'>
+					        <circle cx='100' cy='100' r='3' stroke='black' strokeWidth='3' fill='black'>
 						        <animate attributeName='cy' begin='0s' dur='4s' values='100;85;85;110;110;100;100' keySplines='0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
@@ -1226,7 +1226,7 @@ class Home extends Component {
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1' calcMode='spline' repeatCount='indefinite'/>
 					        </line>
-					        <circle cx='150' cy='80' r='3' stroke='black' stroke-width='3' fill='black'>
+					        <circle cx='150' cy='80' r='3' stroke='black' strokeWidth='3' fill='black'>
 						        <animate attributeName='cy' begin='0s' dur='4s' values='80;45;45;110;110;80;80' keySplines='0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
@@ -1248,7 +1248,7 @@ class Home extends Component {
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1' calcMode='spline' repeatCount='indefinite'/>
 					        </line>
-					        <circle cx='200' cy='70' r='3' stroke='black' stroke-width='3' fill='black'>
+					        <circle cx='200' cy='70' r='3' stroke='black' strokeWidth='3' fill='black'>
 						        <animate attributeName='cy' begin='0s' dur='4s' values='70;45;45;90;90;70;70' keySplines='0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
@@ -1270,7 +1270,7 @@ class Home extends Component {
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1' calcMode='spline' repeatCount='indefinite'/>
 					        </line>
-					        <circle cx='250' cy='50' r='3' stroke='black' stroke-width='3' fill='black'>
+					        <circle cx='250' cy='50' r='3' stroke='black' strokeWidth='3' fill='black'>
 						        <animate attributeName='cy' begin='0s' dur='4s' values='50;20;20;30;30;50;50' keySplines='0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
@@ -1292,7 +1292,7 @@ class Home extends Component {
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1' calcMode='spline' repeatCount='indefinite'/>
 					        </line>
-					        <circle cx='300' cy='25' r='3' stroke='black' stroke-width='3' fill='black'>
+					        <circle cx='300' cy='25' r='3' stroke='black' strokeWidth='3' fill='black'>
 						        <animate attributeName='cy' begin='0s' dur='4s' values='25;40;40;60;60;25;25' keySplines='0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
 								    0.1 0.8 0.2 1;
@@ -1305,64 +1305,64 @@ class Home extends Component {
             </div>
           </div>
         </section>
-        <section class='grid-container text-center section-container'>
-	        <div class='grid-x features-grid'>
-            <div class='cell'>
+        <section className='grid-container text-center section-container'>
+	        <div className='grid-x features-grid'>
+            <div className='cell'>
               <h2>Benefits</h2>
             </div>
-            <div class='cell'>
+            <div className='cell'>
               <p>Setup is painless and offers immediate benefits to both you and your clients.</p>
             </div>
-            <div class='cell small-6 medium-4'>
-              <i class='fi-wrench'></i>
+            <div className='cell small-6 medium-4'>
+              <i className='fi-wrench'></i>
 			        <h4>Useful</h4>
 			        <p>Track relative to your competitors.</p>
             </div>
-            <div class='cell small-6 medium-4'>
-              <i class='fi-graph-trend'></i>
+            <div className='cell small-6 medium-4'>
+              <i className='fi-graph-trend'></i>
 			        <h4>Visual</h4>
 			        <p>Visualize your metrics at a glance.</p>
             </div>
-            <div class='cell small-6 medium-4'>
-              <i class='fi-calendar'></i>
+            <div className='cell small-6 medium-4'>
+              <i className='fi-calendar'></i>
 			        <h4>Automatic</h4>
 			        <p>No maintenance on your part.</p>
             </div>
-            <div class='cell small-6 medium-4'>
-              <i class='fi-mail'></i>
+            <div className='cell small-6 medium-4'>
+              <i className='fi-mail'></i>
 			        <h4>Updates</h4>
 			        <p>Summaries straight to your inbox.</p>
             </div>
-            <div class='cell small-6 medium-4'>
-              <i class='fi-star'></i>
+            <div className='cell small-6 medium-4'>
+              <i className='fi-star'></i>
 			        <h4>Simple</h4>
 			        <p>Only a URL and name required.</p>
             </div>
-            <div class='cell small-6 medium-4'>
-              <i class='fi-dollar'></i>
+            <div className='cell small-6 medium-4'>
+              <i className='fi-dollar'></i>
 			        <h4>Free</h4>
 			        <p>Tracking without any fees.</p>
             </div>
           </div>
         </section>
-        <section class='grid-container-fluid alternate-container-fluid section-container-alternate'>
-	        <div class='grid-container text-center'>
-            <div class='grid-x'>
-              <div class='cell'>
+        <section className='grid-container-fluid alternate-container-fluid section-container-alternate'>
+	        <div className='grid-container text-center'>
+            <div className='grid-x'>
+              <div className='cell'>
 		            <h2>Ready to Sign Up?</h2>
               </div>
-              <div class='cell'>
-                <Link to='/register' class='button large'>Register</Link>
+              <div className='cell'>
+                <Link to='/register' className='button large'>Register</Link>
               </div>
             </div>
 	        </div>
         </section>
-        <section class='grid-container graph-container'>
-          <div class='grid-x text-center'>
-            <div class='cell'>
+        <section className='grid-container graph-container'>
+          <div className='grid-x text-center'>
+            <div className='cell'>
               <h2>Visualization</h2>
             </div>
-            <div class='cell large-11 large-offset-1'>
+            <div className='cell large-11 large-offset-1'>
               <div id='d3-graph'>
               </div>
             </div>
