@@ -1,3 +1,7 @@
 .top-bar-container {
   background-color: #E6E6E6;
 }
+
+.top-bar li a {
+  padding: 1.6rem 1rem;
+}
