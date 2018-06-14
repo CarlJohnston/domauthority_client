@@ -2,13 +2,22 @@ import LoginResponse from 'mixins/LoginResponse';
 import STATUS from 'configs/Status';
 
 const VALID_CURRENT_USER_DATA = {
-  uid: 1,
-  name: 'name',
-  username: 'username',
+  id: 1,
+  email: 'email@email.com',
+  provider: 'email',
+  uid: 'user@user.com',
+  allow_password_change: false,
+  username: 'eight',
+  name: null,
+  nickname: null,
+  image: null
 };
 const VALID_CURRENT_USER_HEADERS = {
   accessToken: 'access',
+  tokenType: 'bearer',
   client: 'client',
+  expiry: '1',
+  uid: 'email@email.com',
 };
 
 describe('register response', () => {
@@ -54,13 +63,23 @@ describe('register response', () => {
       },
       headers: new Headers({
         'access-token': VALID_CURRENT_USER_HEADERS.accessToken,
+        'token-type': VALID_CURRENT_USER_HEADERS.tokenType,
         client: VALID_CURRENT_USER_HEADERS.client,
+        expiry: VALID_CURRENT_USER_HEADERS.expiry,
+        uid: VALID_CURRENT_USER_HEADERS.uid,
       }),
     };
     response.set(data);
     var token = response.getToken();
-    expect(token).toEqual(Object.assign(VALID_CURRENT_USER_DATA,
-                                        VALID_CURRENT_USER_HEADERS));
+    expect(token).toEqual({
+      name: VALID_CURRENT_USER_DATA.name,
+      username: VALID_CURRENT_USER_DATA.username,
+      accessToken: VALID_CURRENT_USER_HEADERS.accessToken,
+      tokenType: VALID_CURRENT_USER_HEADERS.tokenType,
+      client: VALID_CURRENT_USER_HEADERS.client,
+      expiry: VALID_CURRENT_USER_HEADERS.expiry,
+    });
+
     // missing headers
     data = {
       body: {
