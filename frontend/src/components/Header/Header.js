@@ -20,7 +20,8 @@ class Header extends Component {
             <div className='top-bar-left'>
               <ul className='dropdown menu' data-dropdown-menu>
                 <li className='logo'><Link to='/'>Domauthority</Link></li>
-                <li><Link to='/topics'>Topics</Link></li>
+                <li><Link to='/sites'>Sites</Link></li>
+                <li><Link to='/analyze'>Analyze</Link></li>
               </ul>
             </div>
             <div className='top-bar-right'>
