@@ -19,7 +19,15 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
 
     response_body = JSON.parse(response.body)
-    assert_equal(@site.as_json.merge({ name: new_name, url: new_url, created_at: response_body['created_at'], updated_at: response_body['updated_at'] }).to_json, response.body);
+    expected_json = @site.as_json.merge(
+      {
+        name: new_name,
+        url: new_url,
+        created_at: response_body['created_at'],
+        updated_at: response_body['updated_at']
+      }
+    ).to_json
+    assert_equal(expected_json, response.body);
   end
 
   test "should destroy site" do
