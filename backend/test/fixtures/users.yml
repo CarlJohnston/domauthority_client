@@ -1,3 +1,9 @@
 one:
+  uid: one@one.com
+  username: one
+  email: one@one.com
 
 two:
+  uid: two@two.com
+  username: two
+  email: two@two.com
