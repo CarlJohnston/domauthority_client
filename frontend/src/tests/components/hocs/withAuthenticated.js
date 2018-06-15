@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Login, { LoginWithoutUnauthenticated } from 'components/Login/Login';
+import Settings, { SettingsWithoutAuthenticated } from 'components/Settings/Settings';
 import Home from 'components/Home/Home';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
@@ -15,7 +15,7 @@ const VALID_CURRENT_USER_DATA = {
   username: 'username',
 };
 
-describe('withUnauthenticated', () => {
+describe('withAuthenticated', () => {
   var component;
   var history;
   var createComponent = (options) => {
@@ -48,7 +48,7 @@ describe('withUnauthenticated', () => {
       component = mount(
         <Router>
           <CurrentUserContext.Provider value={currentUser}>
-            <Login {...options.props} />
+            <Settings {...options.props} />
           </CurrentUserContext.Provider>
         </Router>
       );
@@ -75,8 +75,8 @@ describe('withUnauthenticated', () => {
       authenticated: false,
       protectedComponent: true,
     });
-    expect(component.find(Redirect)).toHaveLength(0);
-    expect(component.find(LoginWithoutUnauthenticated).exists()).toBe(true);
+    expect(component.find(Redirect)).toHaveLength(1);
+    expect(component.find(SettingsWithoutAuthenticated).exists()).toBe(false);
 
     createComponent({
       authenticated: false,
@@ -90,8 +90,8 @@ describe('withUnauthenticated', () => {
       authenticated: true,
       protectedComponent: true,
     });
-    expect(component.find(Redirect)).toHaveLength(1);
-    expect(component.find(LoginWithoutUnauthenticated).exists()).toBe(false);
+    expect(component.find(Redirect)).toHaveLength(0);
+    expect(component.find(SettingsWithoutAuthenticated).exists()).toBe(true);
 
     createComponent({
       authenticated: true,

@@ -26,28 +26,28 @@ class Header extends Component {
             </div>
             <div className='top-bar-right'>
               <ul className='menu'>
-                {this.props.currentUser.uid &&
+                {this.props.currentUser.username &&
                  <li>
                    <ProfileLink />
                  </li>
                 }
-                {this.props.currentUser.uid &&
+                {this.props.currentUser.username &&
                  <li>
                    <SettingsLink />
                  </li>
                 }
-                {this.props.currentUser.uid &&
+                {this.props.currentUser.username &&
                  <li>
                    <LogoutLink {...this.props} />
                  </li>
                 }
 
-                {!this.props.currentUser.uid &&
+                {!this.props.currentUser.username &&
                  <li>
                    <LoginLink />
                  </li>
                 }
-                {!this.props.currentUser.uid &&
+                {!this.props.currentUser.username &&
                  <li>
                    <RegisterLink />
                  </li>

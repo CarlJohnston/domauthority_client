@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 function renderWithUnauthenticatedComponent(UnauthenticatedComponent, props) {
-  if (props.currentUser.uid) {
+  if (props.currentUser.username) {
     return (
         <Redirect to='/' />
     );
