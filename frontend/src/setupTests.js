@@ -3,6 +3,9 @@ import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
 
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
 class LocalStorageMock {
   constructor() {
     this.store = {};

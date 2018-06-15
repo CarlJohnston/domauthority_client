@@ -117,7 +117,8 @@ class Home extends Component {
         listOfSiteNames.push(key);
       }
 
-      if (d3.selectAll('.line')[0].length < 1) {
+      var lines = d3.selectAll('.line');
+      if (lines[0] && lines[0].length < 1) {
         var myNewSvg = svg.selectAll('.line').data(myNewData);
         myNewSvg.enter()
                 .append('path')

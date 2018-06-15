@@ -4,7 +4,6 @@ import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Login, { LoginWithoutUnauthenticated } from 'components/Login/Login';
-import Home from 'components/Home/Home';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
 
@@ -56,7 +55,7 @@ describe('withUnauthenticated', () => {
       component = mount(
         <Router>
           <CurrentUserContext.Provider value={currentUser}>
-            <Home {...options.props} />
+            <LoginWithoutUnauthenticated {...options.props} />
           </CurrentUserContext.Provider>
         </Router>
       );
@@ -83,7 +82,7 @@ describe('withUnauthenticated', () => {
       protectedComponent: false,
     });
     expect(component.find(Redirect)).toHaveLength(0);
-    expect(component.find(Home).exists()).toBe(true);
+    expect(component.find(LoginWithoutUnauthenticated).exists()).toBe(true);
 
     // authenticated
     createComponent({
@@ -98,6 +97,6 @@ describe('withUnauthenticated', () => {
       protectedComponent: false,
     });
     expect(component.find(Redirect)).toHaveLength(0);
-    expect(component.find(Home).exists()).toBe(true);
+    expect(component.find(LoginWithoutUnauthenticated).exists()).toBe(true);
   });
 });
