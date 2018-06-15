@@ -8,11 +8,18 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   test "should show site" do
     get site_url(@site), as: :json
     assert_response :success
+
+    assert_equal(@site.to_json, response.body)
   end
 
   test "should update site" do
-    patch site_url(@site), params: { site: { name: @site.name, url: @site.url } }, as: :json
+    new_name = 'new_name'
+    new_url = 'new_url'
+    patch site_url(@site), params: { site: { name: new_name, url: new_url } }, as: :json
     assert_response 200
+
+    response_body = JSON.parse(response.body)
+    assert_equal(@site.as_json.merge({ name: new_name, url: new_url, created_at: response_body['created_at'], updated_at: response_body['updated_at'] }).to_json, response.body);
   end
 
   test "should destroy site" do
