@@ -69,7 +69,9 @@ class Home extends Component {
 		  }
 
 		  fullDataSet.forEach(function (d) {
-			  d.date = parseDate(d.date);
+        if (!(d.date instanceof Date)) {
+			    d.date = parseDate(d.date);
+        }
 			  d.da = +d.da;
 		  });
 
@@ -92,7 +94,10 @@ class Home extends Component {
 				   .style('text-anchor', 'end')
 				   .text('DA ');
 		  } else {
-			  svg.selectAll('.y.axis').transition().duration(1500).call(yAxis);
+			  svg.selectAll('.y.axis')
+           .transition()
+           .duration(1500)
+           .call(yAxis);
 		  }
 
 		  if (svg.selectAll('.x.axis')[0].length < 1) {
@@ -127,7 +132,10 @@ class Home extends Component {
 				        .append('svg:title')
 				        .text(function(d, i) { return listOfSiteNames[i]; });
 
-			  var legend = svg.append('g').attr('class', 'legend').selectAll('.color').data(listOfSiteColors)
+			  var legend = svg.append('g')
+                        .attr('class', 'legend')
+                        .selectAll('.color')
+                        .data(listOfSiteColors)
 					              .enter()
 					              .append('g');
 
@@ -164,7 +172,8 @@ class Home extends Component {
 				   .transition()
 				   .duration(1500)
 				   .attr('d', line);
-			  var newSvg = svg.selectAll('.dot').data(myNewData);
+			  var newSvg = svg.selectAll('.dot')
+                        .data(myNewData);
 			  var newCircles = newSvg.selectAll('circle')
 					                     .data(function(d, i) { return myNewData[i]; });
 
@@ -176,10 +185,13 @@ class Home extends Component {
 				          .attr('r', 4)
 				          .attr('id', function(d) { return d.da; });
 
-			  newCircles.transition().duration(1500).attr('cx', function(d) { return x(d.date); })
+			  newCircles.transition()
+                  .duration(1500)
+                  .attr('cx', function(d) { return x(d.date); })
 				          .attr('cy', function(d) { return y(d.da); });
 
-			  newCircles.exit().remove();
+			  newCircles.exit()
+                  .remove();
 		  }
 
 		  $('circle').tipsy({
@@ -192,19 +204,34 @@ class Home extends Component {
 		  });
 	  };
 
-	  updateData(Data.data1);
+    var initialData = Data.data1;
 
+	  updateData(initialData);
 
 	  function getRandomInt(min, max) {
 		  return Math.floor(Math.random() * (max - min + 1) + min);
 	  }
 
 	  Date.isLeapYear = function (year) {
-		  return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
+		  return (((year % 4 === 0) && (year % 100 !== 0)) ||
+              (year % 400 === 0));
 	  };
 
 	  Date.getDaysInMonth = function (year, month) {
-		  return [31, (Date.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+		  return [
+        31,
+        (Date.isLeapYear(year) ? 29 : 28),
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31
+      ][month];
 	  };
 
 	  Date.prototype.isLeapYear = function () {
@@ -227,52 +254,64 @@ class Home extends Component {
 		  return (Math.min(max, Math.max(min, v)));
 	  }
 
+    var currentData = JSON.parse(JSON.stringify(Data.data9));
+
 	  var max = 50;
 	  var counter = 0;
+    var interval = 2300;
 
-	  (function next() {
+	  this.timer = setInterval(function () {
+		  if (counter++ >= max) {
+        return;
+      }
 
-		  if (counter++ >= max) return;
+			for (var i = 0; i < 4; i++) {
+				var currentSite = currentData['Site' + parseInt(i+1, 10)];
 
-		  setTimeout(function() {
-			  for (var i = 0; i < 4; i++) {
-				  var currentSite = Data.data9['Site' + parseInt(i+1, 10)];
+				var lastItemObject = currentSite[currentSite.length-1];
 
-				  var lastItemObject = currentSite[currentSite.length-1];
+				var newNumber;
+				if (lastItemObject.da === 100) {
+					newNumber = getRandomInt(85,90);
+				} else if (lastItemObject.da === 0) {
+					newNumber = getRandomInt(10,15);
+				} else {
+					newNumber = valBetween(lastItemObject.da + getRandomInt(-10,10), 0, 100);
+				}
 
-				  var newNumber;
-				  if (lastItemObject.da === 100) {
-					  newNumber = getRandomInt(85,90);
-				  } else if (lastItemObject.da === 0) {
-					  newNumber = getRandomInt(10,15);
-				  } else {
-					  newNumber = valBetween(lastItemObject.da + getRandomInt(-10,10), 0, 100);
-				  }
+				var previousDate = lastItemObject.date;
+				var previousYear = previousDate.toString().slice(0,4, 10);
+				var previousMonth = parseInt(previousDate.toString().slice(5,7), 10);
+				var previousDay = parseInt(previousDate.toString().slice(8,10), 10);
 
-				  var previousDate = lastItemObject.date;
+				var currentDate = new Date(previousYear, previousMonth-1, previousDay);
+				currentDate.addMonths(1);
 
-				  var previousYear = previousDate.toString().slice(0,4, 10);
-				  var previousMonth = parseInt(previousDate.toString().slice(5,7), 10);
-				  var previousDay = parseInt(previousDate.toString().slice(8,10), 10);
-				  var currentDate = new Date(previousYear, previousMonth-1, previousDay);
-				  currentDate.addMonths(1);
+				currentData['Site' + parseInt(i+1, 10)].push({
+          'da': newNumber,
+          'date': currentDate.toISOString().slice(0,10),
+        });
+			};
 
-				  Data.data9['Site' + parseInt(i+1, 10)].push({'da': newNumber, 'date': currentDate.toISOString().slice(0,10)});
-			  };
-			  var copiedData = JSON.parse(JSON.stringify(Data.data9));
-			  updateData(copiedData);
-			  next();
-		  }, 2300);
-	  })();
+			var copiedData = JSON.parse(JSON.stringify(currentData));
 
-	  var chart = $('#chart'),
-			  aspect = chart.width() / chart.height(),
-			  container = chart.parent();
+			updateData(copiedData);
+		}, interval);
+
+	  var chart = $('#chart');
+	  var aspect = chart.width() / chart.height();
+	  var container = chart.parent();
+
 	  $(window).on('resize', function() {
 		  var targetWidth = container.width();
 		  chart.attr('width', targetWidth);
 		  chart.attr('height', Math.round(targetWidth / aspect));
 	  }).trigger('resize');
+  }
+
+  componentWillUnmount() {
+    console.log(this.timer)
+    clearInterval(this.timer);
   }
 
   render() {
