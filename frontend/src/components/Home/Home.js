@@ -34,7 +34,6 @@ class Home extends Component {
 	  var listOfSiteColors = [];
 
 	  function updateData(data) {
-
 		  var parseDate = d3.time.format('%Y-%m-%d').parse;
 
 		  var x = d3.time.scale()
@@ -83,7 +82,6 @@ class Home extends Component {
 		  }));
 
 		  if (svg.selectAll('.y.axis')[0].length < 1) {
-			  // Draw new y axis
 			  svg.append('g')
 				   .attr('class', 'y axis')
 				   .call(yAxis)
@@ -97,7 +95,6 @@ class Home extends Component {
 			  svg.selectAll('.y.axis').transition().duration(1500).call(yAxis);
 		  }
 
-		  // Draw new x axis if none exists, else transition to a new x axis
 		  if (svg.selectAll('.x.axis')[0].length < 1) {
 			  svg.append('g')
 				   .attr('class', 'x axis')
@@ -153,15 +150,15 @@ class Home extends Component {
 					                      .attr('class', 'dot')
 					                      .attr('id', function(d, i) { return i })
 					                      .selectAll('circle')
-					                      .data(function(d, i) { return myNewData[i]; })
+					                      .data(function(d, i) { return myNewData[i]; });
 
 			  myCircleGroups.enter()
-				                        .append('circle')
-				                        .attr('cx', function(d) { return x(d.date); })
-				                        .attr('cy', function(d) { return y(d.da); })
-				                        .attr('fill', function(d, i) { return listOfSiteColors[$(this).closest('g').attr('id')]; })
-				                        .attr('r', 4)
-				                        .attr('id', function(d) { return d.da; });
+				              .append('circle')
+				              .attr('cx', function(d) { return x(d.date); })
+				              .attr('cy', function(d) { return y(d.da); })
+				              .attr('fill', function(d, i) { return listOfSiteColors[$(this).closest('g').attr('id')]; })
+				              .attr('r', 4)
+				              .attr('id', function(d) { return d.da; });
 		  } else {
 			  svg.selectAll('.line').data(myNewData)
 				   .transition()
