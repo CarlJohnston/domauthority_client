@@ -5,19 +5,6 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
     @site = sites(:one)
   end
 
-  test "should get index" do
-    get sites_url, as: :json
-    assert_response :success
-  end
-
-  test "should create site" do
-    assert_difference('Site.count') do
-      post sites_url, params: { site: { name: @site.name, url: @site.url } }, as: :json
-    end
-
-    assert_response 201
-  end
-
   test "should show site" do
     get site_url(@site), as: :json
     assert_response :success
