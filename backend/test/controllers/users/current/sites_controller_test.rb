@@ -8,6 +8,8 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get users_current_sites_url, as: :json
     assert_response :success
+
+    assert_equal(Site.all.to_json, response.body)
   end
 
   test "should create site" do
