@@ -160,4 +160,56 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     assert_equal(previous_site, previous_site.reload)
     assert_equal(previous_user_site, previous_user_site.reload)
   end
+
+  test "unauthorized for unauthenticated requests to delete" do
+    assert_no_difference('Site.count') do
+      assert_no_difference('UserSite.count') do
+        delete users_current_site_url(@site), as: :json
+      end
+    end
+    assert_response :unauthorized
+  end
+
+  test "destroy site successfully when authenticated with extra params" do
+    assert_no_difference('Site.count') do
+      assert_difference('UserSite.count', -1) do
+        authentication_delete @user, users_current_site_url(@site), params: { blah: 'blah' }, as: :json
+      end
+    end
+    assert_response :no_content
+  end
+
+  test "should destroy site when authenticated when site exists and authenticated user has relationship to site" do
+    assert_no_difference('Site.count') do
+      assert_difference('UserSite.count', -1) do
+        authentication_delete @user, users_current_site_url(@site), as: :json
+      end
+    end
+    assert_response :no_content
+  end
+
+  test "should 404 when deleting site that exists but that user has no relationship to" do
+    user = @user_no_sites
+    assert_nil(UserSite.find_by(site_id: @site.id, user_id: user.id))
+
+    assert_no_difference('Site.count') do
+      assert_no_difference('UserSite.count') do
+        authentication_delete user, users_current_site_url(@site), as: :json
+      end
+    end
+    assert_response :not_found
+  end
+
+  test "should 404 when deleting site as authenticated user that does not exist" do
+    site_id = 999999999
+    assert_nil(Site.find_by(id: site_id))
+
+    assert_no_difference('Site.count') do
+      assert_no_difference('UserSite.count') do
+        assert_raises(ActiveRecord::RecordNotFound) do
+          authentication_delete @user, users_current_site_url(site_id), as: :json
+        end
+      end
+    end
+  end
 end

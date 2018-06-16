@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     namespace :current do
-      resources :sites, only: [:index, :create]
+      resources :sites, only: [:index, :create, :destroy]
     end
   end
 end

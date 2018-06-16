@@ -3,6 +3,8 @@ require 'uri'
 class Users::Current::SitesController < ApplicationController
   before_action :authenticate_user!
 
+  before_action :set_site, only: [:destroy]
+
   # GET users/current/sites
   def index
     @sites = current_user.sites
@@ -65,7 +67,21 @@ class Users::Current::SitesController < ApplicationController
     end
   end
 
+  def destroy
+    @user_site = UserSite.find_by(user_id: current_user.id, site_id: @site.id)
+
+    if @user_site.present?
+      @user_site.destroy
+    else
+      render json: {}, status: :not_found
+    end
+  end
+
   private
+    def set_site
+      @site = Site.find(params[:id])
+    end
+
     def site_params
       params.require(:site).permit(:url, :title)
     end
