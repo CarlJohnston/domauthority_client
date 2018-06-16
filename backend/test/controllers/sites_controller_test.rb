@@ -7,7 +7,6 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
     @user.confirm
-    sign_in(@user.email, 'password')
 
     @site = sites(:one)
   end
