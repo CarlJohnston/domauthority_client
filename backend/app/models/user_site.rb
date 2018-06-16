@@ -1,0 +1,2 @@
+class UserSite < ApplicationRecord
+end
