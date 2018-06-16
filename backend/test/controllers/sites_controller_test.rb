@@ -23,19 +23,17 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update site" do
-    new_name = 'new_name'
     new_url = 'new_url'
 
-    patch site_url(@site), params: { site: { name: new_name, url: new_url } }, as: :json
+    patch site_url(@site), params: { site: { url: new_url } }, as: :json
     assert_response :unauthorized
 
-    authentication_patch @user, site_url(@site), params: { site: { name: new_name, url: new_url } }, as: :json
+    authentication_patch @user, site_url(@site), params: { site: { url: new_url } }, as: :json
     assert_response 200
 
     response_body = JSON.parse(response.body)
     expected_json = @site.as_json.merge(
       {
-        name: new_name,
         url: new_url,
         created_at: response_body['created_at'],
         updated_at: response_body['updated_at']
