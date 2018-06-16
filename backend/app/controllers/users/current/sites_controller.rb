@@ -5,7 +5,7 @@ class Users::Current::SitesController < ApplicationController
 
   # GET users/current/sites
   def index
-    @sites = Site.where(id: UserSite.where(user_id: current_user.id).pluck(:site_id))
+    @sites = current_user.sites
 
     render json: @sites
   end
