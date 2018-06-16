@@ -3,3 +3,6 @@ one:
 
 two:
   url: http://www.two.com
+
+three:
+  url: http://www.three.com

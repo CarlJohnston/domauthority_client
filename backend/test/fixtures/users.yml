@@ -9,3 +9,10 @@ two:
   username: two
   email: two@two.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+# no associations with any other objects
+three:
+  uid: three@three.com
+  username: three
+  email: three@three.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
