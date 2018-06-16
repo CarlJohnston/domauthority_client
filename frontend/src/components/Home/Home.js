@@ -327,10 +327,10 @@ class Home extends Component {
           <div className='grid-container'>
             <div className='grid-x'>
               <div className='cell medium-offset-2 medium-4 text-center'>
-                <h2>Domain Tracking & Visualization</h2>
+                <h1>Domain Tracking & Visualization</h1>
                 <p className='lead'>Made for SEO Professionals</p>
               </div>
-              <div className='cell medium-4 text-center'>
+              <div className='cell medium-4 text-center animated-graph'>
                 <svg width='400' height='200' viewBox='0 0 340 200' id='top-graph'>
                   <line x1='20' y1='155' x2='320' y2='155' style={{ stroke: 'black' }} />
                   <line x1='20' y1='0' x2='20' y2='155' style={{ stroke: 'black' }} />
