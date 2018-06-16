@@ -24,13 +24,21 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create site" do
     assert_no_difference('Site.count') do
-      post users_current_sites_url, params: { site: { url: @site.url } }, as: :json
+      post users_current_sites_url, params: { site: { url: 'http://www.newurl.com' } }, as: :json
     end
+    assert_response :unauthorized
 
     assert_difference('Site.count') do
-      authentication_post @user, users_current_sites_url, params: { site: { url: @site.url } }, as: :json
+      authentication_post @user, users_current_sites_url, params: { site: { url: 'http://www.newurl.com' } }, as: :json
     end
-
     assert_response 201
+  end
+
+  test "should not create with non-unique url" do
+    assert_no_difference('Site.count') do
+      assert_raises(ActiveRecord::RecordNotUnique) do
+        authentication_post @user, users_current_sites_url, params: { site: { url: @site.url } }, as: :json
+      end
+    end
   end
 end

@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  url: MyString
+  url: http://www.one.com
 
 two:
-  url: MyString
+  url: http://www.two.com
