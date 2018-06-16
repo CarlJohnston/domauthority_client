@@ -316,6 +316,8 @@ class Home extends Component {
 
   componentWillUnmount() {
     clearInterval(this.timer);
+
+    $(window).off('resize');
   }
 
   render() {
