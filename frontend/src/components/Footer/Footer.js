@@ -20,7 +20,7 @@ class Footer extends Component {
             </div>
 
             <div className='small-12 medium-shrink cell'>
-              <span>Copyright {(new Date().getFullYear())}</span>
+              <span>Carl Johnston &copy; {(new Date().getFullYear())}</span>
             </div>
           </div>
         </div>
