@@ -1,12 +1,14 @@
 class Users::Current::SitesController < ApplicationController
-  # GET /sites
+  before_action :authenticate_user!
+
+  # GET users/current/sites
   def index
     @sites = Site.all
 
     render json: @sites
   end
 
-  # POST /sites
+  # POST users/current/sites
   def create
     @site = Site.new(site_params)
 
