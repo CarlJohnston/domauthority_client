@@ -9,7 +9,7 @@ class Footer extends Component {
   render() {
     return (
       <div className='footer-container'>
-        <div className='grid-container'>
+        <div className='grid-container bottom-bar'>
           <div className='grid-x align-justify align-middle'>
             <div className='small-12 medium-shrink cell'>
               <ul className='menu'>

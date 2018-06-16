@@ -6,6 +6,14 @@
   padding: 2.2rem 1rem;
 }
 
+.top-bar li:first-child a {
+  padding-left: 0;
+}
+
+.top-bar li:last-child a {
+  padding-right: 0;
+}
+
 .logo {
   text-transform: lowercase;
 }
