@@ -1,12 +1,22 @@
 require 'test_helper'
+require 'AuthenticationHelper'
 
 class SitesControllerTest < ActionDispatch::IntegrationTest
+  include AuthenticationHelper
+
   setup do
+    @user = users(:one)
+    @user.confirm
+    sign_in(@user.email, 'password')
+
     @site = sites(:one)
   end
 
   test "should show site" do
     get site_url(@site), as: :json
+    assert_response :unauthorized
+
+    authentication_get @user, site_url(@site), as: :json
     assert_response :success
 
     assert_equal(@site.to_json, response.body)
@@ -15,7 +25,11 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   test "should update site" do
     new_name = 'new_name'
     new_url = 'new_url'
+
     patch site_url(@site), params: { site: { name: new_name, url: new_url } }, as: :json
+    assert_response :unauthorized
+
+    authentication_patch @user, site_url(@site), params: { site: { name: new_name, url: new_url } }, as: :json
     assert_response 200
 
     response_body = JSON.parse(response.body)
@@ -31,8 +45,12 @@ class SitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy site" do
-    assert_difference('Site.count', -1) do
+    assert_no_difference('Site.count', -1) do
       delete site_url(@site), as: :json
+    end
+
+    assert_difference('Site.count', -1) do
+      authentication_delete @user, site_url(@site), as: :json
     end
 
     assert_response 204
