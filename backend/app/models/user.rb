@@ -6,4 +6,6 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   before_create :skip_confirmation!
+
+  has_many :sites, through: :user_sites
 end
