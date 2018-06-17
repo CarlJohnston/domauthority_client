@@ -51,6 +51,21 @@ class AuthenticationToken extends Token {
     return value;
   }
 
+  /*
+   * Set authentication token
+   *
+   * @params data {Object}  the object to stringify and persist as
+   *                        the application authentication token
+   *                         {
+   *                           name: {String},
+   *                           username: {String},
+   *                           accessToken: {String},
+   *                           tokenType: {String},
+   *                           client: {String},
+   *                           expiry: {Integer},
+   *                           uid: {String},
+   *                         }
+   */
   static set(data) {
     localStorage.setItem(this.key, JSON.stringify(data));
   }
