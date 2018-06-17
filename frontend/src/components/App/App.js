@@ -41,8 +41,6 @@ class App extends Component {
                 currentUser: data,
               }),
             };
-          }, function () {
-            AuthenticationToken.set(data);
           });
         }.bind(this),
         clearCurrentUser: function () {
@@ -55,8 +53,6 @@ class App extends Component {
                 },
               }),
             };
-          }, function () {
-            AuthenticationToken.clear();
           });
         }.bind(this),
       },
