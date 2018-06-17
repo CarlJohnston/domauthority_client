@@ -19,6 +19,7 @@ class AuthenticationToken extends Token {
       var parsedStorage = JSON.parse(localStorage.getItem(this.key));
 
       var expiry = parsedStorage.expiry;
+
       if (expiry) {
         var currentDate = new Date();
         if (Number.isInteger(parseInt(expiry))) {
