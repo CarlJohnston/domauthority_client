@@ -26,6 +26,10 @@ const NEXT_CURRENT_USER_HEADERS = Object.assign(VALID_CURRENT_USER_HEADERS, {
   'access-token': 'new',
 });
 
+const ERRORS = {
+  unexpected: 'Unexpected error. Please contact the server administrator for assistance.',
+};
+
 describe('authenticate', () => {
   var xhr;
   var requests = [];
@@ -108,12 +112,7 @@ describe('authenticate', () => {
     await expectation;
 
     // valid token but non-JSON response data
-    var expectedError = '';
-    try {
-      JSON.parse('string');
-    } catch (e) {
-      expectedError = e.message;
-    }
+    var expectedError = ERRORS.unexpected;
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
       body: {
         success: false,
