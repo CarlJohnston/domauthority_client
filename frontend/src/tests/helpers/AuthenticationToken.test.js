@@ -1,13 +1,14 @@
 import AuthenticationToken from 'helpers/AuthenticationToken';
 import TOKEN from 'configs/Token';
 
+var epochExpiry = (new Date().getTime() / 1000) + 999999999;
 var VALID_DATA = {
   name: 'user',
   username: 'username',
   accessToken: 'token',
   tokenType: 'Bearer',
   client: 'client',
-  expiry: 999,
+  expiry: epochExpiry,
   uid: 'email@email.com',
 };
 describe('authentication token', () => {
@@ -45,6 +46,50 @@ describe('authentication token', () => {
 
     // invalid value for storing cyclical reference value
     // TODO
+  });
+
+  it('properly considers any expiry attribute in token', () => {
+    // no expiry date
+    var data = Object.assign({}, VALID_DATA);
+    delete data['expiry'];
+    AuthenticationToken.set(data);
+    var token = AuthenticationToken.get();
+    expect(token).toEqual(data);
+
+    // integer expiry date but not expired
+    var expiry = (new Date().getTime() + 99999999999) / 1000;
+    data = Object.assign({}, VALID_DATA, { expiry: expiry });
+    AuthenticationToken.set(data);
+    token = AuthenticationToken.get();
+    expect(token).toEqual(data);
+
+    // integer expiry date as string but not expired
+    expiry = ((new Date().getTime() + 99999999999) / 1000).toString();
+    data = Object.assign({}, VALID_DATA, { expiry: expiry });
+    AuthenticationToken.set(data);
+    token = AuthenticationToken.get();
+    expect(token).toEqual(data);
+
+    // expiry date but expired
+    expiry = new Date(1990, 1, 1).getTime() / 1000;
+    data = Object.assign({}, VALID_DATA, { expiry: expiry });
+    AuthenticationToken.set(data);
+    token = AuthenticationToken.get();
+    expect(token).toEqual(null);
+
+    // non-integer expiry date but valid parseable date
+    expiry = new Date(1990, 1, 1).toString();
+    data = Object.assign({}, VALID_DATA, { expiry: expiry });
+    AuthenticationToken.set(data);
+    token = AuthenticationToken.get();
+    expect(token).toEqual(token);
+
+    // invalid non-parsable date
+    expiry = 'string';
+    data = Object.assign({}, VALID_DATA, { expiry: expiry });
+    AuthenticationToken.set(data);
+    token = AuthenticationToken.get();
+    expect(token).toEqual(null);
   });
 
   it('gets headers', () => {

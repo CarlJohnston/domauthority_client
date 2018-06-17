@@ -7,13 +7,46 @@ import TOKEN from 'configs/Token';
 class AuthenticationToken extends Token {
   static key = TOKEN.authentication.key;
 
+  /*
+   * Get current stored authentication token
+   *
+   * @returns {Object}  object based on previously stored data
+   *                    that is not expired based on any expiry
+   */
   static get() {
     var value;
     try {
-      value = JSON.parse(localStorage.getItem(this.key));
+      var parsedStorage = JSON.parse(localStorage.getItem(this.key));
+
+      var expiry = parsedStorage.expiry;
+      if (expiry) {
+        var currentDate = new Date();
+        if (Number.isInteger(parseInt(expiry))) {
+          // ensure integer
+          expiry = parseInt(expiry);
+
+          var epochTime = expiry * 1000;
+          var expiryDate = new Date(epochTime);
+          if (expiryDate > currentDate) {
+            value = parsedStorage;
+          } else {
+            value = null;
+          }
+        } else {
+          var expiryDate = new Date(expiry);
+          if (expiryDate > currentDate) {
+            value = parsedStorage;
+          } else {
+            value = null;
+          }
+        }
+      } else {
+        value = parsedStorage;
+      }
     } catch (e) {
       value = null;
     }
+
     return value;
   }
 
