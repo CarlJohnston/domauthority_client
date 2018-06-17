@@ -78,8 +78,17 @@ class AuthenticateResponse {
   /*
    * @returns {Object}  token object for response object
    *                    or null if invalid data for creating token
+   *                     {
+   *                       name: {String},
+   *                       username: {String},
+   *                       accessToken: {String},
+   *                       tokenType: {String},
+   *                       client: {String},
+   *                       expiry: {Integer},
+   *                       uid: {String},
+   *                     }
    */
-  getToken() {
+  getAuthenticationTokenData() {
     var token = null;
 
     if (this.data.body &&

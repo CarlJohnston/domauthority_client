@@ -45,7 +45,7 @@ class Login extends Component {
           var loginResponse = new LoginResponse(response);
           var messages = loginResponse.getMessages();
 
-          var token = loginResponse.getToken();
+          var token = loginResponse.getAuthenticationTokenData();
 
           AuthenticationToken.set(token);
 
