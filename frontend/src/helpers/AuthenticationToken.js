@@ -24,6 +24,35 @@ class AuthenticationToken extends Token {
   static clear() {
     localStorage.removeItem(this.key);
   }
+
+  /*
+   * Construct Header object from current authentication token
+   * with valid RFC 6750 Bearer Token formatting
+   *
+   * @returns {Headers}  headers object containing any values from
+   *                     current authentication token in the form
+   *                      {
+   *                        'access-token': {String},
+   *                        'token-type': {String},
+   *                        client: {String},
+   *                        expiry: {Integer|String},
+   *                        uid: {String},
+   *                      }
+   */
+  static getHeaders() {
+    var token = this.get();
+
+    var headers = new Headers();
+    if (token) {
+      headers.append('access-token', token.accessToken || '');
+      headers.append('token-type', token.tokenType || '');
+      headers.append('client', token.client || '');
+      headers.append('expiry', token.expiry || '');
+      headers.append('uid', token.uid || '');
+    }
+
+    return headers;
+  }
 }
 
 export default AuthenticationToken;
