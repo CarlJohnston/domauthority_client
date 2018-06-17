@@ -1,13 +1,12 @@
 import URL from 'url';
 
+import ERROR from 'configs/Error';
+
 /*
  * Promise API to request against
  * backend authentication server
  */
 const urlPrefix = '/auth';
-const ERRORS = {
-  unexpected: 'Unexpected error. Please contact the server administrator for assistance.',
-};
 class Authenticate {
   /*
    * Validate data from token and issue/return a promise for a new
@@ -87,7 +86,7 @@ class Authenticate {
               body: {
                 success: false,
                 errors: [
-                  ERRORS.unexpected,
+                  ERROR.unexpected,
                 ],
               },
               headers: headers,
@@ -171,7 +170,7 @@ class Authenticate {
               body: {
                 status: 'error',
                 errors: [
-                  ERRORS.unexpected,
+                  ERROR.unexpected,
                 ],
               },
               headers: headers,
@@ -256,7 +255,7 @@ class Authenticate {
               body: {
                 success: false,
                 errors: [
-                  ERRORS.unexpected,
+                  ERROR.unexpected,
                 ],
               },
               headers: headers,

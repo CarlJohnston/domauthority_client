@@ -5,6 +5,8 @@ import Sinon from 'sinon';
 import Authenticate from 'helpers/Authenticate';
 import AuthenticationToken from 'helpers/AuthenticationToken';
 
+import ERROR from 'configs/Error';
+
 const VALID_CURRENT_USER_DATA = {
   id: 1,
   provider: 'email',
@@ -25,10 +27,6 @@ const NEXT_CURRENT_USER_DATA = VALID_CURRENT_USER_DATA;
 const NEXT_CURRENT_USER_HEADERS = Object.assign(VALID_CURRENT_USER_HEADERS, {
   'access-token': 'new',
 });
-
-const ERRORS = {
-  unexpected: 'Unexpected error. Please contact the server administrator for assistance.',
-};
 
 describe('authenticate', () => {
   var xhr;
@@ -112,7 +110,7 @@ describe('authenticate', () => {
     await expectation;
 
     // valid token but non-JSON response data
-    var expectedError = ERRORS.unexpected;
+    var expectedError = ERROR.unexpected;
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
       body: {
         success: false,
