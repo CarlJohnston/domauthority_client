@@ -7,10 +7,9 @@ function withIsAuthenticated(WrappedComponent) {
     render() {
       return (
         <IsAuthenticatedContext.Consumer>
-          {({isAuthenticated, setIsAuthenticated}) => (
+          {({setIsAuthenticated}) => (
             <WrappedComponent
               {...this.props}
-              isAuthenticated={isAuthenticated}
               setIsAuthenticated={setIsAuthenticated}
             />
           )}
