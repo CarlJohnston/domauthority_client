@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PNotify from 'pnotify/dist/umd/PNotify';
 
 import SiteRow from 'components/SiteRow/SiteRow';
 
@@ -6,6 +7,9 @@ import Fetch from 'helpers/Fetch';
 import AuthenticationToken from 'helpers/AuthenticationToken';
 
 import withAuthenticated from 'components/hocs/withAuthenticated';
+
+import STATUS from 'configs/Status';
+import ERROR from 'configs/Error';
 
 class Sites extends Component {
   constructor(props) {
@@ -17,15 +21,43 @@ class Sites extends Component {
   }
 
   componentDidMount() {
-    var token = AuthenticationToken.get();
+    var headers = AuthenticationToken.getHeaders();
+    headers.append('Content-Type', 'application/json');
     var request = new Request('/users/current/sites', {
-      'Content-Type': 'application/json',
+      headers: headers,
     });
-
-    Fetch(request)
+    Fetch(request, {
+      onUnauthorized: () => {
+        // TODO
+      },
+      onNewToken: (token) => {
+        var currentToken = AuthenticationToken.get();
+        var newToken = Object.assign(currentToken, token);
+        AuthenticationToken.set(newToken);
+      },
+    })
       .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          return Promise.resolve(null);
+        }
+      })
+      .then((sites) => {
+        if (sites) {
+          this.setState(() => {
+            return {
+              sites: sites,
+            };
+          });
+        }
       })
       .catch((response) => {
+        PNotify.alert({
+          text: ERROR.unexpected,
+          type: STATUS.error,
+          delay: 2000,
+        });
       });
   }
 
@@ -36,11 +68,8 @@ class Sites extends Component {
         <table className='hover'>
           <thead>
             <tr>
-              <th>Favicon</th>
               <th>Title</th>
               <th>URL</th>
-              <th>DA</th>
-              <th>PA</th>
             </tr>
           </thead>
           <tbody>

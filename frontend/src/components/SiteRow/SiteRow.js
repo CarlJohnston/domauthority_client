@@ -4,11 +4,8 @@ class SiteRow extends Component {
   render() {
     return (
       <tr>
-        <td>Content Goes Here</td>
-        <td>Content Goes Here</td>
-        <td>Content Goes Here</td>
-        <td>Content Goes Here</td>
-        <td>Content Goes Here</td>
+        <td>{this.props.site.title}</td>
+        <td>{this.props.site.url}</td>
       </tr>
     );
   }
