@@ -22,19 +22,20 @@ class AuthenticationToken extends Token {
 
       if (expiry) {
         var currentDate = new Date();
-        if (Number.isInteger(parseInt(expiry))) {
+        var expiryDate;
+        if (Number.isInteger(parseInt(expiry, 10))) {
           // ensure integer
-          expiry = parseInt(expiry);
+          expiry = parseInt(expiry, 10);
 
           var epochTime = expiry * 1000;
-          var expiryDate = new Date(epochTime);
+          expiryDate = new Date(epochTime);
           if (expiryDate > currentDate) {
             value = parsedStorage;
           } else {
             value = null;
           }
         } else {
-          var expiryDate = new Date(expiry);
+          expiryDate = new Date(expiry);
           if (expiryDate > currentDate) {
             value = parsedStorage;
           } else {
