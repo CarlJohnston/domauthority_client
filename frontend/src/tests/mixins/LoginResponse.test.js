@@ -78,6 +78,7 @@ describe('register response', () => {
       tokenType: VALID_CURRENT_USER_HEADERS.tokenType,
       client: VALID_CURRENT_USER_HEADERS.client,
       expiry: VALID_CURRENT_USER_HEADERS.expiry,
+      uid: VALID_CURRENT_USER_HEADERS.uid,
     });
 
     // missing headers

@@ -86,7 +86,8 @@ class AuthenticateResponse {
         typeof this.data.body.data === 'object' &&
         this.data.headers &&
         this.data.headers.get('access-token') &&
-        this.data.headers.get('client')) {
+        this.data.headers.get('client') &&
+        this.data.headers.get('uid')) {
       token = {
         username: this.data.body.data.username,
         name: this.data.body.data.name,
@@ -94,6 +95,7 @@ class AuthenticateResponse {
         tokenType: this.data.headers.get('token-type'),
         client: this.data.headers.get('client'),
         expiry: this.data.headers.get('expiry'),
+        uid: this.data.headers.get('uid'),
       };
     }
 
