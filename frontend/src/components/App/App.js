@@ -13,6 +13,7 @@ import 'foundation-icons/foundation-icons.css';
 import Layout from 'components/Layout/Layout';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
+import LoginPopUpContext from 'contexts/LoginPopUpContext';
 
 import AuthenticationToken from 'helpers/AuthenticationToken';
 
@@ -40,6 +41,7 @@ class App extends Component {
               currentUser: Object.assign(prevState.currentUser, {
                 currentUser: data,
               }),
+              loginPopUp: prevState.loginPopUp,
             };
           });
         }.bind(this),
@@ -51,8 +53,23 @@ class App extends Component {
                   name: null,
                   username: null,
                 },
+                loginPopUp: prevState.loginPopUp,
               }),
             };
+          });
+        }.bind(this),
+      },
+      loginPopUp: {
+        loginPopUp: false,
+        setLoginPopUp: function (bool) {
+          this.setState((prevState) => {
+            return {
+              currentUser: prevState.currentUser,
+              loginPopUp: {
+                loginPopUp: bool,
+                setLoginPopUp: prevState.loginPopUp.setLoginPopUp,
+              }
+            }
           });
         }.bind(this),
       },
@@ -62,9 +79,11 @@ class App extends Component {
   render() {
     return (
       <CurrentUserContext.Provider value={this.state.currentUser}>
-        <Router history={this.history}>
-          <Route to='/' component={Layout} />
-        </Router>
+        <LoginPopUpContext.Provider value={this.state.loginPopUp}>
+          <Router history={this.history}>
+            <Route to='/' component={Layout} />
+          </Router>
+        </LoginPopUpContext.Provider>
       </CurrentUserContext.Provider>
     );
   }

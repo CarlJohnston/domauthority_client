@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import IsAuthenticatedContext from 'contexts/IsAuthenticatedContext';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
+import withLoginPopUp from 'components/hocs/withLoginPopUp';
 
 function renderAuthenticatedComponent(AuthenticatedComponent, props, state) {
   if (props.currentUser.username) {
@@ -20,13 +21,14 @@ function renderAuthenticatedComponent(AuthenticatedComponent, props, state) {
 }
 
 function withAuthenticated(AuthenticatedComponent) {
-  return withCurrentUser(class extends Component {
+  return withLoginPopUp(withCurrentUser(class extends Component {
     constructor(props) {
       super(props);
 
       this.state = {
         isAuthenticated: {
-          setIsAuthenticated: function (bool) {
+          setIsAuthenticated: function () {
+            this.props.setLoginPopUp(...arguments);
           }.bind(this),
         },
       };
@@ -35,7 +37,7 @@ function withAuthenticated(AuthenticatedComponent) {
     render() {
       return renderAuthenticatedComponent(AuthenticatedComponent, this.props, this.state);
     }
-  });
+  }));
 }
 
 export default withAuthenticated;
