@@ -11,21 +11,32 @@ class Token {
    *
    * @returns {Object}  object based on previously stored data
    *                    that is not expired based on any expiry
-   *                         {
-   *                           name: {String},
-   *                           username: {String},
-   *                           accessToken: {String},
-   *                           tokenType: {String},
-   *                           client: {String},
-   *                           expiry: {Integer},
-   *                           uid: {String},
-   *                         }
+   *                     {
+   *                       name: {String},
+   *                       username: {String},
+   *                       accessToken: {String},
+   *                       tokenType: {String},
+   *                       client: {String},
+   *                       expiry: {Integer|String},
+   *                       uid: {String},
+   *                     }
+   *
+   * @throws {Error}  exception thrown if token is expired
+   *                  based on
+   *                   {
+   *                     expiry: {Integer|String},
+   *                   }
    */
   static get() {
-    var value;
+    var parsedStorage;
     try {
-      var parsedStorage = JSON.parse(localStorage.getItem(this.key));
+      parsedStorage = JSON.parse(localStorage.getItem(this.key));
+    } catch (e) {
+      parsedStorage = null;
+    }
 
+    var value;
+    if (parsedStorage) {
       var expiry = parsedStorage.expiry;
 
       if (expiry) {
@@ -40,20 +51,20 @@ class Token {
           if (expiryDate > currentDate) {
             value = parsedStorage;
           } else {
-            value = null;
+            throw new Error('Token expired.');
           }
         } else {
           expiryDate = new Date(expiry);
           if (expiryDate > currentDate) {
             value = parsedStorage;
           } else {
-            value = null;
+            throw new Error('Token expired.');
           }
         }
       } else {
         value = parsedStorage;
       }
-    } catch (e) {
+    } else {
       value = null;
     }
 

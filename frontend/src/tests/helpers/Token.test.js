@@ -105,24 +105,37 @@ describe('authentication token', () => {
     expiry = new Date(1990, 1, 1).getTime() / 1000;
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     Token.set(data);
-    token = Token.get();
-    expect(token).toEqual(null);
+    expect(() => {
+      Token.get();
+    }).toThrow();
 
-    // non-integer expiry date but valid parseable date
+    // non-integer expiry date but valid parseable date not expired
     Token.clear();
-    expiry = new Date(1990, 1, 1).toString();
+    expiry = new Date(new Date().getFullYear() + 1, 1, 1).toString();
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     Token.set(data);
     token = Token.get();
     expect(token).toEqual(token);
+
+    // non-integer expiry date but valid parseable date expired
+    Token.clear();
+    expiry = new Date(1990, 1, 1).toString();
+    data = Object.assign({}, VALID_DATA, { expiry: expiry });
+    Token.set(data);
+    expect(() => {
+      throw new Error('test');
+      Token.get();
+    }).toThrow();
 
     // invalid non-parsable date
     Token.clear();
     expiry = 'string';
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     Token.set(data);
-    token = Token.get();
-    expect(token).toEqual(null);
+    expect(() => {
+      throw new Error('test');
+      Token.get();
+    }).toThrow();
   });
 
   it('gets headers', () => {
