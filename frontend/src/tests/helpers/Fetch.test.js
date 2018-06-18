@@ -205,7 +205,7 @@ describe('fetch', () => {
       client: 'newClient',
       expiry: '99999',
       uid: 'zzzzz',
-    }
+    };
     onNewTokenMock.once().withExactArgs({
       accessToken: newToken['access-token'],
       tokenType: newToken['token-type'],
@@ -235,7 +235,7 @@ describe('fetch', () => {
     onNewTokenMock.verify();
 
     // 4xx response non-401 response
-    var onUnauthorizedMock = Sinon.expectation.create([]);
+    onUnauthorizedMock = Sinon.expectation.create([]);
     onUnauthorizedMock.never();
     onNewTokenMock = Sinon.expectation.create([]);
     onNewTokenMock.once().withExactArgs({
@@ -245,7 +245,7 @@ describe('fetch', () => {
       expiry: newToken.expiry,
       uid: newToken.uid,
     });
-    var promise = Fetch(new Request('/protected', {
+    promise = Fetch(new Request('/protected', {
       headers: {
         'Content-Type': 'application/json',
         'access-token': 'wwwww',
