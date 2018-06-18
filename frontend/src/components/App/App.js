@@ -27,7 +27,14 @@ class App extends Component {
 
     this.history = createHistory();
 
-    var token = Token.get();
+    var token;
+    try {
+      token = Token.get();
+    } catch (e) {
+      token = null;
+
+      Token.clear();
+    }
 
     this.state = {
       currentUser: {
