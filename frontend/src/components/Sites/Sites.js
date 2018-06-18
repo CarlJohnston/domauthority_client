@@ -7,6 +7,7 @@ import Fetch from 'helpers/Fetch';
 import Token from 'helpers/Token';
 
 import withAuthenticated from 'components/hocs/withAuthenticated';
+import withIsAuthenticated from 'components/hocs/withIsAuthenticated';
 
 import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
@@ -29,12 +30,14 @@ class Sites extends Component {
     Fetch(request, {
       onUnauthorized: () => {
         // TODO
+
+        AuthenticationToken.clear();
       },
-      onNewToken: (token) => {
-        var currentToken = Token.get();
-        var newToken = Object.assign(currentToken, token);
-        Token.set(newToken);
-      },
+      onNewToken: function (token) {
+        this.props.setIsAuthenticated(false);
+
+        AuthenticationToken.set(token);
+      }.bind(this),
     })
       .then((response) => {
         if (response.ok) {
@@ -87,4 +90,4 @@ class Sites extends Component {
   }
 }
 
-export default withAuthenticated(Sites);
+export default withAuthenticated(withIsAuthenticated(Sites));
