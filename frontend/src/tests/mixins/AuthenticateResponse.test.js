@@ -172,7 +172,7 @@ describe('authenticate response response', () => {
       }),
     };
     response.set(data);
-    var token = response.getAuthenticationTokenData();
+    var token = response.getTokenData();
     expect(token).toEqual({
       name: VALID_CURRENT_USER_DATA.name,
       username: VALID_CURRENT_USER_DATA.username,
@@ -190,7 +190,7 @@ describe('authenticate response response', () => {
       },
     };
     response.set(data);
-    token = response.getAuthenticationTokenData();
+    token = response.getTokenData();
     expect(token).toEqual(null);
 
     // wrong header type
@@ -201,7 +201,7 @@ describe('authenticate response response', () => {
       headers: 'string',
     };
     response.set(data);
-    token = response.getAuthenticationTokenData();
+    token = response.getTokenData();
     expect(token).toEqual(null);
 
     // missing body data
@@ -210,7 +210,7 @@ describe('authenticate response response', () => {
       headers: new Headers(VALID_CURRENT_USER_HEADERS),
     };
     response.set(data);
-    token = response.getAuthenticationTokenData();
+    token = response.getTokenData();
     expect(token).toEqual(null);
 
 
@@ -221,12 +221,12 @@ describe('authenticate response response', () => {
       headers: new Headers(VALID_CURRENT_USER_HEADERS),
     };
     response.set(data);
-    token = response.getAuthenticationTokenData();
+    token = response.getTokenData();
     expect(token).toEqual(null);
 
     // no body data or headers
     response.set({});
-    token = response.getAuthenticationTokenData();
+    token = response.getTokenData();
     expect(token).toEqual(null);
 
     // missing body
@@ -234,7 +234,7 @@ describe('authenticate response response', () => {
       headers: new Headers(VALID_CURRENT_USER_HEADERS),
     };
     response.set(data);
-    token = response.getAuthenticationTokenData();
+    token = response.getTokenData();
     expect(token).toEqual(null);
 
     // wrong body type
@@ -243,7 +243,7 @@ describe('authenticate response response', () => {
       headers: new Headers(VALID_CURRENT_USER_HEADERS),
     };
     response.set(data);
-    token = response.getAuthenticationTokenData();
+    token = response.getTokenData();
     expect(token).toEqual(null);
   });
 });

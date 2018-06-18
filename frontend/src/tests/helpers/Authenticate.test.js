@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import Sinon from 'sinon';
 
 import Authenticate from 'helpers/Authenticate';
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 import ERROR from 'configs/Error';
 

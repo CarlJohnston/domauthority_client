@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Home from 'components/Home/Home';
 
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 describe('home', () => {
   var component;

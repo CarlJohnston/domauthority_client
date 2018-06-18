@@ -5,7 +5,7 @@ import App from 'components/App/App';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 const VALID_CURRENT_USER_DATA = {
   name: 'name',
@@ -32,7 +32,7 @@ describe('app', () => {
 
   it('sets authentication token on initialization', () => {
     // no prior authentication token
-    AuthenticationToken.clear();
+    Token.clear();
     createComponent();
 
     var currentUserProvider = findCurrentUserProvider(component);
@@ -43,7 +43,7 @@ describe('app', () => {
     });
 
     // prior authentication token
-    AuthenticationToken.set(VALID_CURRENT_USER_DATA);
+    Token.set(VALID_CURRENT_USER_DATA);
     createComponent();
 
     currentUserProvider = findCurrentUserProvider(component);
@@ -56,7 +56,7 @@ describe('app', () => {
 
   it('setCurrentUser sets currentUser', () => {
     // no prior currentUser
-    AuthenticationToken.clear();
+    Token.clear();
     createComponent();
 
     var currentUserProvider = findCurrentUserProvider(component);
@@ -85,7 +85,7 @@ describe('app', () => {
 
   it('clearCurrentUser clears user', () => {
     // no prior user
-    AuthenticationToken.clear();
+    Token.clear();
     createComponent();
 
     var currentUserProvider = findCurrentUserProvider(component);

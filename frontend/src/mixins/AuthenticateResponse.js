@@ -88,7 +88,7 @@ class AuthenticateResponse {
    *                       uid: {String},
    *                     }
    */
-  getAuthenticationTokenData() {
+  getTokenData() {
     var token = null;
 
     if (this.data.body &&

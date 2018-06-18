@@ -7,7 +7,7 @@ import Async from 'async';
 import Authenticate from 'helpers/Authenticate';
 import LoginResponse from 'mixins/LoginResponse';
 
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 import withUnauthenticated from 'components/hocs/withUnauthenticated';
@@ -45,9 +45,9 @@ class Login extends Component {
           var loginResponse = new LoginResponse(response);
           var messages = loginResponse.getMessages();
 
-          var token = loginResponse.getAuthenticationTokenData();
+          var token = loginResponse.getTokenData();
 
-          AuthenticationToken.set(token);
+          Token.set(token);
 
           this.props.setCurrentUser(token);
 

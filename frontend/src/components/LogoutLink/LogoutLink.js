@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 class LogoutLink extends Component {
   logout() {
     this.props.clearCurrentUser();
 
-    AuthenticationToken.clear();
+    Token.clear();
 
     this.props.history.push('/');
   }

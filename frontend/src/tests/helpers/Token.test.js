@@ -1,4 +1,4 @@
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 import TOKEN from 'configs/Token';
 
 var epochExpiry = (new Date().getTime() / 1000) + 999999999;
@@ -11,25 +11,26 @@ var VALID_DATA = {
   expiry: epochExpiry,
   uid: 'email@email.com',
 };
+
 describe('authentication token', () => {
   it('authentication token gets authentication token', () => {
     // no token present
-    AuthenticationToken.clear();
-    var value = AuthenticationToken.get();
+    Token.clear();
+    var value = Token.get();
     expect(value).toEqual(null);
 
     // token present
-    AuthenticationToken.set(VALID_DATA);
-    value = AuthenticationToken.get();
+    Token.set(VALID_DATA);
+    value = Token.get();
     expect(value).toEqual(VALID_DATA);
 
     // token present missing some data still returns empty values
-    AuthenticationToken.clear();
+    Token.clear();
     var data = Object.assign({}, VALID_DATA);
     delete data['name'];
     delete data['username'];
-    AuthenticationToken.set(data);
-    value = AuthenticationToken.get();
+    Token.set(data);
+    value = Token.get();
     expect(value.name).toEqual(undefined);
     expect(value.username).toEqual(undefined);
     var expectedValue = Object.assign({}, VALID_DATA);
@@ -41,32 +42,32 @@ describe('authentication token', () => {
 
     // non-JSON parsable token not fetched
     global.localStorage.setItem(TOKEN.authentication.key, "object");
-    value = AuthenticationToken.get();
+    value = Token.get();
     expect(value).toEqual(null);
   });
 
   it('authentication token sets authentication token', () => {
     // no previous token
-    AuthenticationToken.clear();
-    AuthenticationToken.set(VALID_DATA);
-    var value = AuthenticationToken.get();
+    Token.clear();
+    Token.set(VALID_DATA);
+    var value = Token.get();
     expect(value).toEqual(VALID_DATA);
 
     // previous token
     var newData = Object.assign({}, VALID_DATA);
     newData.uid = 'new@new.com';
     expect(newData.uid).not.toEqual(VALID_DATA.uid);
-    AuthenticationToken.set(newData);
-    value = AuthenticationToken.get();
+    Token.set(newData);
+    value = Token.get();
     expect(value).toEqual(newData);
 
     // set new partial data still maintains old data
     newData = Object.assign({}, VALID_DATA);
     delete newData['name'];
     delete newData['username'];
-    AuthenticationToken.set(VALID_DATA);
-    AuthenticationToken.set(newData);
-    value = AuthenticationToken.get();
+    Token.set(VALID_DATA);
+    Token.set(newData);
+    value = Token.get();
     expect(value.name).toEqual(VALID_DATA.name);
     expect(value.username).toEqual(VALID_DATA.username);
 
@@ -76,61 +77,61 @@ describe('authentication token', () => {
 
   it('properly considers any expiry attribute in token', () => {
     // no expiry date
-    AuthenticationToken.clear();
+    Token.clear();
     var data = Object.assign({}, VALID_DATA);
     delete data['expiry'];
-    AuthenticationToken.set(data);
-    var token = AuthenticationToken.get();
+    Token.set(data);
+    var token = Token.get();
     expect(token).toEqual(data);
 
     // integer expiry date but not expired
-    AuthenticationToken.clear();
+    Token.clear();
     var expiry = (new Date().getTime() + 99999999999) / 1000;
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
-    AuthenticationToken.set(data);
-    token = AuthenticationToken.get();
+    Token.set(data);
+    token = Token.get();
     expect(token).toEqual(data);
 
     // integer expiry date as string but not expired
-    AuthenticationToken.clear();
+    Token.clear();
     expiry = ((new Date().getTime() + 99999999999) / 1000).toString();
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
-    AuthenticationToken.set(data);
-    token = AuthenticationToken.get();
+    Token.set(data);
+    token = Token.get();
     expect(token).toEqual(data);
 
     // expiry date but expired
-    AuthenticationToken.clear();
+    Token.clear();
     expiry = new Date(1990, 1, 1).getTime() / 1000;
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
-    AuthenticationToken.set(data);
-    token = AuthenticationToken.get();
+    Token.set(data);
+    token = Token.get();
     expect(token).toEqual(null);
 
     // non-integer expiry date but valid parseable date
-    AuthenticationToken.clear();
+    Token.clear();
     expiry = new Date(1990, 1, 1).toString();
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
-    AuthenticationToken.set(data);
-    token = AuthenticationToken.get();
+    Token.set(data);
+    token = Token.get();
     expect(token).toEqual(token);
 
     // invalid non-parsable date
-    AuthenticationToken.clear();
+    Token.clear();
     expiry = 'string';
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
-    AuthenticationToken.set(data);
-    token = AuthenticationToken.get();
+    Token.set(data);
+    token = Token.get();
     expect(token).toEqual(null);
   });
 
   it('gets headers', () => {
     // no current token
-    AuthenticationToken.clear();
-    expect(AuthenticationToken.getHeaders()).toEqual(new Headers());
+    Token.clear();
+    expect(Token.getHeaders()).toEqual(new Headers());
 
     // current token
-    AuthenticationToken.set(VALID_DATA);
+    Token.set(VALID_DATA);
     var headersData = {
       'access-token': VALID_DATA.accessToken,
       'token-type': VALID_DATA.tokenType,
@@ -139,15 +140,15 @@ describe('authentication token', () => {
       expiry: VALID_DATA.expiry,
     };
     var expectedHeaders = new Headers(headersData);
-    var actualHeaders = AuthenticationToken.getHeaders();
+    var actualHeaders = Token.getHeaders();
     Object.entries(headersData).forEach(([key, value]) => {
       expect(actualHeaders.get(key)).toEqual(expectedHeaders.get(key));
     });
 
     // current token with missing header values
-    AuthenticationToken.clear();
-    AuthenticationToken.set({});
-    expect(AuthenticationToken.getHeaders()).toEqual(new Headers({
+    Token.clear();
+    Token.set({});
+    expect(Token.getHeaders()).toEqual(new Headers({
       'access-token': '',
       'token-type': '',
       client: '',
@@ -158,10 +159,10 @@ describe('authentication token', () => {
     var partialData = {
       accessToken: 'token',
     };
-    AuthenticationToken.set({
+    Token.set({
       accessToken: partialData.accessToken,
     });
-    expect(AuthenticationToken.getHeaders()).toEqual(new Headers({
+    expect(Token.getHeaders()).toEqual(new Headers({
       'access-token': partialData.accessToken,
       'token-type': '',
       client: '',
@@ -172,15 +173,15 @@ describe('authentication token', () => {
 
   it('clear removes authentication token', () => {
     // no previous token
-    AuthenticationToken.set(null);
-    AuthenticationToken.clear();
-    var value = AuthenticationToken.get();
+    Token.set(null);
+    Token.clear();
+    var value = Token.get();
     expect(value).toEqual(null);
 
     // previous token
-    AuthenticationToken.set(VALID_DATA);
-    AuthenticationToken.clear();
-    value = AuthenticationToken.get();
+    Token.set(VALID_DATA);
+    Token.clear();
+    value = Token.get();
     expect(value).toEqual(null);
   });
 });

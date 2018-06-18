@@ -15,7 +15,7 @@ import Layout from 'components/Layout/Layout';
 import CurrentUserContext from 'contexts/CurrentUserContext';
 import LoginPopUpContext from 'contexts/LoginPopUpContext';
 
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 import $ from 'jquery';
 window.$ = window.jQuery = $;
@@ -27,7 +27,7 @@ class App extends Component {
 
     this.history = createHistory();
 
-    var token = AuthenticationToken.get();
+    var token = Token.get();
 
     this.state = {
       currentUser: {

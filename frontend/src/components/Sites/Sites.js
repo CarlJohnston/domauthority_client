@@ -4,7 +4,7 @@ import PNotify from 'pnotify/dist/umd/PNotify';
 import SiteRow from 'components/SiteRow/SiteRow';
 
 import Fetch from 'helpers/Fetch';
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 import withAuthenticated from 'components/hocs/withAuthenticated';
 
@@ -21,7 +21,7 @@ class Sites extends Component {
   }
 
   componentDidMount() {
-    var headers = AuthenticationToken.getHeaders();
+    var headers = Token.getHeaders();
     headers.append('Content-Type', 'application/json');
     var request = new Request('/users/current/sites', {
       headers: headers,
@@ -31,9 +31,9 @@ class Sites extends Component {
         // TODO
       },
       onNewToken: (token) => {
-        var currentToken = AuthenticationToken.get();
+        var currentToken = Token.get();
         var newToken = Object.assign(currentToken, token);
-        AuthenticationToken.set(newToken);
+        Token.set(newToken);
       },
     })
       .then((response) => {

@@ -11,7 +11,7 @@ import SettingsLink from 'components/SettingsLink/SettingsLink';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 const VALID_CURRENT_USER_DATA = {
   uid: 1,
@@ -57,7 +57,7 @@ describe('header', () => {
   });
 
   it('displays login/register when logged out', () => {
-    AuthenticationToken.clear();
+    Token.clear();
     createComponent(null, false);
 
     expect(component.find(LoginLink)).toHaveLength(1);
@@ -69,7 +69,7 @@ describe('header', () => {
   });
 
   it('displays link to profile/logout links when logged in', () => {
-    AuthenticationToken.set(VALID_CURRENT_USER_DATA);
+    Token.set(VALID_CURRENT_USER_DATA);
     createComponent(null, true);
 
     expect(component.find(LoginLink)).toHaveLength(0);

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Settings, { SettingsWithoutAuthenticated } from 'components/Settings/Settings';
 import Home from 'components/Home/Home';
 
-import AuthenticationToken from 'helpers/AuthenticationToken';
+import Token from 'helpers/Token';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
