@@ -1,7 +1,7 @@
 import TOKEN from 'configs/Token';
 
 /*
- * class for dealing with authentication tokens
+ * Authentication token manager
  */
 class Token {
   static key = TOKEN.authentication.key;
