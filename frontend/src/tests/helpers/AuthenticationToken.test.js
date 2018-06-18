@@ -23,6 +23,22 @@ describe('authentication token', () => {
     value = AuthenticationToken.get();
     expect(value).toEqual(VALID_DATA);
 
+    // token present missing some data still returns empty values
+    AuthenticationToken.clear();
+    var data = Object.assign({}, VALID_DATA);
+    delete data['name'];
+    delete data['username'];
+    AuthenticationToken.set(data);
+    value = AuthenticationToken.get();
+    expect(value.name).toEqual(undefined);
+    expect(value.username).toEqual(undefined);
+    var expectedValue = Object.assign({}, VALID_DATA);
+    delete expectedValue['name'];
+    delete expectedValue['username'];
+    delete value['name'];
+    delete value['username'];
+    expect(value).toEqual(expectedValue);
+
     // non-JSON parsable token not fetched
     global.localStorage.setItem(TOKEN.authentication.key, "object");
     value = AuthenticationToken.get();
@@ -44,12 +60,23 @@ describe('authentication token', () => {
     value = AuthenticationToken.get();
     expect(value).toEqual(newData);
 
+    // set new partial data still maintains old data
+    newData = Object.assign({}, VALID_DATA);
+    delete newData['name'];
+    delete newData['username'];
+    AuthenticationToken.set(VALID_DATA);
+    AuthenticationToken.set(newData);
+    value = AuthenticationToken.get();
+    expect(value.name).toEqual(VALID_DATA.name);
+    expect(value.username).toEqual(VALID_DATA.username);
+
     // invalid value for storing cyclical reference value
     // TODO
   });
 
   it('properly considers any expiry attribute in token', () => {
     // no expiry date
+    AuthenticationToken.clear();
     var data = Object.assign({}, VALID_DATA);
     delete data['expiry'];
     AuthenticationToken.set(data);
@@ -57,6 +84,7 @@ describe('authentication token', () => {
     expect(token).toEqual(data);
 
     // integer expiry date but not expired
+    AuthenticationToken.clear();
     var expiry = (new Date().getTime() + 99999999999) / 1000;
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     AuthenticationToken.set(data);
@@ -64,6 +92,7 @@ describe('authentication token', () => {
     expect(token).toEqual(data);
 
     // integer expiry date as string but not expired
+    AuthenticationToken.clear();
     expiry = ((new Date().getTime() + 99999999999) / 1000).toString();
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     AuthenticationToken.set(data);
@@ -71,6 +100,7 @@ describe('authentication token', () => {
     expect(token).toEqual(data);
 
     // expiry date but expired
+    AuthenticationToken.clear();
     expiry = new Date(1990, 1, 1).getTime() / 1000;
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     AuthenticationToken.set(data);
@@ -78,6 +108,7 @@ describe('authentication token', () => {
     expect(token).toEqual(null);
 
     // non-integer expiry date but valid parseable date
+    AuthenticationToken.clear();
     expiry = new Date(1990, 1, 1).toString();
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     AuthenticationToken.set(data);
@@ -85,6 +116,7 @@ describe('authentication token', () => {
     expect(token).toEqual(token);
 
     // invalid non-parsable date
+    AuthenticationToken.clear();
     expiry = 'string';
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     AuthenticationToken.set(data);
@@ -113,6 +145,7 @@ describe('authentication token', () => {
     });
 
     // current token with missing header values
+    AuthenticationToken.clear();
     AuthenticationToken.set({});
     expect(AuthenticationToken.getHeaders()).toEqual(new Headers({
       'access-token': '',

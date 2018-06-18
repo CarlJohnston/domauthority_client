@@ -12,6 +12,15 @@ class AuthenticationToken extends Token {
    *
    * @returns {Object}  object based on previously stored data
    *                    that is not expired based on any expiry
+   *                         {
+   *                           name: {String},
+   *                           username: {String},
+   *                           accessToken: {String},
+   *                           tokenType: {String},
+   *                           client: {String},
+   *                           expiry: {Integer},
+   *                           uid: {String},
+   *                         }
    */
   static get() {
     var value;
@@ -68,7 +77,14 @@ class AuthenticationToken extends Token {
    *                         }
    */
   static set(data) {
-    localStorage.setItem(this.key, JSON.stringify(data));
+    var previousToken = this.get();
+    var token;
+    if (previousToken) {
+      token = Object.assign(previousToken, data);
+    } else {
+      token = data;
+    }
+    localStorage.setItem(this.key, JSON.stringify(token));
   }
 
   static clear() {
