@@ -31,12 +31,12 @@ class Sites extends Component {
       onUnauthorized: () => {
         // TODO
 
-        AuthenticationToken.clear();
+        Token.clear();
       },
       onNewToken: function (token) {
         this.props.setIsAuthenticated(false);
 
-        AuthenticationToken.set(token);
+        Token.set(token);
       }.bind(this),
     })
       .then((response) => {
