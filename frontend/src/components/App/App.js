@@ -37,25 +37,23 @@ class App extends Component {
         },
         setCurrentUser: function (data) {
           this.setState((prevState) => {
-            return {
+            return Object.assign(prevState, {
               currentUser: Object.assign(prevState.currentUser, {
                 currentUser: data,
               }),
-              loginPopUp: prevState.loginPopUp,
-            };
+            });
           });
         }.bind(this),
         clearCurrentUser: function () {
           this.setState((prevState) => {
-            return {
+            return Object.assign(prevState, {
               currentUser: Object.assign(prevState.currentUser, {
                 currentUser: {
                   name: null,
                   username: null,
-                },
-                loginPopUp: prevState.loginPopUp,
+                }
               }),
-            };
+            });
           });
         }.bind(this),
       },
@@ -63,13 +61,11 @@ class App extends Component {
         loginPopUp: false,
         setLoginPopUp: function (bool) {
           this.setState((prevState) => {
-            return {
-              currentUser: prevState.currentUser,
-              loginPopUp: {
+            return Object.assign(prevState, {
+              loginPopUp: Object.assign(prevState.loginPopUp, {
                 loginPopUp: bool,
-                setLoginPopUp: prevState.loginPopUp.setLoginPopUp,
-              }
-            }
+              }),
+            });
           });
         }.bind(this),
       },

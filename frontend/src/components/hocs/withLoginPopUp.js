@@ -7,9 +7,10 @@ function withLoginPopUp(WrappedComponent) {
     render() {
       return (
         <LoginPopUpContext.Consumer>
-          {({setLoginPopUp}) => (
+          {({loginPopUp, setLoginPopUp}) => (
             <WrappedComponent
               {...this.props}
+              loginPopUp={loginPopUp}
               setLoginPopUp={setLoginPopUp}
             />
           )}

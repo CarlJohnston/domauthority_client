@@ -27,8 +27,8 @@ function withAuthenticated(AuthenticatedComponent) {
 
       this.state = {
         isAuthenticated: {
-          setIsAuthenticated: function () {
-            this.props.setLoginPopUp(...arguments);
+          setIsAuthenticated: function (isAuthenticated) {
+            this.props.setLoginPopUp(!isAuthenticated);
           }.bind(this),
         },
       };
