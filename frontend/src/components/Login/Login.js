@@ -102,6 +102,8 @@ class Login extends Component {
   }
 }
 
-export default withUnauthenticated(withCurrentUser(Login));
+const withCurrentUserLogin = withCurrentUser(Login);
 
-export { Login as LoginWithoutUnauthenticated };
+export default withUnauthenticated(withCurrentUserLogin);
+
+export { withCurrentUserLogin as LoginWithoutUnauthenticated };
