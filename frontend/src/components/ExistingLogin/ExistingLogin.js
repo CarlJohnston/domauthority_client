@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import Login from 'components/Login/Login';
+import { LoginWithoutUnauthenticated as Login } from 'components/Login/Login';
 
 class ExistingLogin extends Component {
   render() {
     return (
-        <Login {...this.props} />
+      <Login {...this.props} />
     );
   };
 }
