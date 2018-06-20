@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
-import Login from 'components/Login/Login';
+import Login from 'components/NewLogin/NewLogin';
 import Register from 'components/Register/Register';
 import Forgot from 'components/Forgot/Forgot';
 import Confirmed from 'components/Confirmed/Confirmed';
