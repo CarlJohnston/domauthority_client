@@ -29,13 +29,11 @@ class Sites extends Component {
     });
     Fetch(request, {
       onUnauthorized: () => {
-        // TODO
-
         Token.clear();
+
+        this.props.setIsAuthenticated(false);
       },
       onNewToken: function (token) {
-        this.props.setIsAuthenticated(false);
-
         Token.set(token);
       }.bind(this),
     })
