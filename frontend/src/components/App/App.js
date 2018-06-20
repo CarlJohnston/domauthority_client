@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
 import createHistory from "history/createBrowserHistory";
+import Modal from 'react-modal';
 
 import 'foundation-sites/dist/css/foundation.min.css'
 import 'pnotify/dist/PNotifyBrightTheme.css'
@@ -11,6 +12,7 @@ import './App.css';
 import 'foundation-icons/foundation-icons.css';
 
 import Layout from 'components/Layout/Layout';
+import Login from 'components/ExistingLogin/ExistingLogin';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 import LoginPopUpContext from 'contexts/LoginPopUpContext';
@@ -84,7 +86,13 @@ class App extends Component {
       <CurrentUserContext.Provider value={this.state.currentUser}>
         <LoginPopUpContext.Provider value={this.state.loginPopUp}>
           <Router history={this.history}>
-            <Route to='/' component={Layout} />
+            <div id='root'>
+              <Modal isOpen={this.state.loginPopUp.loginPopUp}>
+                <Login />
+              </Modal>
+
+              <Route to='/' component={Layout} />
+            </div>
           </Router>
         </LoginPopUpContext.Provider>
       </CurrentUserContext.Provider>
