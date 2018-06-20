@@ -51,7 +51,7 @@ class Login extends Component {
 
           this.props.setCurrentUser(token);
 
-          this.props.history.push('/');
+          this.props.onAuthenticated();
 
           callback(null, messages);
         }).catch((response) => {
