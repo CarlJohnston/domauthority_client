@@ -14,11 +14,8 @@ import CurrentUserContext from 'contexts/CurrentUserContext';
 import Token from 'helpers/Token';
 
 const VALID_CURRENT_USER_DATA = {
-  uid: 1,
   name: 'name',
   username: 'username',
-  accessToken: 'blah',
-  client: 'blah',
 };
 
 describe('header', () => {
