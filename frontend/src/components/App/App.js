@@ -86,13 +86,13 @@ class App extends Component {
       <CurrentUserContext.Provider value={this.state.currentUser}>
         <LoginPopUpContext.Provider value={this.state.loginPopUp}>
           <Router history={this.history}>
-            <div id='root'>
+            <React.Fragment>
               <Modal isOpen={this.state.loginPopUp.loginPopUp}>
                 <Login />
               </Modal>
 
               <Route to='/' component={Layout} />
-            </div>
+            </React.Fragment>
           </Router>
         </LoginPopUpContext.Provider>
       </CurrentUserContext.Provider>
