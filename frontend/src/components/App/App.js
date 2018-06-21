@@ -83,19 +83,21 @@ class App extends Component {
 
   render() {
     return (
-      <CurrentUserContext.Provider value={this.state.currentUser}>
-        <LoginPopUpContext.Provider value={this.state.loginPopUp}>
-          <Router history={this.history}>
-            <React.Fragment>
-              <Modal isOpen={this.state.loginPopUp.loginPopUp}>
-                <Login />
-              </Modal>
+      <React.StrictMode>
+        <CurrentUserContext.Provider value={this.state.currentUser}>
+          <LoginPopUpContext.Provider value={this.state.loginPopUp}>
+            <Router history={this.history}>
+              <React.Fragment>
+                <Modal isOpen={this.state.loginPopUp.loginPopUp}>
+                  <Login />
+                </Modal>
 
-              <Route to='/' component={Layout} />
-            </React.Fragment>
-          </Router>
-        </LoginPopUpContext.Provider>
-      </CurrentUserContext.Provider>
+                <Route to='/' component={Layout} />
+              </React.Fragment>
+            </Router>
+          </LoginPopUpContext.Provider>
+        </CurrentUserContext.Provider>
+      </React.StrictMode>
     );
   }
 }
