@@ -22,7 +22,7 @@ class Sites extends Component {
   }
 
   componentDidMount() {
-    var headers = Token.getHeaders();
+    var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     var request = new Request('/users/current/sites', {
       headers: headers,
