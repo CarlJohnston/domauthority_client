@@ -33,6 +33,10 @@ class Login extends Component {
     }.bind(this));
   }
 
+  componentWillUnmount() {
+    this.$form.off('formvalid.zf.abide');
+  }
+
   validLoginFormSubmit(e) {
     var email = this.$form.find('#email').val();
     var password = this.$form.find('#password').val();
