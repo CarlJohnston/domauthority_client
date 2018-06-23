@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
 import createHistory from "history/createBrowserHistory";
-import Modal from 'react-modal';
 
 import 'foundation-sites/dist/css/foundation.min.css'
 import 'pnotify/dist/PNotifyBrightTheme.css'
@@ -12,10 +11,8 @@ import './App.css';
 import 'foundation-icons/foundation-icons.css';
 
 import Layout from 'components/Layout/Layout';
-import Login from 'components/ExistingLogin/ExistingLogin';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
-import LoginPopUpContext from 'contexts/LoginPopUpContext';
 
 import Token from 'helpers/Token';
 
@@ -66,18 +63,6 @@ class App extends Component {
           });
         }.bind(this),
       },
-      loginPopUp: {
-        loginPopUp: false,
-        setLoginPopUp: function (bool) {
-          this.setState((prevState) => {
-            return {
-              loginPopUp: Object.assign(prevState.loginPopUp, {
-                loginPopUp: bool,
-              }),
-            };
-          });
-        }.bind(this),
-      },
     };
   }
 
@@ -85,17 +70,9 @@ class App extends Component {
     return (
       <React.StrictMode>
         <CurrentUserContext.Provider value={this.state.currentUser}>
-          <LoginPopUpContext.Provider value={this.state.loginPopUp}>
-            <Router history={this.history}>
-              <React.Fragment>
-                <Modal isOpen={this.state.loginPopUp.loginPopUp}>
-                  <Login />
-                </Modal>
-
-                <Route to='/' component={Layout} />
-              </React.Fragment>
-            </Router>
-          </LoginPopUpContext.Provider>
+          <Router history={this.history}>
+            <Route to='/' component={Layout} />
+          </Router>
         </CurrentUserContext.Provider>
       </React.StrictMode>
     );
