@@ -11,6 +11,7 @@ import './App.css';
 import 'foundation-icons/foundation-icons.css';
 
 import Layout from 'components/Layout/Layout';
+import FetchInterceptor from 'components/FetchInterceptor/FetchInterceptor';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
@@ -71,7 +72,9 @@ class App extends Component {
       <React.StrictMode>
         <CurrentUserContext.Provider value={this.state.currentUser}>
           <Router history={this.history}>
-            <Route to='/' component={Layout} />
+            <FetchInterceptor>
+              <Route to='/' component={Layout} />
+            </FetchInterceptor>
           </Router>
         </CurrentUserContext.Provider>
       </React.StrictMode>

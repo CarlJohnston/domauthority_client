@@ -62,9 +62,9 @@ class Sites extends Component {
           </thead>
           <tbody>
             {
-              this.state.sites.map((site) => {
+              this.state.sites.map((site, index) => {
                 return (
-                  <SiteRow site={site} />
+                  <SiteRow key={index} site={site} />
                 );
               })
             }
