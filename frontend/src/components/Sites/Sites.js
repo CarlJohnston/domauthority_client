@@ -25,16 +25,7 @@ class Sites extends Component {
     var request = new Request('/users/current/sites', {
       headers: headers,
     });
-    fetch(request, {
-      onUnauthorized: () => {
-        Token.clear();
-
-        this.props.setIsAuthenticated(false);
-      },
-      onNewToken: function (token) {
-        Token.set(token);
-      }.bind(this),
-    })
+    fetch(request)
       .then((response) => {
         if (response.ok) {
           return response.json();
