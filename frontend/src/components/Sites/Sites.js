@@ -3,11 +3,9 @@ import PNotify from 'pnotify/dist/umd/PNotify';
 
 import SiteRow from 'components/SiteRow/SiteRow';
 
-import Fetch from 'helpers/Fetch';
 import Token from 'helpers/Token';
 
 import withAuthenticated from 'components/hocs/withAuthenticated';
-import withIsAuthenticated from 'components/hocs/withIsAuthenticated';
 
 import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
@@ -27,7 +25,7 @@ class Sites extends Component {
     var request = new Request('/users/current/sites', {
       headers: headers,
     });
-    Fetch(request, {
+    fetch(request, {
       onUnauthorized: () => {
         Token.clear();
 
@@ -88,4 +86,4 @@ class Sites extends Component {
   }
 }
 
-export default withAuthenticated(withIsAuthenticated(Sites));
+export default withAuthenticated(Sites);
