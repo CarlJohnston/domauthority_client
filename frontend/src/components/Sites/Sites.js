@@ -3,8 +3,6 @@ import PNotify from 'pnotify/dist/umd/PNotify';
 
 import SiteRow from 'components/SiteRow/SiteRow';
 
-import Token from 'helpers/Token';
-
 import withAuthenticated from 'components/hocs/withAuthenticated';
 
 import STATUS from 'configs/Status';
