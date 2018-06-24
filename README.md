@@ -8,6 +8,8 @@ A summarizing tool for a variety of topics.
 * `gem` 2.6+
 * `postgres` 9.6+
 * `bundle` 1.15+
+* `node` 9.2+
+* `yarn` 1.7+
 
 # Getting Started
 
@@ -31,22 +33,38 @@ A summarizing tool for a variety of topics.
 
     ```$ cd simplicify```
 
-5. Install project gems.
+5. Navigate to backend at `/backend`.
+
+    ```$ cd backend```
+
+6. Install project gems.
 
     ```$ bundle install```
 
-6. Setup your databases.
+7. Setup your databases.
 
     ```
     $ rake db:create && RAILS_ENV=test rake db:create
     $ rake db:migrate && RAILS_ENV=test rake db:migrate
     ```
 
-7. Start the application server.
+8. Start the backend server on port 4000.
 
-    ```$ rails s -p 3000```
+    ```$ rails s -p 4000```
 
-8. Visit the server in your browser.
+9. Navigate back to root then navigate to the frontend.
+
+    ```$ cd ../frontend```
+
+10. Install node modules.
+
+    ```yarn install```
+
+11. Start the client server.
+
+    ```yarn start```
+
+12. Visit the server in your browser.
 
     ```http://localhost:3000```
 
@@ -66,7 +84,9 @@ A summarizing tool for a variety of topics.
 
 4. Verify tests.
 
-    ```$ rails t```
+    ```$ cd backend && rails t```
+
+    ```$ cd frontend && yarn test```
 
 5. Push to branch.
 
