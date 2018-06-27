@@ -1,6 +1,6 @@
 # domauthority
 
-A summarizing tool for a variety of topics.
+A tracking tool for domain authority SEO metrics over time. Features include automatic tracking, visualization, etc.
 
 # Requirements
 
