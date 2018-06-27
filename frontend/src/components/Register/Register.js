@@ -5,8 +5,6 @@ import Async from 'async';
 import Authenticate from 'helpers/Authenticate';
 import RegisterResponse from 'mixins/RegisterResponse';
 
-import withUnauthenticated from 'components/hocs/withUnauthenticated';
-
 import $ from 'jquery';
 window.jQuery = window.$ = $;
 require('foundation-sites');
@@ -110,4 +108,4 @@ class Register extends Component {
   }
 }
 
-export default withUnauthenticated(Register);
+export default Register;

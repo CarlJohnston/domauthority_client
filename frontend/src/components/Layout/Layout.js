@@ -16,6 +16,7 @@ import Sites from 'components/Sites/Sites';
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 import AuthenticatedRoute from 'components/routes/AuthenticatedRoute';
+import NotAuthenticatedRoute from 'components/routes/NotAuthenticatedRoute';
 
 class Layout extends Component {
   render() {
@@ -26,8 +27,8 @@ class Layout extends Component {
         <Route exact path='/' component={Home} />
 
         <div className='grid-container'>
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
+          <NotAuthenticatedRoute path='/login' component={Login} />
+          <NotAuthenticatedRoute path='/register' component={Register} />
 
           <Route path='/password/forgot' component={Forgot} />
           <Route path='/auth/confirmed' component={Confirmed} />
