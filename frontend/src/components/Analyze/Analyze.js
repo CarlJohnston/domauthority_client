@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import withAuthenticated from 'components/hocs/withAuthenticated';
-
 class Analyze extends Component {
   render() {
     return (
@@ -12,4 +10,4 @@ class Analyze extends Component {
   }
 }
 
-export default withAuthenticated(Analyze);
+export default Analyze;

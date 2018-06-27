@@ -3,8 +3,6 @@ import PNotify from 'pnotify/dist/umd/PNotify';
 
 import SiteRow from 'components/SiteRow/SiteRow';
 
-import withAuthenticated from 'components/hocs/withAuthenticated';
-
 import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
@@ -75,4 +73,4 @@ class Sites extends Component {
   }
 }
 
-export default withAuthenticated(Sites);
+export default Sites;

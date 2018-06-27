@@ -15,6 +15,8 @@ import Sites from 'components/Sites/Sites';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
+import AuthenticatedRoute from 'components/routes/AuthenticatedRoute';
+
 class Layout extends Component {
   render() {
     return (
@@ -31,10 +33,10 @@ class Layout extends Component {
           <Route path='/auth/confirmed' component={Confirmed} />
 
           <Route path='/users/:id' component={Profile} />
-          <Route path='/settings' component={Settings} />
+          <AuthenticatedRoute path='/settings' component={Settings} />
 
-          <Route path='/sites' component={Sites} />
-          <Route path='/analyze' component={Analyze} />
+          <AuthenticatedRoute path='/sites' component={Sites} />
+          <AuthenticatedRoute path='/analyze' component={Analyze} />
         </div>
 
         <Footer {...this.props }/>
