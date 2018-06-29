@@ -21,25 +21,25 @@ const VALID_CURRENT_USER_HEADERS = {
 };
 
 describe('register response', () => {
-  var options = {
+  let options = {
     messages: {
       success: 'Successfully logged in.',
     },
   };
-  var response;
+  let response;
   beforeEach(() => {
     response = new LoginResponse({}, options);
   });
 
   it('parses messages properly', () => {
     // errors present
-    var data = {
+    let data = {
       body: {
         errors: 'error',
       },
     };
     response.set(data);
-    var messages = response.getMessages();
+    let messages = response.getMessages();
     expect(messages).toEqual({
       'error': STATUS.error,
     });
@@ -50,7 +50,7 @@ describe('register response', () => {
     };
     response.set(data);
     messages = response.getMessages();
-    var expectedMessages = {};
+    let expectedMessages = {};
     expectedMessages[options.messages.success] = STATUS.success;
     expect(messages).toEqual(expectedMessages);
   });

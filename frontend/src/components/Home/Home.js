@@ -16,16 +16,16 @@ window.$ = window.jQuery = $;
 
 class Home extends Component {
   componentDidMount() {
-    var margin = {
+    let margin = {
       top: 20,
       right: 80,
       bottom: 30,
       left: 50
     };
-    var width = 900 - margin.left - margin.right;
-    var height = 440 - margin.top - margin.bottom;
+    let width = 900 - margin.left - margin.right;
+    let height = 440 - margin.top - margin.bottom;
 
-    var svg = d3.select('#d3-graph').append('svg')
+    let svg = d3.select('#d3-graph').append('svg')
                 .attr('id', 'chart')
                 .attr('viewBox', '0 0 960 500')
                 .attr('preserveAspectRatio', 'xMidYMid')
@@ -34,30 +34,30 @@ class Home extends Component {
                 .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    var listOfSiteColors = [];
+    let listOfSiteColors = [];
 
     function updateData(data) {
-      var parseDate = d3.time.format('%Y-%m-%d').parse;
+      let parseDate = d3.time.format('%Y-%m-%d').parse;
 
-      var x = d3.time.scale()
+      let x = d3.time.scale()
                 .range([0, width]);
 
-      var y = d3.scale.linear()
+      let y = d3.scale.linear()
                 .range([height, 0]).domain([0,100]);
 
-      var color = d3.scale.category20();
+      let color = d3.scale.category20();
 
-      var xAxis = d3.svg.axis()
+      let xAxis = d3.svg.axis()
                     .scale(x)
                     .orient('bottom')
                     .outerTickSize(0);
 
-      var yAxis = d3.svg.axis()
+      let yAxis = d3.svg.axis()
                     .scale(y)
                     .orient('left')
                     .outerTickSize(0);
 
-      var line = d3.svg.line()
+      let line = d3.svg.line()
                    .interpolate('linear')
                    .x(function (d) {
                      return x(d.date);
@@ -66,8 +66,8 @@ class Home extends Component {
                      return y(d.da);
                    });
 
-      var fullDataSet = [];
-      for (var key in data) {
+      let fullDataSet = [];
+      for (let key in data) {
         fullDataSet = fullDataSet.concat.apply(fullDataSet, data[key]);
       }
 
@@ -113,16 +113,16 @@ class Home extends Component {
         svg.selectAll('.x.axis').transition().duration(1500).call(xAxis);
       }
 
-      var myNewData = [];
-      var listOfSiteNames = [];
-      for (key in data) {
+      let myNewData = [];
+      let listOfSiteNames = [];
+      for (let key in data) {
         myNewData.push(data[key]);
         listOfSiteNames.push(key);
       }
 
-      var lines = d3.selectAll('.line');
+      let lines = d3.selectAll('.line');
       if (lines[0] && lines[0].length < 1) {
-        var myNewSvg = svg.selectAll('.line').data(myNewData);
+        let myNewSvg = svg.selectAll('.line').data(myNewData);
         myNewSvg.enter()
                 .append('path')
                 .attr('class', 'line')
@@ -136,7 +136,7 @@ class Home extends Component {
                 .append('svg:title')
                 .text(function(d, i) { return listOfSiteNames[i]; });
 
-        var legend = svg.append('g')
+        let legend = svg.append('g')
                         .attr('class', 'legend')
                         .selectAll('.color')
                         .data(listOfSiteColors)
@@ -156,7 +156,7 @@ class Home extends Component {
               .attr('height', 15)
               .style('fill', function(d, i) { return d; });
 
-        var myCircleGroups = svg.selectAll('circle').data(myNewData)
+        let myCircleGroups = svg.selectAll('circle').data(myNewData)
                                 .enter()
                                 .append('g')
                                 .attr('class', 'dot')
@@ -176,9 +176,9 @@ class Home extends Component {
            .transition()
            .duration(1500)
            .attr('d', line);
-        var newSvg = svg.selectAll('.dot')
+        let newSvg = svg.selectAll('.dot')
                         .data(myNewData);
-        var newCircles = newSvg.selectAll('circle')
+        let newCircles = newSvg.selectAll('circle')
                                .data(function(d, i) { return myNewData[i]; });
 
         newCircles.enter()
@@ -202,13 +202,13 @@ class Home extends Component {
         gravity: 'w',
         html: true,
         title: function() {
-          var d = $(this).attr('id');
+          let d = $(this).attr('id');
           return d;
         }
       });
     };
 
-    var initialData = Data.data1;
+    let initialData = Data.data1;
 
     updateData(initialData);
 
@@ -247,7 +247,7 @@ class Home extends Component {
     };
 
     Date.prototype.addMonths = function (value) {
-      var n = this.getDate();
+      let n = this.getDate();
       this.setDate(1);
       this.setMonth(this.getMonth() + value);
       this.setDate(Math.min(n, this.getDaysInMonth()));
@@ -258,23 +258,23 @@ class Home extends Component {
       return (Math.min(max, Math.max(min, v)));
     }
 
-    var currentData = JSON.parse(JSON.stringify(Data.data9));
+    let currentData = JSON.parse(JSON.stringify(Data.data9));
 
-    var max = 50;
-    var counter = 0;
-    var interval = 2300;
+    let max = 50;
+    let counter = 0;
+    let interval = 2300;
 
     this.timer = setInterval(function () {
       if (counter++ >= max) {
         return;
       }
 
-      for (var i = 0; i < 4; i++) {
-        var currentSite = currentData['Site' + parseInt(i+1, 10)];
+      for (let i = 0; i < 4; i++) {
+        let currentSite = currentData['Site' + parseInt(i+1, 10)];
 
-        var lastItemObject = currentSite[currentSite.length-1];
+        let lastItemObject = currentSite[currentSite.length-1];
 
-        var newNumber;
+        let newNumber;
         if (lastItemObject.da === 100) {
           newNumber = getRandomInt(85,90);
         } else if (lastItemObject.da === 0) {
@@ -283,12 +283,12 @@ class Home extends Component {
           newNumber = valBetween(lastItemObject.da + getRandomInt(-10,10), 0, 100);
         }
 
-        var previousDate = lastItemObject.date;
-        var previousYear = previousDate.toString().slice(0,4, 10);
-        var previousMonth = parseInt(previousDate.toString().slice(5,7), 10);
-        var previousDay = parseInt(previousDate.toString().slice(8,10), 10);
+        let previousDate = lastItemObject.date;
+        let previousYear = previousDate.toString().slice(0,4, 10);
+        let previousMonth = parseInt(previousDate.toString().slice(5,7), 10);
+        let previousDay = parseInt(previousDate.toString().slice(8,10), 10);
 
-        var currentDate = new Date(
+        let currentDate = new Date(
           previousYear,
           previousMonth-1,
           previousDay
@@ -301,17 +301,17 @@ class Home extends Component {
         });
       };
 
-      var copiedData = JSON.parse(JSON.stringify(currentData));
+      let copiedData = JSON.parse(JSON.stringify(currentData));
 
       updateData(copiedData);
     }, interval);
 
-    var chart = $('#chart');
-    var aspect = chart.width() / chart.height();
-    var container = chart.parent();
+    let chart = $('#chart');
+    let aspect = chart.width() / chart.height();
+    let container = chart.parent();
 
     $(window).on('resize', function() {
-      var targetWidth = container.width();
+      let targetWidth = container.width();
       chart.attr('width', targetWidth);
       chart.attr('height', Math.round(targetWidth / aspect));
     }).trigger('resize');

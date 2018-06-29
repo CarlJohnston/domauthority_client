@@ -9,8 +9,8 @@ import Login from 'components/NewLogin/NewLogin';
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
 describe('login', () => {
-  var xhr;
-  var requests = [];
+  let xhr;
+  let requests = [];
   beforeAll(() => {
     xhr = Sinon.useFakeXMLHttpRequest();
     xhr.onCreate = function (xhr) {
@@ -18,9 +18,9 @@ describe('login', () => {
     };
   });
 
-  var component;
-  var history;
-  var createComponent = (props, path) => {
+  let component;
+  let history;
+  let createComponent = (props, path) => {
     history = createHistory();
     path = path || '/';
     history.push(path);
@@ -29,7 +29,7 @@ describe('login', () => {
       component.unmount();
     }
 
-    var currentUser = {
+    let currentUser = {
       currentUser: {
         username: null,
         name: null,
@@ -53,10 +53,10 @@ describe('login', () => {
   });
 
   it('redirects to homepage after login success', (done) => {
-    var initialPath = '/login';
+    let initialPath = '/login';
     createComponent({}, initialPath);
 
-    var form = component.find(Login).find('form');
+    let form = component.find(Login).find('form');
     form.find('#email').instance().value = 'email@email.com';
     form.find('#password').instance().value = 'password';
     window.$(form.find('form').instance()).foundation('validateForm');
@@ -75,7 +75,7 @@ describe('login', () => {
       })
     );
 
-    var failed;
+    let failed;
     setInterval(() => {
       failed = false;
       try {

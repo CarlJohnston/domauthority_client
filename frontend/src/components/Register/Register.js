@@ -26,10 +26,10 @@ class Register extends Component {
     });
 
     this.$form.on('formvalid.zf.abide', (e) => {
-      var email = this.$form.find('#email').val();
-      var username = this.$form.find('#username').val();
-      var passwordInitial = this.$form.find('#password-initial').val();
-      var passwordConfirm = this.$form.find('#password-confirm').val();
+      let email = this.$form.find('#email').val();
+      let username = this.$form.find('#username').val();
+      let passwordInitial = this.$form.find('#password-initial').val();
+      let passwordConfirm = this.$form.find('#password-confirm').val();
 
       Async.waterfall([
         (callback) => {
@@ -39,15 +39,15 @@ class Register extends Component {
             password: passwordInitial,
             'password_confirmation': passwordConfirm,
           }).then((response) => {
-            var registerResponse = new RegisterResponse(response);
-            var messages = registerResponse.getMessages();
+            let registerResponse = new RegisterResponse(response);
+            let messages = registerResponse.getMessages();
 
             this.props.history.push('/login');
 
             callback(null, messages);
           }).catch((response) => {
-            var registerResponse = new RegisterResponse(response);
-            var messages = registerResponse.getMessages();
+            let registerResponse = new RegisterResponse(response);
+            let messages = registerResponse.getMessages();
 
             callback(null, messages);
           });

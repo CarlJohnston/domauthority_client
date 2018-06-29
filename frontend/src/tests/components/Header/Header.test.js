@@ -19,13 +19,13 @@ const VALID_CURRENT_USER_DATA = {
 };
 
 describe('header', () => {
-  var component;
-  var createComponent = (props, authenticated) => {
+  let component;
+  let createComponent = (props, authenticated) => {
     if (component) {
       component.unmount();
     }
 
-    var currentUser = {
+    let currentUser = {
       currentUser: VALID_CURRENT_USER_DATA,
       setCurrentUser: null,
       clearCurrentUser: null,

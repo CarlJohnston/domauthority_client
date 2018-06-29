@@ -1,8 +1,8 @@
 import Token from 'helpers/Token';
 import TOKEN from 'configs/Token';
 
-var epochExpiry = (new Date().getTime() / 1000) + 999999999;
-var VALID_DATA = {
+let epochExpiry = (new Date().getTime() / 1000) + 999999999;
+let VALID_DATA = {
   name: 'user',
   username: 'username',
   accessToken: 'token',
@@ -16,7 +16,7 @@ describe('authentication token', () => {
   it('authentication token gets authentication token', () => {
     // no token present
     Token.clear();
-    var value = Token.get();
+    let value = Token.get();
     expect(value).toEqual(null);
 
     // token present
@@ -26,14 +26,14 @@ describe('authentication token', () => {
 
     // token present missing some data still returns empty values
     Token.clear();
-    var data = Object.assign({}, VALID_DATA);
+    let data = Object.assign({}, VALID_DATA);
     delete data['name'];
     delete data['username'];
     Token.set(data);
     value = Token.get();
     expect(value.name).toEqual(undefined);
     expect(value.username).toEqual(undefined);
-    var expectedValue = Object.assign({}, VALID_DATA);
+    let expectedValue = Object.assign({}, VALID_DATA);
     delete expectedValue['name'];
     delete expectedValue['username'];
     delete value['name'];
@@ -50,11 +50,11 @@ describe('authentication token', () => {
     // no previous token
     Token.clear();
     Token.set(VALID_DATA);
-    var value = Token.get();
+    let value = Token.get();
     expect(value).toEqual(VALID_DATA);
 
     // previous token
-    var newData = Object.assign({}, VALID_DATA);
+    let newData = Object.assign({}, VALID_DATA);
     newData.uid = 'new@new.com';
     expect(newData.uid).not.toEqual(VALID_DATA.uid);
     Token.set(newData);
@@ -78,15 +78,15 @@ describe('authentication token', () => {
   it('properly considers any expiry attribute in token', () => {
     // no expiry date
     Token.clear();
-    var data = Object.assign({}, VALID_DATA);
+    let data = Object.assign({}, VALID_DATA);
     delete data['expiry'];
     Token.set(data);
-    var token = Token.get();
+    let token = Token.get();
     expect(token).toEqual(data);
 
     // integer expiry date but not expired
     Token.clear();
-    var expiry = (new Date().getTime() + 99999999999) / 1000;
+    let expiry = (new Date().getTime() + 99999999999) / 1000;
     data = Object.assign({}, VALID_DATA, { expiry: expiry });
     Token.set(data);
     token = Token.get();
@@ -145,15 +145,15 @@ describe('authentication token', () => {
 
     // current token
     Token.set(VALID_DATA);
-    var headersData = {
+    let headersData = {
       'access-token': VALID_DATA.accessToken,
       'token-type': VALID_DATA.tokenType,
       client: VALID_DATA.client,
       uid: VALID_DATA.uid,
       expiry: VALID_DATA.expiry,
     };
-    var expectedHeaders = new Headers(headersData);
-    var actualHeaders = Token.getHeaders();
+    let expectedHeaders = new Headers(headersData);
+    let actualHeaders = Token.getHeaders();
     Object.entries(headersData).forEach(([key, value]) => {
       expect(actualHeaders.get(key)).toEqual(expectedHeaders.get(key));
     });
@@ -169,7 +169,7 @@ describe('authentication token', () => {
       uid: '',
     }));
 
-    var partialData = {
+    let partialData = {
       accessToken: 'token',
     };
     Token.set({
@@ -188,7 +188,7 @@ describe('authentication token', () => {
     // no previous token
     Token.set(null);
     Token.clear();
-    var value = Token.get();
+    let value = Token.get();
     expect(value).toEqual(null);
 
     // previous token

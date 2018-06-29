@@ -37,18 +37,18 @@ class Login extends Component {
   }
 
   validLoginFormSubmit(e) {
-    var email = this.$form.find('#email').val();
-    var password = this.$form.find('#password').val();
+    let email = this.$form.find('#email').val();
+    let password = this.$form.find('#password').val();
     Async.waterfall([
       (callback) => {
         Authenticate.login({
           email: email,
           password: password,
         }).then((response) => {
-          var loginResponse = new LoginResponse(response);
-          var messages = loginResponse.getMessages();
+          let loginResponse = new LoginResponse(response);
+          let messages = loginResponse.getMessages();
 
-          var token = loginResponse.getTokenData();
+          let token = loginResponse.getTokenData();
 
           Token.set(token);
 
@@ -58,8 +58,8 @@ class Login extends Component {
 
           callback(null, messages);
         }).catch((response) => {
-          var loginResponse = new LoginResponse(response);
-          var messages = loginResponse.getMessages();
+          let loginResponse = new LoginResponse(response);
+          let messages = loginResponse.getMessages();
 
           callback(null, messages);
         });

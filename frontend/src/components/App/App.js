@@ -27,7 +27,7 @@ class App extends Component {
 
     this.history = createHistory();
 
-    var token;
+    let token;
     try {
       token = Token.get();
     } catch (e) {

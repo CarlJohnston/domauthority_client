@@ -16,9 +16,9 @@ class Sites extends Component {
   }
 
   componentDidMount() {
-    var headers = new Headers();
+    let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    var request = new Request('/users/current/sites', {
+    let request = new Request('/users/current/sites', {
       headers: headers,
     });
     fetch(request)

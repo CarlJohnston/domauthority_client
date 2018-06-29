@@ -6,8 +6,8 @@ import Home from 'components/Home/Home';
 import Token from 'helpers/Token';
 
 describe('home', () => {
-  var component;
-  var createComponent = (props) => {
+  let component;
+  let createComponent = (props) => {
     if (component) {
       component.unmount();
     }

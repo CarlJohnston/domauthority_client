@@ -50,7 +50,7 @@ class AuthenticateResponse {
    *                    }
    */
   getMessages() {
-    var messages = {};
+    let messages = {};
 
     if (this.data.body &&
         typeof this.data.body === 'object' &&
@@ -89,7 +89,7 @@ class AuthenticateResponse {
    *                     }
    */
   getTokenData() {
-    var token = null;
+    let token = null;
 
     if (this.data.body &&
         typeof this.data.body.data === 'object' &&

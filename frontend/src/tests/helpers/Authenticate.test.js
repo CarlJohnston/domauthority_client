@@ -29,8 +29,8 @@ const NEXT_CURRENT_USER_HEADERS = Object.assign(VALID_CURRENT_USER_HEADERS, {
 });
 
 describe('authenticate', () => {
-  var xhr;
-  var requests = [];
+  let xhr;
+  let requests = [];
   beforeAll(() => {
     xhr = Sinon.useFakeXMLHttpRequest();
     xhr.onCreate = function (xhr) {
@@ -46,8 +46,8 @@ describe('authenticate', () => {
     expect.assertions(8);
 
     // valid token
-    var data = VALID_CURRENT_USER_DATA;
-    var expectation = expect(Authenticate.validate(data)).resolves.toEqual({
+    let data = VALID_CURRENT_USER_DATA;
+    let expectation = expect(Authenticate.validate(data)).resolves.toEqual({
       body: {
         success: true,
         data: {
@@ -68,7 +68,7 @@ describe('authenticate', () => {
         client: NEXT_CURRENT_USER_HEADERS.client,
       }),
     });
-    var request = requests.pop();
+    let request = requests.pop();
     request.respond(
       200,
       {
@@ -110,7 +110,7 @@ describe('authenticate', () => {
     await expectation;
 
     // valid token but non-JSON response data
-    var expectedError = ERROR.unexpected;
+    let expectedError = ERROR.unexpected;
     expectation = expect(Authenticate.validate(data)).rejects.toEqual({
       body: {
         success: false,
@@ -241,7 +241,7 @@ describe('authenticate', () => {
     expect.assertions(5);
 
     // registers user with well-formed data
-    var data = {
+    let data = {
       uid: 'new@new.com',
       id: 21,
       email: 'new@new.com',
@@ -252,7 +252,7 @@ describe('authenticate', () => {
       nickname: null,
       image: null,
     };
-    var expectation = expect(Authenticate.register({
+    let expectation = expect(Authenticate.register({
       email: data.email,
       password: 'password',
       'password_confirmation': 'password',
@@ -265,7 +265,7 @@ describe('authenticate', () => {
         'content-type': 'application/json',
       }),
     });
-    var request = requests.pop();
+    let request = requests.pop();
     request.respond(
       200,
       {
@@ -279,7 +279,7 @@ describe('authenticate', () => {
     await expectation;
 
     // does not register user with poorly-formed data
-    var errors = {
+    let errors = {
       one: 'error1',
       two: 'error2',
       'full_messages': [
@@ -364,11 +364,11 @@ describe('authenticate', () => {
     expect.assertions(8);
 
     // login user with well-formed correct data
-    var data = {
+    let data = {
       email: 'email@email.com',
       password: 'password',
     };
-    var expectation = expect(Authenticate.login(data)).resolves.toEqual({
+    let expectation = expect(Authenticate.login(data)).resolves.toEqual({
       body: {
         data: data,
       },
@@ -376,7 +376,7 @@ describe('authenticate', () => {
         'content-type': 'application/json',
       }),
     });
-    var request = requests.pop();
+    let request = requests.pop();
     request.respond(
       200,
       {
@@ -491,7 +491,7 @@ describe('authenticate', () => {
       headers: new Headers(),
     });
 
-    var errors = {
+    let errors = {
       one: 'error1',
       two: 'error2',
       'full_messages': [

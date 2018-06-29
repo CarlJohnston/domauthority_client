@@ -21,19 +21,19 @@ const VALID_CURRENT_USER_HEADERS = {
 };
 
 describe('authenticate response response', () => {
-  var defaults = {
+  let defaults = {
     success: 'Success.',
   };
-  var response;
+  let response;
   beforeEach(() => {
     response = new AuthenticateResponse();
   });
 
   it('parses errors properly', () => {
     // bad data
-    var data = '';
+    let data = '';
     response.set(data);
-    var errors = response.getMessages();
+    let errors = response.getMessages();
     expect(errors).toEqual({
       'Success.': STATUS.success,
     });
@@ -65,7 +65,7 @@ describe('authenticate response response', () => {
     expect(errors).toEqual({});
 
     // errors is string
-    var errorString = 'string';
+    let errorString = 'string';
     data = {
       body: {
         errors: errorString,
@@ -78,11 +78,11 @@ describe('authenticate response response', () => {
     });
 
     // errors is array
-    var errorArray = [
+    let errorArray = [
       'error1',
       'error2',
     ];
-    var expectedErrorObject = {};
+    let expectedErrorObject = {};
     errorArray.forEach((error) => {
       expectedErrorObject[error] = STATUS.error;
     });
@@ -96,7 +96,7 @@ describe('authenticate response response', () => {
     expect(errors).toEqual(expectedErrorObject);
 
     // errors is key-val object without full_messages object
-    var errorObject = {
+    let errorObject = {
       0: 'error',
       1: 'error',
     };
@@ -159,7 +159,7 @@ describe('authenticate response response', () => {
 
   it('fetches token from response', () => {
     // valid data
-    var data = {
+    let data = {
       body: {
         data: VALID_CURRENT_USER_DATA,
       },
@@ -172,7 +172,7 @@ describe('authenticate response response', () => {
       }),
     };
     response.set(data);
-    var token = response.getTokenData();
+    let token = response.getTokenData();
     expect(token).toEqual({
       name: VALID_CURRENT_USER_DATA.name,
       username: VALID_CURRENT_USER_DATA.username,

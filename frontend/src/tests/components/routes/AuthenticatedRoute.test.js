@@ -17,10 +17,10 @@ const VALID_CURRENT_USER_DATA = {
 };
 
 describe('authenticated route', () => {
-  var component;
-  var history;
-  var createComponent = (options) => {
-    var defaultOptions = {
+  let component;
+  let history;
+  let createComponent = (options) => {
+    let defaultOptions = {
       props: {},
       authenticated: false,
     };
@@ -30,7 +30,7 @@ describe('authenticated route', () => {
       component.unmount();
     }
 
-    var currentUserData = {};
+    let currentUserData = {};
     if (options.authenticated) {
       currentUserData = VALID_CURRENT_USER_DATA;
     } else {
@@ -38,7 +38,7 @@ describe('authenticated route', () => {
         currentUserData[key] = null;
       });
     }
-    var currentUser = {
+    let currentUser = {
       currentUser: currentUserData,
       setCurrentUser: null,
       clearCurrentUser: null,

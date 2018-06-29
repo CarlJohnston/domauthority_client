@@ -16,8 +16,8 @@ const VALID_CURRENT_USER_DATA = {
 };
 
 describe('settings', () => {
-  var component;
-  var createComponent = (props) => {
+  let component;
+  let createComponent = (props) => {
     if (component) {
       component.unmount();
     }
@@ -38,7 +38,7 @@ describe('settings', () => {
     Token.clear();
     createComponent();
 
-    var currentUserProvider = findCurrentUserProvider(component);
+    let currentUserProvider = findCurrentUserProvider(component);
     Object.values(
       currentUserProvider.prop('value').currentUser
     ).forEach((value) => {
@@ -62,7 +62,7 @@ describe('settings', () => {
     Token.clear();
     createComponent();
 
-    var currentUserProvider = findCurrentUserProvider(component);
+    let currentUserProvider = findCurrentUserProvider(component);
     currentUserProvider.prop('value').setCurrentUser(VALID_CURRENT_USER_DATA);
     component.update();
     currentUserProvider = findCurrentUserProvider(component);
@@ -73,7 +73,7 @@ describe('settings', () => {
     });
 
     // prior currentUser
-    var data = Object.assign({}, VALID_CURRENT_USER_DATA);
+    let data = Object.assign({}, VALID_CURRENT_USER_DATA);
     data.uid = VALID_CURRENT_USER_DATA.uid + 1;
     currentUserProvider = findCurrentUserProvider(component);
     currentUserProvider.prop('value').setCurrentUser(data);
@@ -91,7 +91,7 @@ describe('settings', () => {
     Token.clear();
     createComponent();
 
-    var currentUserProvider = findCurrentUserProvider(component);
+    let currentUserProvider = findCurrentUserProvider(component);
     currentUserProvider.prop('value').clearCurrentUser();
     Object.entries(
       currentUserProvider.prop('value').currentUser

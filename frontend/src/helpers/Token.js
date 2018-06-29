@@ -28,25 +28,25 @@ class Token {
    *                   }
    */
   static get() {
-    var parsedStorage;
+    let parsedStorage;
     try {
       parsedStorage = JSON.parse(localStorage.getItem(this.key));
     } catch (e) {
       parsedStorage = null;
     }
 
-    var value;
+    let value;
     if (parsedStorage) {
-      var expiry = parsedStorage.expiry;
+      let expiry = parsedStorage.expiry;
 
       if (expiry) {
-        var currentDate = new Date();
-        var expiryDate;
+        let currentDate = new Date();
+        let expiryDate;
         if (Number.isInteger(parseInt(expiry, 10))) {
           // ensure integer
           expiry = parseInt(expiry, 10);
 
-          var epochTime = expiry * 1000;
+          let epochTime = expiry * 1000;
           expiryDate = new Date(epochTime);
           if (expiryDate > currentDate) {
             value = parsedStorage;
@@ -87,8 +87,8 @@ class Token {
    *                         }
    */
   static set(data) {
-    var previousToken = this.get();
-    var token;
+    let previousToken = this.get();
+    let token;
     if (previousToken) {
       token = Object.assign(previousToken, data);
     } else {
@@ -116,9 +116,9 @@ class Token {
    *                      }
    */
   static getHeaders() {
-    var token = this.get();
+    let token = this.get();
 
-    var headers = new Headers();
+    let headers = new Headers();
     if (token) {
       headers.append('access-token', token.accessToken || '');
       headers.append('token-type', token.tokenType || '');

@@ -29,21 +29,21 @@ class Authenticate {
   static validate(data) {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
-        var url = urlPrefix + '/validate_token';
-        var params = URL.format({
+        let url = urlPrefix + '/validate_token';
+        let params = URL.format({
           query: {
             uid: data.uid,
             client: data.client,
             'access-token': data.accessToken,
           },
         });
-        var request = new Request(url + params, {
+        let request = new Request(url + params, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
 
-        var headers;
+        let headers;
         fetch(request)
           .then((response) => {
             headers = response.headers;
@@ -52,8 +52,8 @@ class Authenticate {
           }).then((body) => {
             if (body.success) {
               data = body.data;
-              var accessToken = headers.get('access-token');
-              var client = headers.get('client');
+              let accessToken = headers.get('access-token');
+              let client = headers.get('client');
               if (data && typeof data === 'object' &&
                   accessToken &&
                   client) {
@@ -122,8 +122,8 @@ class Authenticate {
   static register(data) {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
-        var url = urlPrefix + '/';
-        var request = new Request(url, {
+        let url = urlPrefix + '/';
+        let request = new Request(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ class Authenticate {
           body: JSON.stringify(data),
         });
 
-        var headers;
+        let headers;
         fetch(request)
           .then((response) => {
             headers = response.headers;
@@ -204,8 +204,8 @@ class Authenticate {
   static login(data) {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
-        var url = urlPrefix + '/sign_in';
-        var request = new Request(url, {
+        let url = urlPrefix + '/sign_in';
+        let request = new Request(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -213,8 +213,8 @@ class Authenticate {
           body: JSON.stringify(data),
         });
 
-        var headers;
-        var initialResponse;
+        let headers;
+        let initialResponse;
         fetch(request)
           .then((response) => {
             initialResponse = response;
