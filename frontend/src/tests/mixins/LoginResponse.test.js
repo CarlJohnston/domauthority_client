@@ -21,7 +21,7 @@ const VALID_CURRENT_USER_HEADERS = {
 };
 
 describe('register response', () => {
-  let options = {
+  const options = {
     messages: {
       success: 'Successfully logged in.',
     },

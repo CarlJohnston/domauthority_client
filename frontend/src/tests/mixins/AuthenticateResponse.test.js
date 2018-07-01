@@ -21,7 +21,7 @@ const VALID_CURRENT_USER_HEADERS = {
 };
 
 describe('authenticate response response', () => {
-  let defaults = {
+  const defaults = {
     success: 'Success.',
   };
   let response;

@@ -16,16 +16,16 @@ window.$ = window.jQuery = $;
 
 class Home extends Component {
   componentDidMount() {
-    let margin = {
+    const margin = {
       top: 20,
       right: 80,
       bottom: 30,
       left: 50
     };
-    let width = 900 - margin.left - margin.right;
-    let height = 440 - margin.top - margin.bottom;
+    const width = 900 - margin.left - margin.right;
+    const height = 440 - margin.top - margin.bottom;
 
-    let svg = d3.select('#d3-graph').append('svg')
+    const svg = d3.select('#d3-graph').append('svg')
                 .attr('id', 'chart')
                 .attr('viewBox', '0 0 960 500')
                 .attr('preserveAspectRatio', 'xMidYMid')
@@ -34,7 +34,7 @@ class Home extends Component {
                 .append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    let listOfSiteColors = [];
+    const listOfSiteColors = [];
 
     function updateData(data) {
       let parseDate = d3.time.format('%Y-%m-%d').parse;

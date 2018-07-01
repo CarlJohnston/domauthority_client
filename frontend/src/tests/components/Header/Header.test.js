@@ -25,7 +25,7 @@ describe('header', () => {
       component.unmount();
     }
 
-    let currentUser = {
+    const currentUser = {
       currentUser: VALID_CURRENT_USER_DATA,
       setCurrentUser: null,
       clearCurrentUser: null,

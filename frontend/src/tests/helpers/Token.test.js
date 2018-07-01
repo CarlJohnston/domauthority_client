@@ -1,8 +1,8 @@
 import Token from 'helpers/Token';
 import TOKEN from 'configs/Token';
 
-let epochExpiry = (new Date().getTime() / 1000) + 999999999;
-let VALID_DATA = {
+const epochExpiry = (new Date().getTime() / 1000) + 999999999;
+const VALID_DATA = {
   name: 'user',
   username: 'username',
   accessToken: 'token',

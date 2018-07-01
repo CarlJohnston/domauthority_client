@@ -2,7 +2,7 @@ import RegisterResponse from 'mixins/RegisterResponse';
 import STATUS from 'configs/Status';
 
 describe('register response', () => {
-  let options = {
+  const options = {
     messages: {
       success: 'Successfully registered. Please login using the form below.',
     },
