@@ -18,15 +18,12 @@ import CurrentUserContext from 'contexts/CurrentUserContext';
 
 import Token from 'helpers/Token';
 
+import type { CurrentUser } from 'contexts/CurrentUserContext.types';
+
 import $ from 'jquery';
 window.$ = window.jQuery = $;
 require('foundation-sites');
 
-
-type CurrentUser = {
-  name?: string,
-  username?: string,
-};
 
 type State = {
   currentUser: {
