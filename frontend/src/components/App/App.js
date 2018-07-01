@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
@@ -21,8 +22,27 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 require('foundation-sites');
 
-class App extends Component {
-  constructor(props) {
+
+type CurrentUser = {
+  name?: string,
+  username?: string,
+};
+
+type State = {
+  currentUser: {
+    currentUser: CurrentUser,
+    setCurrentUser: ((CurrentUser)) => void,
+    clearCurrentUser: () => void,
+  },
+};
+
+type Props = {
+};
+
+class App extends Component<Props, State> {
+  history: History;
+
+  constructor(props: Props) {
     super(props);
 
     this.history = createHistory();
@@ -69,6 +89,7 @@ class App extends Component {
 
   render() {
     return (
+      // $FlowFixMe: React Flow typings are not yet updated to React 16.3
       <React.StrictMode>
         <CurrentUserContext.Provider value={this.state.currentUser}>
           <Router history={this.history}>
