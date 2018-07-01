@@ -7,5 +7,8 @@
 [lints]
 
 [options]
+module.name_mapper='^components\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^contexts\(.*\)$' -> '<PROJECT_ROOT>/src/contexts/\1'
+module.name_mapper='^helpers\(.*\)$' -> '<PROJECT_ROOT>/src/helpers/\1'
 
 [strict]
