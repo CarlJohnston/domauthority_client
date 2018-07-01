@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
-import { Route } from 'react-router-dom';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
