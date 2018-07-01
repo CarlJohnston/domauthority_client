@@ -42,7 +42,7 @@ describe('settings', () => {
     Object.values(
       currentUserProvider.prop('value').currentUser
     ).forEach((value) => {
-      expect(value).toEqual(null);
+      expect(value).toEqual(undefined);
     });
 
     // prior authentication token
@@ -96,7 +96,7 @@ describe('settings', () => {
     Object.entries(
       currentUserProvider.prop('value').currentUser
     ).forEach(([key, value]) => {
-      expect(value).toEqual(null);
+      expect(value).toEqual(undefined);
     });
 
     // prior user
@@ -106,7 +106,7 @@ describe('settings', () => {
     Object.entries(
       currentUserProvider.prop('value').currentUser
     ).forEach(([key, value]) => {
-      expect(value).toEqual(null);
+      expect(value).toEqual(undefined);
     });
   });
 });

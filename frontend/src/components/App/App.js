@@ -39,8 +39,8 @@ class App extends Component {
     this.state = {
       currentUser: {
         currentUser: {
-          name: token ? token.name : null,
-          username: token ? token.username : null,
+          name: token ? token.name : undefined,
+          username: token ? token.username : undefined,
         },
         setCurrentUser: function (data) {
           this.setState((prevState) => {
@@ -56,8 +56,8 @@ class App extends Component {
             return {
               currentUser: Object.assign(prevState.currentUser, {
                 currentUser: {
-                  name: null,
-                  username: null,
+                  name: undefined,
+                  username: undefined,
                 }
               }),
             };
