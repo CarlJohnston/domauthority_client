@@ -42,6 +42,7 @@ class Login extends Component<Props> {
     if (this.loginFormNode.current) {
       this.$form = $(this.loginFormNode.current);
 
+      // $FlowFixMe
       this.$form.foundation();
 
       this.$form.on('formvalid.zf.abide', function (e) {

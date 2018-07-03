@@ -36,6 +36,7 @@ class Register extends Component<Props> {
     if (this.registerFormNode.current) {
       this.$form = $(this.registerFormNode.current);
 
+      // $FlowFixMe
       this.$form.foundation();
 
       this.$form.on('submit', (e) => {
