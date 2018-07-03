@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
@@ -11,11 +13,25 @@ import Token from 'helpers/Token';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
+import type { Ref, ElementRef } from 'react';
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+
 import $ from 'jquery';
 window.jQuery = window.$ = $;
 require('foundation-sites');
 
-class Login extends Component {
+
+type Props = {
+  onAuthenticated: () => void,
+  ...$Exact<CurrentUserContextType>,
+};
+
+class Login extends Component<Props> {
+  loginFormNode: {
+    current: ElementRef<'form'> | null,
+  };
+  $form: JQuery;
+
   constructor(props) {
     super(props);
 
@@ -23,13 +39,15 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.$form = $(this.loginFormNode.current);
+    if (this.loginFormNode.current) {
+      this.$form = $(this.loginFormNode.current);
 
-    this.$form.foundation();
+      this.$form.foundation();
 
-    this.$form.on('formvalid.zf.abide', function (e) {
-      this.validLoginFormSubmit(e);
-    }.bind(this));
+      this.$form.on('formvalid.zf.abide', function (e) {
+        this.validLoginFormSubmit(e);
+      }.bind(this));
+    }
   }
 
   componentWillUnmount() {

@@ -1,6 +1,11 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class AnimatedGraph extends Component {
+
+type Props = {};
+
+class AnimatedGraph extends Component<Props> {
   render() {
     return (
         <svg width='400' height='200' viewBox='0 0 340 200' id='top-graph'>

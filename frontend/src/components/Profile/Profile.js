@@ -1,8 +1,17 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class Profile extends Component {
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+
+
+type Props = {
+  ...$Exact<CurrentUserContextType>,
+};
+
+class Profile extends Component<Props> {
   render() {
     return (
       <div>

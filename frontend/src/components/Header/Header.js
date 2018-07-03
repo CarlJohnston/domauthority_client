@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +13,14 @@ import SettingsLink from 'components/SettingsLink/SettingsLink';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class Header extends Component {
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+
+
+type Props = {
+  ...$Exact<CurrentUserContextType>,
+};
+
+class Header extends Component<Props> {
   render() {
     return (
       <div className='top-bar-container'>

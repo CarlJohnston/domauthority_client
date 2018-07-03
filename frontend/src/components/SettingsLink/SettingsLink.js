@@ -1,7 +1,13 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class SettingsLink extends Component {
+
+type Props = {
+};
+
+class SettingsLink extends Component<Props> {
   render() {
     return (
       <Link to='/settings'>

@@ -1,6 +1,11 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class Confirmed extends Component {
+
+type Props = {};
+
+class Confirmed extends Component<Props> {
   render() {
     return (
       <div>

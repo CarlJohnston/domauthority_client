@@ -8,4 +8,13 @@ type CurrentUser = {
   client?: string,
 };
 
-export type { CurrentUser };
+type CurrentUserContext = {
+  currentUser: CurrentUser,
+  setCurrentUser: (CurrentUser) => void,
+  clearCurrentUser: () => void,
+};
+
+export type {
+  CurrentUserContext,
+  CurrentUser
+};

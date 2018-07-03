@@ -1,9 +1,18 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class RegisterLink extends Component {
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+
+
+type Props = {
+  ...$Exact<CurrentUserContextType>,
+};
+
+class RegisterLink extends Component<Props> {
   render() {
     return (
       <Link to='/register'>

@@ -1,6 +1,16 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class SiteRow extends Component {
+
+type Props = {
+  site: {
+    title: string,
+    url: string,
+  },
+};
+
+class SiteRow extends Component<Props> {
   render() {
     return (
       <tr>

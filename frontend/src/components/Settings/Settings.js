@@ -1,6 +1,12 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class Settings extends Component {
+
+type Props = {
+};
+
+class Settings extends Component<Props> {
   render() {
     return (
       <div>

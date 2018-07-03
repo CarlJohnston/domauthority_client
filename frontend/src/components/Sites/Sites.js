@@ -6,8 +6,16 @@ import SiteRow from 'components/SiteRow/SiteRow';
 import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
-class Sites extends Component {
-  constructor(props) {
+
+type Props = {
+};
+
+type State = {
+  sites: Array<string>,
+};
+
+class Sites extends Component<Props> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {

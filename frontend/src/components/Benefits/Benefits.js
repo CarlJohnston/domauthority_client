@@ -1,6 +1,11 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class Benefits extends Component {
+
+type Props = {};
+
+class Benefits extends Component<Props> {
   render() {
     return (
       <div className='grid-x features-grid'>

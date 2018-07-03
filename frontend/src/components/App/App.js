@@ -18,7 +18,8 @@ import CurrentUserContext from 'contexts/CurrentUserContext';
 
 import Token from 'helpers/Token';
 
-import type { CurrentUser } from 'contexts/CurrentUserContext.types';
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+import type { RouterHistory } from 'react-router-dom';
 
 import $ from 'jquery';
 window.$ = window.jQuery = $;
@@ -26,18 +27,13 @@ require('foundation-sites');
 
 
 type State = {
-  currentUser: {
-    currentUser: CurrentUser,
-    setCurrentUser: ((CurrentUser)) => void,
-    clearCurrentUser: () => void,
-  },
+  currentUser: CurrentUserContextType,
 };
 
-type Props = {
-};
+type Props = {};
 
 class App extends Component<Props, State> {
-  history: History;
+  history: RouterHistory;
 
   constructor(props: Props) {
     super(props);

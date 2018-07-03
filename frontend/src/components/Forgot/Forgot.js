@@ -1,6 +1,11 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class Forgot extends Component {
+type Props = {
+};
+
+class Forgot extends Component<Props> {
   render() {
     return (
       <div>

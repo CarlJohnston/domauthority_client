@@ -1,6 +1,11 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class Analyze extends Component {
+
+type Props = {};
+
+class Analyze extends Component<Props> {
   render() {
     return (
       <div>

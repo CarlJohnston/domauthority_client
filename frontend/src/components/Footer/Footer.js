@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -5,7 +7,10 @@ import './Footer.css';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class Footer extends Component {
+type Props = {
+};
+
+class Footer extends Component<Props> {
   render() {
     return (
       <div className='footer-container'>

@@ -1,17 +1,31 @@
+// @flow
+
 import React, { Component } from 'react';
+import type { Node } from 'react';
 import fetchIntercept from 'fetch-intercept';
 
 import Token from 'helpers/Token';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class FetchInterceptor extends Component {
-  constructor(props) {
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+
+
+type Props = {
+  children: Node,
+  ...$Exact<CurrentUserContextType>,
+};
+
+class FetchInterceptor extends Component<Props> {
+  unregisterFetchIntercept: () => void;
+
+  constructor(props: Props) {
     super(props);
 
     this.unregisterFetchIntercept = fetchIntercept.register({
       request: function (request, config) {
-        if (this.props.currentUser.username) {
+        if (this.props.currentUser &&
+            this.props.currentUser.username) {
           let token = Token.get();
           if (token) {
             if (request instanceof Request) {

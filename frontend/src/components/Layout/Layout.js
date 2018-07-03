@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
@@ -18,7 +20,10 @@ import withCurrentUser from 'components/hocs/withCurrentUser';
 import AuthenticatedRoute from 'components/routes/AuthenticatedRoute';
 import NotAuthenticatedRoute from 'components/routes/NotAuthenticatedRoute';
 
-class Layout extends Component {
+type Props = {
+};
+
+class Layout extends Component<Props> {
   render() {
     return (
       <div>

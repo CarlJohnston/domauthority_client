@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class ProfileLink extends Component {
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+
+
+type Props = {
+  ...$Exact<CurrentUserContextType>,
+};
+
+class ProfileLink extends Component<Props> {
   render() {
     return (
       <Link to={`/users/${this.props.currentUser.username}`}>

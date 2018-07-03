@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import Async from 'async';
@@ -5,62 +7,78 @@ import Async from 'async';
 import Authenticate from 'helpers/Authenticate';
 import RegisterResponse from 'mixins/RegisterResponse';
 
+import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+import type { RouterHistory } from 'react-router-dom';
+import type { ElementRef } from 'react';
+
 import $ from 'jquery';
 window.jQuery = window.$ = $;
 require('foundation-sites');
 
-class Register extends Component {
-  constructor(props) {
+type Props = {
+  history: RouterHistory,
+  ...$Exact<CurrentUserContextType>,
+};
+
+class Register extends Component<Props> {
+  registerFormNode: {
+    current: ElementRef<'form'> | null,
+  };
+  $form: JQuery;
+
+  constructor(props: Props) {
     super(props);
 
     this.registerFormNode = React.createRef();
   }
 
   componentDidMount() {
-    this.$form = $(this.registerFormNode.current);
+    if (this.registerFormNode.current) {
+      this.$form = $(this.registerFormNode.current);
 
-    this.$form.foundation();
+      this.$form.foundation();
 
-    this.$form.on('submit', (e) => {
-      e.preventDefault();
-    });
+      this.$form.on('submit', (e) => {
+        e.preventDefault();
+      });
 
-    this.$form.on('formvalid.zf.abide', (e) => {
-      let email = this.$form.find('#email').val();
-      let username = this.$form.find('#username').val();
-      let passwordInitial = this.$form.find('#password-initial').val();
-      let passwordConfirm = this.$form.find('#password-confirm').val();
+      this.$form.on('formvalid.zf.abide', (e) => {
+        let email = this.$form.find('#email').val();
+        let username = this.$form.find('#username').val();
+        let passwordInitial = this.$form.find('#password-initial').val();
+        let passwordConfirm = this.$form.find('#password-confirm').val();
 
-      Async.waterfall([
-        (callback) => {
-          Authenticate.register({
-            email: email,
-            username: username,
-            password: passwordInitial,
-            'password_confirmation': passwordConfirm,
-          }).then((response) => {
-            let registerResponse = new RegisterResponse(response);
-            let messages = registerResponse.getMessages();
+        Async.waterfall([
+          (callback) => {
+            Authenticate.register({
+              email: email,
+              username: username,
+              password: passwordInitial,
+              'password_confirmation': passwordConfirm,
+            }).then((response) => {
+              let registerResponse = new RegisterResponse(response);
+              let messages = registerResponse.getMessages();
 
-            this.props.history.push('/login');
+              this.props.history.push('/login');
 
-            callback(null, messages);
-          }).catch((response) => {
-            let registerResponse = new RegisterResponse(response);
-            let messages = registerResponse.getMessages();
+              callback(null, messages);
+            }).catch((response) => {
+              let registerResponse = new RegisterResponse(response);
+              let messages = registerResponse.getMessages();
 
-            callback(null, messages);
-          });
-        }], (error, messages) => {
-          Object.entries(messages).forEach(([message, status]) => {
-            PNotify.alert({
-              text: message,
-              type: status,
-              delay: 2000,
+              callback(null, messages);
+            });
+          }], (error, messages) => {
+            Object.entries(messages).forEach(([message, status]) => {
+              PNotify.alert({
+                text: message,
+                type: status,
+                delay: 2000,
+              });
             });
           });
-        });
-    });
+      });
+    }
   }
 
   render() {

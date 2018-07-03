@@ -1,9 +1,15 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class LoginLink extends Component {
+
+type Props = {
+};
+
+class LoginLink extends Component<Props> {
   render() {
     return (
       <Link to='/login'>
