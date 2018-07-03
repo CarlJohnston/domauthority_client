@@ -14,7 +14,7 @@ type State = {
   sites: Array<string>,
 };
 
-class Sites extends Component<Props> {
+class Sites extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
