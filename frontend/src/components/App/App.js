@@ -87,7 +87,7 @@ class App extends Component<Props, State> {
         <CurrentUserContext.Provider value={this.state.currentUser}>
           <Router history={this.history}>
             <FetchInterceptor>
-              <Route to='/' component={Layout} />
+              <Route path='/' component={Layout} />
             </FetchInterceptor>
           </Router>
         </CurrentUserContext.Provider>
