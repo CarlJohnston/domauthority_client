@@ -13,7 +13,7 @@ import Token from 'helpers/Token';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-import type { Ref, ElementRef } from 'react';
+import type { ElementRef } from 'react';
 import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
 
 import $ from 'jquery';
