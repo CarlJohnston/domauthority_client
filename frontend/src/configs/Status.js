@@ -1,3 +1,5 @@
+// @flow
+
 const STATUS = {
   success: 'success',
   error: 'error',

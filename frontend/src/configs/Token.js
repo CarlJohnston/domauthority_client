@@ -1,3 +1,5 @@
+// @flow
+
 const TOKEN = {
   authentication: {
     key: 'simplicify',
