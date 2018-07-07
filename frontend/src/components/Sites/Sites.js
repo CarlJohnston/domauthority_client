@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
 
@@ -11,7 +13,10 @@ type Props = {
 };
 
 type State = {
-  sites: Array<string>,
+  sites: Array<{
+    title: string,
+    url: string,
+  }>,
 };
 
 class Sites extends Component<Props, State> {
