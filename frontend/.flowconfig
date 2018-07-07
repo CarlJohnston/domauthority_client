@@ -11,5 +11,6 @@ module.name_mapper='^components\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
 module.name_mapper='^contexts\(.*\)$' -> '<PROJECT_ROOT>/src/contexts/\1'
 module.name_mapper='^helpers\(.*\)$' -> '<PROJECT_ROOT>/src/helpers/\1'
 module.name_mapper='^mixins\(.*\)$' -> '<PROJECT_ROOT>/src/mixins/\1'
+module.name_mapper='^configs\(.*\)$' -> '<PROJECT_ROOT>/src/configs/\1'
 
 [strict]
