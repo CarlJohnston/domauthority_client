@@ -1,10 +1,22 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
-class AuthenticatedRouteBase extends Component {
+import type { ComponentType } from 'react';
+import type { CurrentUser as CurrentUser } from 'contexts/CurrentUserContext.types';
+
+
+type Props = {
+  component: ComponentType<{}>,
+  currentUser: CurrentUser,
+  authenticated: boolean,
+};
+
+class AuthenticatedRouteBase extends Component<Props> {
   render() {
     let { component: Component,
           currentUser,
