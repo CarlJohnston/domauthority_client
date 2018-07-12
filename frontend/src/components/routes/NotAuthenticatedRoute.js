@@ -6,6 +6,7 @@ import withCurrentUser from 'components/hocs/withCurrentUser';
 
 import AuthenticatedRouteBase from 'components/routes/AuthenticatedRouteBase';
 
+
 type Props = {
 };
 
