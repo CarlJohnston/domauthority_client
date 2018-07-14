@@ -1,9 +1,17 @@
+// @flow
+
 import React, { Component } from 'react';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
-function withCurrentUser(WrappedComponent) {
-  return class extends Component {
+import type { ComponentType } from 'react';
+
+
+type Props = {
+};
+
+function withCurrentUser(WrappedComponent: ComponentType<any>) {
+  return class extends Component<Props> {
     render() {
       return (
         <CurrentUserContext.Consumer>
