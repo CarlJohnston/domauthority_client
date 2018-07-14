@@ -7,11 +7,8 @@ import CurrentUserContext from 'contexts/CurrentUserContext';
 import type { ComponentType } from 'react';
 
 
-type Props = {
-};
-
 function withCurrentUser(WrappedComponent: ComponentType<any>) {
-  return class extends Component<Props> {
+  return class extends Component<{}> {
     render() {
       return (
         <CurrentUserContext.Consumer>
