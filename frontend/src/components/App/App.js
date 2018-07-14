@@ -4,8 +4,8 @@ import { Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
 import createHistory from "history/createBrowserHistory";
 
-import 'foundation-sites/dist/css/foundation.min.css'
-import 'pnotify/dist/PNotifyBrightTheme.css'
+import 'foundation-sites/dist/css/foundation.min.css';
+import 'pnotify/dist/PNotifyBrightTheme.css';
 
 import './App.css';
 
