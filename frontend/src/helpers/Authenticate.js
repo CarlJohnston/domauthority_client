@@ -1,6 +1,32 @@
+// @flow
+
 import URL from 'url';
 
 import ERROR from 'configs/Error';
+
+
+type TokenHeaders = {
+  uid: string,
+  client: string,
+  accessToken: string,
+};
+
+type ParsedResponse = {
+  body: {},
+  headers: Headers,
+};
+
+type RegistrationData = {
+  username: string,
+  email: string,
+  password: string,
+  password_confirmation: string,
+};
+
+type LoginData = {
+  email: string,
+  password: string,
+};
 
 /*
  * Promise API to request against
@@ -19,31 +45,32 @@ class Authenticate {
    *                          accessToken: {String},
    *                        }
    *
-   * @returns {Object}     response object for newly issued token
+   * @returns {Promise}    promise that on success resolves to
+   *                       response object for newly issued token
    *                       with JSON already streamed into body property
    *                        {
    *                          body: {Object},
    *                          headers: {Headers},
    *                        }
    */
-  static validate(data) {
+  static validate(data: TokenHeaders): Promise<ParsedResponse> {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
-        let url = urlPrefix + '/validate_token';
-        let params = URL.format({
+        let url: string = urlPrefix + '/validate_token';
+        let params: string = URL.format({
           query: {
             uid: data.uid,
             client: data.client,
             'access-token': data.accessToken,
           },
         });
-        let request = new Request(url + params, {
+        let request: Request = new Request(url + params, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
 
-        let headers;
+        let headers: Headers;
         fetch(request)
           .then((response) => {
             headers = response.headers;
@@ -52,8 +79,8 @@ class Authenticate {
           }).then((body) => {
             if (body.success) {
               data = body.data;
-              let accessToken = headers.get('access-token');
-              let client = headers.get('client');
+              let accessToken: string = headers.get('access-token');
+              let client: string = headers.get('client');
               if (data && typeof data === 'object' &&
                   accessToken &&
                   client) {
@@ -112,18 +139,19 @@ class Authenticate {
    *                          password_confirmation: {String},
    *                        }
    *
-   * @returns {Object}     response object for newly issued user
+   * @returns {Promise}    promise that resolves on success to
+   *                       response object for newly issued user
    *                       with JSON already streamed into body property
    *                        {
    *                          body: {Object},
    *                          headers: {Headers},
    *                        }
    */
-  static register(data) {
+  static register(data: RegistrationData): Promise<ParsedResponse> {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
-        let url = urlPrefix + '/';
-        let request = new Request(url, {
+        let url: string = urlPrefix + '/';
+        let request: Request = new Request(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -131,7 +159,7 @@ class Authenticate {
           body: JSON.stringify(data),
         });
 
-        let headers;
+        let headers: Headers;
         fetch(request)
           .then((response) => {
             headers = response.headers;
@@ -194,18 +222,19 @@ class Authenticate {
    *                          password: {String},
    *                        }
    *
-   * @returns {Object}     response object for newly issued user
+   * @returns {Promsise}   promise that resolves on success to
+   *                       response object for newly issued user
    *                       with JSON already streamed into body property
    *                        {
    *                          body: {Object},
    *                          headers: {Headers},
    *                        }
    */
-  static login(data) {
+  static login(data: LoginData): Promise<ParsedResponse> {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
-        let url = urlPrefix + '/sign_in';
-        let request = new Request(url, {
+        let url: string = urlPrefix + '/sign_in';
+        let request: Request = new Request(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -213,8 +242,8 @@ class Authenticate {
           body: JSON.stringify(data),
         });
 
-        let headers;
-        let initialResponse;
+        let headers: Headers;
+        let initialResponse: Response;
         fetch(request)
           .then((response) => {
             initialResponse = response;
