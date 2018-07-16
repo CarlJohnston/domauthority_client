@@ -1,4 +1,17 @@
+// @flow
+
 import TOKEN from 'configs/Token';
+
+
+type TokenData = {
+  name?: string,
+  username?: string,
+  accessToken: string,
+  tokenType: string,
+  client: string,
+  expiry: string,
+  uid: string,
+};
 
 /*
  * Authentication token manager
@@ -17,9 +30,10 @@ class Token {
    *                       accessToken: {String},
    *                       tokenType: {String},
    *                       client: {String},
-   *                       expiry: {Integer|String},
+   *                       expiry: {String},
    *                       uid: {String},
    *                     }
+   *                    or null if no token present
    *
    * @throws {Error}  exception thrown if token is expired
    *                  based on
@@ -27,17 +41,17 @@ class Token {
    *                     expiry: {Integer|String},
    *                   }
    */
-  static get() {
-    let parsedStorage;
+  static get(): ?TokenData {
+    let parsedStorage: ?TokenData;
     try {
-      parsedStorage = JSON.parse(localStorage.getItem(this.key));
+      parsedStorage = JSON.parse(localStorage.getItem(this.key) || '');
     } catch (e) {
       parsedStorage = null;
     }
 
-    let value;
+    let value: ?TokenData;
     if (parsedStorage) {
-      let expiry = parsedStorage.expiry;
+      let expiry: number = parsedStorage.expiry;
 
       if (expiry) {
         let currentDate = new Date();
@@ -46,7 +60,7 @@ class Token {
           // ensure integer
           expiry = parseInt(expiry, 10);
 
-          let epochTime = expiry * 1000;
+          let epochTime: number = expiry * 1000;
           expiryDate = new Date(epochTime);
           if (expiryDate > currentDate) {
             value = parsedStorage;
@@ -86,7 +100,7 @@ class Token {
    *                           uid: {String},
    *                         }
    */
-  static set(data) {
+  static set(data: TokenData) {
     let previousToken = this.get();
     let token;
     if (previousToken) {
@@ -97,6 +111,9 @@ class Token {
     localStorage.setItem(this.key, JSON.stringify(token));
   }
 
+  /*
+   * Clears any token data from client side
+   */
   static clear() {
     localStorage.removeItem(this.key);
   }
@@ -115,7 +132,7 @@ class Token {
    *                        uid: {String},
    *                      }
    */
-  static getHeaders() {
+  static getHeaders(): Headers {
     let token = this.get();
 
     let headers = new Headers();
