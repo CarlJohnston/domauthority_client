@@ -1,10 +1,54 @@
+// @flow
+
 import STATUS from 'configs/Status';
+
+
+type ParsedResponse = {
+  body: {
+    data: {
+      username: string,
+      name: string,
+    },
+    errors?: {
+      [number]: string,
+      full_messages?: Array<string>,
+    },
+  },
+  headers: Headers,
+};
+
+type Options = {
+  messages: {
+    success: string,
+  },
+};
+
+type Message = {
+  [mixed]: string, // Flow currently does not support Object.entries() without mixed
+};
+
+type Messages = {
+  ...$Exact<Message>,
+};
+
+type TokenData = {
+  name?: string,
+  username?: string,
+  accessToken: string,
+  tokenType: string,
+  client: string,
+  expiry: string,
+  uid: string,
+};
 
 /*
  * Helper for authentication API Responses
  */
 class AuthenticateResponse {
-  constructor(data, options) {
+  data: ParsedResponse;
+  options: Options;
+
+  constructor(data: ParsedResponse, options: {}) {
     this.set(data);
 
     this.options = Object.assign({
@@ -21,13 +65,18 @@ class AuthenticateResponse {
    *                          [headers: {Headers}],
    *                        }
    */
-  set(data) {
+  set(data: ParsedResponse) {
     if (data && typeof data === 'object') {
       this.data = data;
 
       if (!('body' in this.data) ||
          typeof this.data.body !== 'object') {
-        this.data.body = {};
+        this.data.body = {
+          data: {
+            username: '',
+            name: '',
+          },
+        };
       }
 
       if (!('headers' in this.data) ||
@@ -36,27 +85,32 @@ class AuthenticateResponse {
       }
     } else {
       this.data = {
-        body: {},
+        body: {
+          data: {
+            username: '',
+            name: '',
+          },
+        },
         headers: new Headers(),
       };
     }
   }
 
   /*
-   * @returns {Array}  array of messages where each message is the key with a
+   * @returns {Object} object of messages where each message is the key with a
    *                   status type of type STATUS as value
    *                    {
    *                      {String}: {String},
    *                    }
    */
-  getMessages() {
-    let messages = {};
+  getMessages(): Messages {
+    let messages: Messages = {};
 
     if (this.data.body &&
         typeof this.data.body === 'object' &&
         'errors' in this.data.body) {
       if (typeof this.data.body.errors === 'object') {
-        if ('full_messages' in this.data.body.errors) {
+        if (this.data.body.errors.full_messages) {
           this.data.body.errors.full_messages.forEach((error) => {
             messages[error] = STATUS.error;
           });
@@ -88,8 +142,8 @@ class AuthenticateResponse {
    *                       uid: {String},
    *                     }
    */
-  getTokenData() {
-    let token = null;
+  getTokenData(): ?TokenData {
+    let token: ?TokenData = null;
 
     if (this.data.body &&
         typeof this.data.body.data === 'object' &&
