@@ -4,16 +4,13 @@ import URL from 'url';
 
 import ERROR from 'configs/Error';
 
+import type { ParsedResponse } from 'mixins/ParsedResponse.type';
+
 
 type TokenHeaders = {
   uid: string,
   client: string,
   accessToken: string,
-};
-
-type ParsedResponse = {
-  body: {},
-  headers: Headers,
 };
 
 type RegistrationData = {

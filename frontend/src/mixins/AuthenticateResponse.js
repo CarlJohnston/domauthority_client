@@ -2,20 +2,8 @@
 
 import STATUS from 'configs/Status';
 
+import type { ParsedResponse } from 'mixins/ParsedResponse.type';
 
-type ParsedResponse = {
-  body: {
-    data: {
-      username: string,
-      name: string,
-    },
-    errors?: {
-      [number]: string,
-      full_messages?: Array<string>,
-    },
-  },
-  headers: Headers,
-};
 
 type Options = {
   messages: {
