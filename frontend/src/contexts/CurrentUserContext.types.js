@@ -16,5 +16,5 @@ type CurrentUserContext = {
 
 export type {
   CurrentUserContext,
-  CurrentUser
+  CurrentUser,
 };
