@@ -99,8 +99,10 @@ class Token {
    *                           expiry: {Integer},
    *                           uid: {String},
    *                         }
+   *                        Note: old token values are persisted when present
+   *                        if no key is provided
    */
-  static set(data: TokenData) {
+  static set(data: ?TokenData) {
     let previousToken = this.get();
     let token;
     if (previousToken) {
