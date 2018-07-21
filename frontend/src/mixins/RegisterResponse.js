@@ -5,12 +5,6 @@ import AuthenticateResponse from 'mixins/AuthenticateResponse';
 import type { ParsedResponse } from 'mixins/ParsedResponse.type';
 
 
-type Options = {
-  messages: {
-    success: string,
-  },
-};
-
 /*
  * Helper for registration specific authentication API Responses
  */
