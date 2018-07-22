@@ -2,16 +2,8 @@
 
 import TOKEN from 'configs/Token';
 
+import type { TokenData } from 'helpers/Token.type';
 
-type TokenData = {
-  name?: string,
-  username?: string,
-  accessToken: string,
-  tokenType: string,
-  client: string,
-  expiry: string,
-  uid: string,
-};
 
 /*
  * Authentication token manager
