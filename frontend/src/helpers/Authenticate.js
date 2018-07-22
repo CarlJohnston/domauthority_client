@@ -5,13 +5,8 @@ import URL from 'url';
 import ERROR from 'configs/Error';
 
 import type { ParsedResponse } from 'mixins/ParsedResponse.type';
+import type { TokenData } from 'helpers/Token.type';
 
-
-type TokenHeaders = {
-  uid: string,
-  client: string,
-  accessToken: string,
-};
 
 type RegistrationData = {
   username: string,
@@ -50,7 +45,7 @@ class Authenticate {
    *                          headers: {Headers},
    *                        }
    */
-  static validate(data: TokenHeaders): Promise<ParsedResponse> {
+  static validate(data: TokenData): Promise<ParsedResponse> {
     return new Promise((resolve, reject) => {
       if (data && typeof data === 'object') {
         let url: string = urlPrefix + '/validate_token';
