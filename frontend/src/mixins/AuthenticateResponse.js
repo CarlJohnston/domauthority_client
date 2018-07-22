@@ -3,6 +3,7 @@
 import STATUS from 'configs/Status';
 
 import type { ParsedResponse } from 'mixins/ParsedResponse.type';
+import type { TokenData } from 'helpers/Token.type';
 
 
 type Options = {
@@ -17,16 +18,6 @@ type Message = {
 
 type Messages = {
   ...$Exact<Message>,
-};
-
-type TokenData = {
-  name?: string,
-  username?: string,
-  accessToken: string,
-  tokenType: string,
-  client: string,
-  expiry: string,
-  uid: string,
 };
 
 /*
