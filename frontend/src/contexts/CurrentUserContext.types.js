@@ -1,11 +1,8 @@
 // @flow
 
 type CurrentUser = {
-  uid?: string,
   name?: string,
   username?: string,
-  accessToken?: string,
-  client?: string,
 };
 
 type CurrentUserContext = {

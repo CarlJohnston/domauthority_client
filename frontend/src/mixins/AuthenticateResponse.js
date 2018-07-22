@@ -131,7 +131,7 @@ class AuthenticateResponse {
    *                     }
    */
   getTokenData(): ?TokenData {
-    let token: ?TokenData = null;
+    let token = null;
 
     if (this.data.body &&
         typeof this.data.body.data === 'object' &&

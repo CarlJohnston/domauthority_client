@@ -18,7 +18,7 @@ import CurrentUserContext from 'contexts/CurrentUserContext';
 
 import Token from 'helpers/Token';
 
-import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
+import type { CurrentUserContext as CurrentUserContextType, CurrentUser } from 'contexts/CurrentUserContext.types';
 import type { RouterHistory } from 'react-router-dom';
 
 import $ from 'jquery';
@@ -55,7 +55,7 @@ class App extends Component<Props, State> {
           name: token ? token.name : undefined,
           username: token ? token.username : undefined,
         },
-        setCurrentUser: function (data) {
+        setCurrentUser: function (data: CurrentUser) {
           this.setState((prevState) => {
             return {
               currentUser: Object.assign(prevState.currentUser, {

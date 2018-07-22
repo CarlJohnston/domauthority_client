@@ -71,7 +71,7 @@ class Login extends Component<Props> {
 
           Token.set(token);
 
-          this.props.setCurrentUser(token);
+          this.props.setCurrentUser(token || {});
 
           this.props.onAuthenticated();
 
