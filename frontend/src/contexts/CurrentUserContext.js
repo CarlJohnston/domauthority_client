@@ -3,8 +3,8 @@ import React from 'react';
 
 const CurrentUserContext = React.createContext({
   currentUser: {
-    name: null,
-    username: null,
+    name: undefined,
+    username: undefined,
   },
   setCurrentUser: (data) => {},
   clearCurrentUser: () => {},
