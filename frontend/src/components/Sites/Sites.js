@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
+import { BeatLoader as Loader } from 'react-spinners';
 
 import SiteRow from 'components/SiteRow/SiteRow';
 
@@ -12,11 +13,14 @@ import ERROR from 'configs/Error';
 type Props = {
 };
 
+type SitesData = Array<{
+  title: string,
+  url: string,
+}>;
+
 type State = {
-  sites: Array<{
-    title: string,
-    url: string,
-  }>,
+  loading: boolean,
+  sites: SitesData,
 };
 
 class Sites extends Component<Props, State> {
@@ -24,6 +28,7 @@ class Sites extends Component<Props, State> {
     super(props);
 
     this.state = {
+      loading: true,
       sites: [],
     };
   }
@@ -31,7 +36,7 @@ class Sites extends Component<Props, State> {
   componentDidMount() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let request = new Request('/users/current/sites', {
+    let request = new Request('/users/current/siteszzz', {
       headers: headers,
     });
     fetch(request)
@@ -42,46 +47,58 @@ class Sites extends Component<Props, State> {
           return Promise.resolve(null);
         }
       })
-      .then((sites) => {
-        if (sites) {
-          this.setState(() => {
-            return {
-              sites: sites,
-            };
-          });
-        }
+      .then((sites: ?SitesData) => {
+        this.setState((prevState) => {
+          return {
+            loading: false,
+            sites: sites || prevState.sites,
+          };
+        });
       })
       .catch((response) => {
-        PNotify.alert({
-          text: ERROR.unexpected,
-          type: STATUS.error,
-          delay: 2000,
+        this.setState(() => {
+          return {
+            loading: false,
+          };
+        }, () => {
+          PNotify.alert({
+            text: ERROR.unexpected,
+            type: STATUS.error,
+            delay: 2000,
+          });
         });
       });
   }
 
   render() {
     return (
-      <div>
-        Sites
-        <table className='hover'>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>URL</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.state.sites.map((site, index) => {
-                return (
-                  <SiteRow key={index} site={site} />
-                );
-              })
-            }
-          </tbody>
-        </table>
-      </div>
+      <React.Fragment>
+        <Loader
+          loading={this.state.loading}
+        />
+        {!this.state.loading &&
+          <div>
+            Sites
+            <table className='hover'>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>URL</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  this.state.sites.map((site, index) => {
+                    return (
+                      <SiteRow key={index} site={site} />
+                    );
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </React.Fragment>
     );
   }
 }
