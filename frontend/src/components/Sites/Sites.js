@@ -10,9 +10,6 @@ import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
 
-type Props = {
-};
-
 type SitesData = Array<{
   title: string,
   url: string,
@@ -21,6 +18,9 @@ type SitesData = Array<{
 type State = {
   loading: boolean,
   sites: SitesData,
+};
+
+type Props = {
 };
 
 class Sites extends Component<Props, State> {
