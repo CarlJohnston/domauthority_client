@@ -36,7 +36,7 @@ class Sites extends Component<Props, State> {
   componentDidMount() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let request = new Request('/users/current/siteszzz', {
+    let request = new Request('/users/current/sites', {
       headers: headers,
     });
     fetch(request)
