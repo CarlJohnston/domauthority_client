@@ -77,7 +77,7 @@ class Sites extends Component<Props, State> {
           loading={this.state.loading}
         />
         {!this.state.loading &&
-          <div>
+          <div id='sites'>
             Sites
             <table className='hover'>
               <thead>
