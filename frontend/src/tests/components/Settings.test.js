@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { shallow } from 'enzyme';
 
@@ -7,11 +9,16 @@ import CurrentUserContext from 'contexts/CurrentUserContext';
 
 import Token from 'helpers/Token';
 
-const VALID_CURRENT_USER_DATA = {
-  uid: 1,
+import type { TokenData } from 'helpers/Token.type';
+
+
+const VALID_CURRENT_USER_DATA: TokenData = {
   name: 'name',
   username: 'username',
+  uid: 'email@email.com',
   accessToken: 'blah',
+  tokenType: 'bearer',
+  expiry: '1',
   client: 'blah',
 };
 

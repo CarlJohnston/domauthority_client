@@ -32,7 +32,6 @@ describe('Sites', () => {
 
   afterEach(() => {
     if (component) {
-      console.log("unmount")
       component.unmount();
     }
   });
