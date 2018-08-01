@@ -1,24 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Sinon from 'sinon';
 import { BeatLoader as Loader } from 'react-spinners';
 
 import Sites from 'components/Sites/Sites';
 
 describe('Sites', () => {
-  let xhr;
-  let requests = [];
-  beforeAll(() => {
-    xhr = Sinon.useFakeXMLHttpRequest();
-    xhr.onCreate = function (xhr) {
-      requests.push(xhr);
-    };
-  });
-
-  afterAll(() => {
-    xhr.restore();
-  });
-
   let component;
   let createComponent = (props) => {
     if (component) {
