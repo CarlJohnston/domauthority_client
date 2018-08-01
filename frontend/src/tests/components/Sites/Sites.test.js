@@ -78,12 +78,16 @@ describe('Sites', () => {
         title: 'Site 1',
         url: 'http://www.site1.com',
       },
+      {
+        title: 'Site 2',
+        url: 'http://www.site2.com',
+      },
     ];
     component.setState({
       loading: false,
       sites: sites,
     });
-    expect(component.find(SiteRow).length).toEqual(1);
+    expect(component.find(SiteRow).length).toEqual(sites.length);
     sites.forEach((site) => {
       expect(component.findWhere((node) => {
         return node.type() === SiteRow &&
