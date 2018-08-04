@@ -36,6 +36,7 @@
       "warn",
       "prefer-single"
     ],
-    "no-else-return": 0
+    "no-else-return": 0,
+    "arrow-body-style": 0
   }
 }
