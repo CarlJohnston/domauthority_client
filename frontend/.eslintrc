@@ -35,6 +35,7 @@
     "jsx-quotes": [
       "warn",
       "prefer-single"
-    ]
+    ],
+    "no-else-return": 0
   }
 }
