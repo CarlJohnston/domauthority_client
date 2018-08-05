@@ -36,6 +36,7 @@
     "babel-eslint": "^8.2.6",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-jest-enzyme": "^6.0.2",
     "eslint-plugin-flowtype": "^2.50.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jest": "^21.18.0",
