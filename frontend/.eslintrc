@@ -37,8 +37,14 @@
       "prefer-single"
     ],
     "no-else-return": 0,
-    "arrow-body-style": 0,
-    "operator-linebreak": 0,
+    "arrow-body-style": [
+      "warn",
+      "always"
+    ],
+    "operator-linebreak": [
+      "error",
+      "after"
+    ],
     "object-shorthand": [
       "error",
       "never"
