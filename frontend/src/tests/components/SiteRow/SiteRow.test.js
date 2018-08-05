@@ -25,7 +25,11 @@ describe('SiteRow', () => {
     }
 
     component = mount(
-      <SiteRow {...props} />
+      <table>
+        <tbody>
+          <SiteRow {...props} />
+        </tbody>
+      </table>
     );
   };
 
