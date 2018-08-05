@@ -41,7 +41,7 @@
     "operator-linebreak": 0,
     "object-shorthand": [
       "error",
-      "always"
+      "never"
     ]
   }
 }
