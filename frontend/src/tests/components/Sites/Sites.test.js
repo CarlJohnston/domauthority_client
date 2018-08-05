@@ -3,16 +3,16 @@ import Sinon from 'sinon';
 import { mount } from 'enzyme';
 import { BeatLoader as Loader } from 'react-spinners';
 
-import Sites from 'components/Sites/Sites';
 import SiteRow from 'components/SiteRow/SiteRow';
+import Sites from 'components/Sites/Sites';
 
 describe('Sites', () => {
   let xhr;
-  let requests = [];
+  const requests = [];
   beforeAll(() => {
     xhr = Sinon.useFakeXMLHttpRequest();
-    xhr.onCreate = function (xhr) {
-      requests.push(xhr);
+    xhr.onCreate = (xhrRequest) => {
+      requests.push(xhrRequest);
     };
   });
 
@@ -21,7 +21,7 @@ describe('Sites', () => {
   });
 
   let component;
-  let createComponent = (props) => {
+  const createComponent = (props) => {
     if (component) {
       component.unmount();
     }
@@ -50,8 +50,8 @@ describe('Sites', () => {
     component.update();
 
     await expect(new Promise((resolve) => {
-      let intervalId = setInterval(() => {
-        let sites = component.find('#sites');
+      const intervalId = setInterval(() => {
+        const sites = component.find('#sites');
         if (sites.exists()) {
           clearInterval(intervalId);
 
@@ -71,7 +71,7 @@ describe('Sites', () => {
       loading: false,
       sites: sites,
     });
-    expect(component.find(SiteRow).length).toEqual(0);
+    expect(component.find(SiteRow)).toHaveLength(0);
 
     sites = [
       {
@@ -87,12 +87,50 @@ describe('Sites', () => {
       loading: false,
       sites: sites,
     });
-    expect(component.find(SiteRow).length).toEqual(sites.length);
+    expect(component.find(SiteRow)).toHaveLength(2);
     sites.forEach((site) => {
       expect(component.findWhere((node) => {
         return node.type() === SiteRow &&
           node.prop('site') === site;
-      }).length).toEqual(1);
+      })).toHaveLength(1);
     });
+  });
+
+  it('onSiteRowRemove removes site row from state and removes actual site', async () => {
+    const sites = [
+      {
+        title: 'Site 1',
+        url: 'http://www.site1.com',
+      },
+      {
+        title: 'Site 2',
+        url: 'http://www.site2.com',
+      },
+    ];
+    createComponent();
+    component.setState({
+      sites: sites,
+      loading: false,
+    });
+
+    const siteToRemove = sites[0];
+    const onRemove = component.find(SiteRow).first().prop('onRemove');
+    onRemove(Sinon.stub(), siteToRemove);
+    const request = requests.pop();
+    expect(request).toBeDefined();
+    expect(request.url).toEqual('/users/current/sites');
+    expect(request.method).toEqual('DELETE');
+    request.respond(200);
+    await expect(new Promise((resolve) => {
+      const intervalId = setInterval(() => {
+        component.update();
+        const siteRows = component.find(SiteRow);
+        if (siteRows.length == sites.length - 1) {
+          clearInterval(intervalId);
+
+          resolve(true);
+        }
+      }, 100);
+    })).resolves.toBe(true);
   });
 });
