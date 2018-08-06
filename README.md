@@ -9,7 +9,7 @@ A tracking tool for domain authority SEO metrics over time. Features include aut
 * `postgres` 9.6+
 * `bundle` 1.15+
 * `node` 9.2+
-* `yarn` 1.7+
+* `yarn` 1.9+
 
 # Getting Started
 
