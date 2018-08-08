@@ -13,7 +13,7 @@ import Home from 'components/Home/Home';
 import Profile from 'components/Profile/Profile';
 import Settings from 'components/Settings/Settings';
 import Analyze from 'components/Analyze/Analyze';
-import Sites from 'components/Sites/Sites';
+import SitesContainer from 'components/containers/SitesContainer';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
@@ -41,7 +41,7 @@ class Layout extends Component<Props> {
           <Route path='/users/:id' component={Profile} />
           <AuthenticatedRoute path='/settings' component={Settings} />
 
-          <AuthenticatedRoute path='/sites' component={Sites} />
+          <AuthenticatedRoute path='/sites' component={SitesContainer} />
           <AuthenticatedRoute path='/analyze' component={Analyze} />
         </div>
 
