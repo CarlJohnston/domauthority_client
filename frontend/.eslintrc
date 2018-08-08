@@ -6,13 +6,13 @@
     "airbnb",
     "plugin:jest/recommended",
     "plugin:flowtype/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "jest-enzyme"
   ],
   "plugins": [
     "jest",
     "flowtype",
-    "react",
-    "jest-enzyme"
+    "react"
   ],
   "settings": {
     "import/resolver": {
