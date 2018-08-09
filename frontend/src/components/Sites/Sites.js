@@ -1,13 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
-import PNotify from 'pnotify/dist/umd/PNotify';
-import { BeatLoader as Loader } from 'react-spinners';
+import React, { PureComponent } from 'react';
 
 import SiteRow from 'components/SiteRow/SiteRow';
-
-import STATUS from 'configs/Status';
-import ERROR from 'configs/Error';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRowRemove as onSiteRowRemoveType } from 'components/Sites/onSiteRowRemove.type';
@@ -20,13 +15,9 @@ type Props = {
   onSiteRowRemove: onSiteRowRemoveType,
 };
 
-class Sites extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
-
+class Sites extends PureComponent<Props, State> {
   render() {
-    let {
+    const {
       sites,
       onSiteRowRemove,
     } = this.props;
