@@ -15,7 +15,7 @@ type Props = {
   onSiteRowRemove: onSiteRowRemoveType,
 };
 
-class Sites extends PureComponent<Props, State> {
+class Sites extends PureComponent<Props> {
   render() {
     const {
       sites,

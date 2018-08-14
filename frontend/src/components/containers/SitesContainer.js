@@ -10,6 +10,7 @@ import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
+import type { onSiteRowRemove as onSiteRowRemoveType } from 'components/Sites/onSiteRowRemove.type';
 
 
 type SitesData = Array<SiteType>;
@@ -30,6 +31,8 @@ class SitesContainer extends Component<Props, State> {
       loading: true,
       sites: [],
     };
+
+    this.onSiteRowRemove = this.onSiteRowRemove.bind(this);
   }
 
   componentDidMount() {
@@ -124,7 +127,12 @@ class SitesContainer extends Component<Props, State> {
           loading={loading}
         />
         {!loading &&
-          <Sites sites={sites} />
+          (
+            <Sites
+              sites={sites}
+              onSiteRowRemove={this.onSiteRowRemove}
+            />
+          )
         }
       </React.Fragment>
     );
