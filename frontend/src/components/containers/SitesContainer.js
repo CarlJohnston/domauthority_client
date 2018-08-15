@@ -116,7 +116,7 @@ class SitesContainer extends Component<Props, State> {
   }
 
   render() {
-    let {
+    const {
       sites,
       loading,
     } = this.state;
