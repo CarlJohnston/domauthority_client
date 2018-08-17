@@ -53,11 +53,11 @@ class SitesContainer extends Component<Props, State> {
           return Promise.resolve(null);
         }
       })
-      .then((sites: ?SitesData) => {
-        this.setState((prevState) => {
+      .then((sites: ?SitesData = []) => {
+        this.setState(() => {
           return {
             loading: false,
-            sites: sites || prevState.sites,
+            sites: sites,
           };
         });
       })
@@ -84,16 +84,12 @@ class SitesContainer extends Component<Props, State> {
       .then((response: Response) => {
         if (response.ok) {
           this.setState((prevState) => {
-            let sitesUpdated;
-            let prevSitesSiteIndex = prevState.sites.indexOf(site);
-            if (prevSitesSiteIndex === -1) {
-              sitesUpdated = prevState.sites;
-            } else {
-              sitesUpdated = [...prevState.sites].splice(prevSitesSiteIndex, 1);
-            }
+            const sitesFiltered = prevState.sites.filter(({ title, url }) => {
+              return title !== site.title && url !== site.url;
+            });
 
             return {
-              sites: sitesUpdated,
+              sites: sitesFiltered,
             };
           });
         } else {
