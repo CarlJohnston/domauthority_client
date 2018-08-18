@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -12,8 +14,12 @@ type Props = {
 
 class ProfileLink extends Component<Props> {
   render() {
+    const {
+      currentUser,
+    } = this.props;
+
     return (
-      <Link to={`/users/${this.props.currentUser.username}`}>
+      <Link to={`/users/${currentUser.username}`}>
         @{this.props.currentUser.username}
       </Link>
     );
