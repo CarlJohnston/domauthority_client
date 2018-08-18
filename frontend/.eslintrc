@@ -49,6 +49,7 @@
     "object-shorthand": [
       "error",
       "never"
-    ]
+    ],
+    "react/prefer-stateless-function": 0,
   }
 }
