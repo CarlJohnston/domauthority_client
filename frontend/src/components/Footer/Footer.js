@@ -18,14 +18,28 @@ class Footer extends Component<Props> {
           <div className='grid-x align-justify align-middle'>
             <div className='small-12 medium-shrink cell'>
               <ul className='menu'>
-                <li><Link to='/'>Home</Link></li>
-                <li><Link to='/about'>About</Link></li>
-                <li><Link to='/contact'>Contact</Link></li>
+                <li>
+                  <Link to='/'>
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/about'>
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/contact'>
+                    Contact
+                  </Link>
+                </li>
               </ul>
             </div>
 
             <div className='small-12 medium-shrink cell'>
-              <span>Carl Johnston &copy; {(new Date().getFullYear())}</span>
+              <span>
+                Carl Johnston &copy; {(new Date().getFullYear())}
+              </span>
             </div>
           </div>
         </div>
