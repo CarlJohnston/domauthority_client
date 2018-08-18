@@ -17,6 +17,7 @@ import type { ElementRef } from 'react';
 import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
 
 import $ from 'jquery';
+
 window.jQuery = window.$ = $;
 require('foundation-sites');
 
@@ -56,29 +57,34 @@ class Login extends Component<Props> {
   }
 
   validLoginFormSubmit(e) {
-    let email = this.$form.find('#email').val();
-    let password = this.$form.find('#password').val();
+    const email = this.$form.find('#email').val();
+    const password = this.$form.find('#password').val();
     Async.waterfall([
       (callback) => {
         Authenticate.login({
           email: email,
           password: password,
         }).then((response) => {
-          let loginResponse = new LoginResponse(response);
-          let messages = loginResponse.getMessages();
+          const loginResponse = new LoginResponse(response);
+          const messages = loginResponse.getMessages();
 
-          let token = loginResponse.getTokenData();
+          const token = loginResponse.getTokenData();
 
           Token.set(token);
 
-          this.props.setCurrentUser(token || {});
+          const {
+            setCurrentUser,
+            onAuthenticated,
+          } = this.props;
 
-          this.props.onAuthenticated();
+          setCurrentUser(token || {});
+
+          onAuthenticated();
 
           callback(null, messages);
         }).catch((response) => {
-          let loginResponse = new LoginResponse(response);
-          let messages = loginResponse.getMessages();
+          const loginResponse = new LoginResponse(response);
+          const messages = loginResponse.getMessages();
 
           callback(null, messages);
         });
@@ -93,31 +99,39 @@ class Login extends Component<Props> {
       });
   }
 
-  loginFormSubmit(e) {
+  loginFormSubmit(e: Event) {
     e.preventDefault();
   }
 
   render() {
     return (
       <div>
-        <h1>Login</h1>
+        <h1>
+          Login
+        </h1>
         <form ref={this.loginFormNode} data-abide noValidate onSubmit={this.loginFormSubmit}>
           <label>
             Email
-            <input id="email" name="email" type="email" placeholder="somebody@example.com" required pattern="email" />
+            <input id='email' name='email' type='email' placeholder='somebody@example.com' required pattern='email' />
           </label>
-          <span className="form-error" data-form-error-for="email">
+          <span className='form-error' data-form-error-for='email'>
             Please enter a valid email address.
           </span>
           <label>
             Password
-            <input id="password" name="password" type="password" required />
+            <input id='password' name='password' type='password' required />
           </label>
-          <span className="form-error" data-form-error-for="password">
+          <span className='form-error' data-form-error-for='password'>
             Please enter a valid password.
           </span>
-          <button className="button" type="submit">Submit</button>
-          <p><Link to='/password/forgot'>Forgot your password?</Link></p>
+          <button className='button' type='submit'>
+            Submit
+          </button>
+          <p>
+            <Link to='/password/forgot'>
+              Forgot your password?
+            </Link>
+          </p>
         </form>
       </div>
     );
