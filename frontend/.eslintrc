@@ -19,7 +19,10 @@
       "node": {
         "paths": ["src"]
       }
-    }
+    },
+    "import/core-modules": [
+      "history"
+    ]
   },
   "parser": "babel-eslint",
   "rules": {
