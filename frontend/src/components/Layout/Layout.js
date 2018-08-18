@@ -45,7 +45,7 @@ class Layout extends Component<Props> {
           <AuthenticatedRoute path='/analyze' component={Analyze} />
         </div>
 
-        <Footer {...this.props }/>
+        <Footer {...this.props} />
       </div>
     );
   }
