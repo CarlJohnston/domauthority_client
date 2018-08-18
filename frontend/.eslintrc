@@ -54,5 +54,14 @@
       "never"
     ],
     "react/prefer-stateless-function": 0,
+    "react/sort-comp": [
+      "error",
+      {
+        order: [
+          "type-annoations"
+        ]
+      }
+    ],
+    "no-multi-assign": 0
   }
 }
