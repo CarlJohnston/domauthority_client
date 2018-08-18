@@ -7,32 +7,34 @@ import { Route } from 'react-router-dom';
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 import type { ComponentType } from 'react';
-import type { CurrentUser as CurrentUser } from 'contexts/CurrentUserContext.types';
+import type { CurrentUser as CurrentUserType } from 'contexts/CurrentUserContext.types';
 
 
 type Props = {
   component: ComponentType<{}>,
-  currentUser: CurrentUser,
+  currentUser: CurrentUserType,
   authenticated: boolean,
 };
 
 class AuthenticatedRouteBase extends Component<Props> {
   render() {
-    let { component: Component,
-          currentUser,
-          authenticated,
-          ...rest } = this.props;
+    const {
+      component: Child,
+      currentUser,
+      authenticated,
+      ...rest
+    } = this.props;
 
     return (
       <Route
         {...rest}
         render={
           (props) => {
-            let currentUserUsername = currentUser.username;
+            const currentUserUsername = currentUser.username;
             if ((authenticated && currentUserUsername) ||
                 (!authenticated && !currentUserUsername)) {
               return (
-                <Component {...props} />
+                <Child {...props} />
               );
             } else {
               return (
@@ -44,6 +46,6 @@ class AuthenticatedRouteBase extends Component<Props> {
       />
     );
   }
-};
+}
 
 export default withCurrentUser(AuthenticatedRouteBase);
