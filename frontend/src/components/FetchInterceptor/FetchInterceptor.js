@@ -23,13 +23,18 @@ class FetchInterceptor extends Component<Props> {
     super(props);
 
     this.unregisterFetchIntercept = fetchIntercept.register({
-      request: function (request, config) {
-        if (this.props.currentUser &&
-            this.props.currentUser.username) {
-          let token = Token.get();
+      request: function request(request, config) {
+        const {
+          currentUser,
+        } = this.props;
+        if (currentUser &&
+            currentUser.username) {
+          const token = Token.get();
           if (token) {
             if (request instanceof Request) {
-              let headers = request.headers;
+              const {
+                headers,
+              } = request;
               if (headers) {
                 if (headers instanceof Headers) {
                   headers.set('access-token', token.accessToken);
@@ -55,8 +60,8 @@ class FetchInterceptor extends Component<Props> {
                 headers.set('uid', token.uid);
               }
             } else {
-              let url = request;
-              let headers = new Headers();
+              const url = request;
+              const headers = new Headers();
               headers.set('access-token', token.accessToken);
               headers.set('token-type', token.tokenType);
               headers.set('client', token.client);
@@ -72,19 +77,25 @@ class FetchInterceptor extends Component<Props> {
         return [request, config];
       }.bind(this),
 
-      response: function (response) {
+      response: function response(response) {
+        const {
+          clearCurrentUser,
+        } = this.props;
+
         if (response && response.status === 401) {
           Token.clear();
 
-          this.props.clearCurrentUser();
+          clearCurrentUser();
         } else {
-          let headers = response.headers;
+          const {
+            headers,
+          } = response;
           if (headers) {
-            let accessToken = headers.get('access-token');
-            let tokenType = headers.get('token-type');
-            let client = headers.get('client');
-            let expiry = headers.get('expiry');
-            let uid = headers.get('uid');
+            const accessToken = headers.get('access-token');
+            const tokenType = headers.get('token-type');
+            const client = headers.get('client');
+            const expiry = headers.get('expiry');
+            const uid = headers.get('uid');
             if (accessToken &&
                 tokenType &&
                 client &&
@@ -111,9 +122,13 @@ class FetchInterceptor extends Component<Props> {
   }
 
   render() {
+    const {
+      children,
+    } = this.props;
+
     return (
       <React.Fragment>
-        {this.props.children}
+        {children}
       </React.Fragment>
     );
   }
