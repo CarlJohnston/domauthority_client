@@ -23,14 +23,21 @@ class NewLogin extends Component<Props> {
   }
 
   onAuthenticated() {
-    this.props.history.push('/');
+    const {
+      history,
+    } = this.props;
+
+    history.push('/');
   }
 
   render() {
     return (
-      <Login {...this.props} onAuthenticated={this.onAuthenticated} />
+      <Login
+        {...this.props}
+        onAuthenticated={this.onAuthenticated}
+      />
     );
-  };
+  }
 }
 
 export default NewLogin;
