@@ -15,17 +15,28 @@ type Props = {
 };
 
 class LogoutLink extends Component<Props> {
+  constructor(props) {
+    super(props);
+
+    this.logout = this.logout.bind(this);
+  }
+
   logout() {
-    this.props.clearCurrentUser();
+    const {
+      clearCurrentUser,
+      history,
+    } = this.props;
+
+    clearCurrentUser();
 
     Token.clear();
 
-    this.props.history.push('/');
+    history.push('/');
   }
 
   render() {
     return (
-      <a onClick={this.logout.bind(this)}>
+      <a onClick={this.logout}>
         Logout
       </a>
     );
