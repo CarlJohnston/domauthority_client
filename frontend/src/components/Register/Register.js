@@ -12,6 +12,7 @@ import type { RouterHistory } from 'react-router-dom';
 import type { ElementRef } from 'react';
 
 import $ from 'jquery';
+
 window.jQuery = window.$ = $;
 require('foundation-sites');
 
@@ -44,10 +45,10 @@ class Register extends Component<Props> {
       });
 
       this.$form.on('formvalid.zf.abide', (e) => {
-        let email = this.$form.find('#email').val();
-        let username = this.$form.find('#username').val();
-        let passwordInitial = this.$form.find('#password-initial').val();
-        let passwordConfirm = this.$form.find('#password-confirm').val();
+        const email = this.$form.find('#email').val();
+        const username = this.$form.find('#username').val();
+        const passwordInitial = this.$form.find('#password-initial').val();
+        const passwordConfirm = this.$form.find('#password-confirm').val();
 
         Async.waterfall([
           (callback) => {
@@ -55,17 +56,21 @@ class Register extends Component<Props> {
               email: email,
               username: username,
               password: passwordInitial,
-              'password_confirmation': passwordConfirm,
+              password_confirmation: passwordConfirm,
             }).then((response) => {
-              let registerResponse = new RegisterResponse(response);
-              let messages = registerResponse.getMessages();
+              const registerResponse = new RegisterResponse(response);
+              const messages = registerResponse.getMessages();
 
-              this.props.history.push('/login');
+              const {
+                history,
+              } = this.props;
+
+              history.push('/login');
 
               callback(null, messages);
             }).catch((response) => {
-              let registerResponse = new RegisterResponse(response);
-              let messages = registerResponse.getMessages();
+              const registerResponse = new RegisterResponse(response);
+              const messages = registerResponse.getMessages();
 
               callback(null, messages);
             });
@@ -86,40 +91,44 @@ class Register extends Component<Props> {
     return (
       <div>
         <div>
-          <h1>Register</h1>
+          <h1>
+            Register
+          </h1>
           <form ref={this.registerFormNode} data-abide noValidate>
             <label>
               Email
-              <input id="email" name="email" type="email" placeholder="somebody@example.com" required pattern="email" />
+              <input id='email' name='email' type='email' placeholder='somebody@example.com' required pattern='email' />
             </label>
-            <span className="form-error" data-form-error-for="email">
+            <span className='form-error' data-form-error-for='email'>
               Please enter a valid email address.
             </span>
             <label>
               Username
-              <div className="input-group">
-                <span className="input-group-label">@</span>
-                <input id="username" className="input-group-field" name="username" type="text" required />
+              <div className='input-group'>
+                <span className='input-group-label'>@</span>
+                <input id='username' className='input-group-field' name='username' type='text' required />
               </div>
             </label>
-            <span className="form-error" data-form-error-for="username">
+            <span className='form-error' data-form-error-for='username'>
               Please enter a valid username.
             </span>
             <label>
               Password
-              <input id="password-initial" name="password-initial" type="password" required />
+              <input id='password-initial' name='password-initial' type='password' required />
             </label>
-            <span className="form-error" data-form-error-for="password-initial">
+            <span className='form-error' data-form-error-for='password-initial'>
               Please enter a valid password.
             </span>
             <label>
               Password (Confirmation)
-              <input id="password-confirm" name="password-confirm" type="password" required data-equalto="password-initial" />
+              <input id='password-confirm' name='password-confirm' type='password' required data-equalto='password-initial' />
             </label>
-            <span className="form-error" data-form-error-for="password-confirm">
+            <span className='form-error' data-form-error-for='password-confirm'>
               Please ensure password matches.
             </span>
-            <button className="button" type="submit">Submit</button>
+            <button className='button' type='submit'>
+              Submit
+            </button>
           </form>
         </div>
       </div>
