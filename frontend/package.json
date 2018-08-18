@@ -17,6 +17,7 @@
     "pnotify": "^4.0.0-alpha.4",
     "promise-polyfill": "^8.0.0",
     "react": "^16.4.0",
+    "react-data-grid": "^4.0.7",
     "react-dom": "^16.4.0",
     "react-modal": "^3.4.5",
     "react-router-dom": "^4.2.2",
