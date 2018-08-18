@@ -9,7 +9,9 @@ class Confirmed extends Component<Props> {
   render() {
     return (
       <div>
-        <h1>Confirmed</h1>
+        <h1>
+          Confirmed
+        </h1>
       </div>
     );
   }
