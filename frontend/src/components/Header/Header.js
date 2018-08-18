@@ -22,20 +22,36 @@ type Props = {
 
 class Header extends Component<Props> {
   render() {
+    const {
+      currentUser,
+    } = this.props;
+
     return (
       <div className='top-bar-container'>
         <div className='grid-container'>
           <div className='top-bar'>
             <div className='top-bar-left'>
               <ul className='dropdown menu' data-dropdown-menu>
-                <li className='logo'><Link to='/'>Domauthority</Link></li>
-                <li><Link to='/sites'>Sites</Link></li>
-                <li><Link to='/analyze'>Analyze</Link></li>
+                <li className='logo'>
+                  <Link to='/'>
+                    Domauthority
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/sites'>
+                    Sites
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/analyze'>
+                    Analyze
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className='top-bar-right'>
               <ul className='menu'>
-                {this.props.currentUser.username ? (
+                {currentUser.username ? (
                   <React.Fragment>
                     <li>
                       <ProfileLink />
