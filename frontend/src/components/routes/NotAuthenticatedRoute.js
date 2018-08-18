@@ -13,9 +13,12 @@ type Props = {
 class NotAuthenticatedRoute extends Component<Props> {
   render() {
     return (
-      <AuthenticatedRouteBase {...this.props} authenticated={false} />
+      <AuthenticatedRouteBase
+        {...this.props}
+        authenticated={false}
+      />
     );
   }
-};
+}
 
 export default withCurrentUser(NotAuthenticatedRoute);
