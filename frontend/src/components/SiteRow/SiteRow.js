@@ -12,30 +12,38 @@ type Props = {
 };
 
 class SiteRow extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
+    const {
+      site,
+      onRemove,
+    } = this.props;
+
     return (
       <tr>
-        <td>{this.props.site.title}</td>
-        <td>{this.props.site.url}</td>
         <td>
-          <a
+          {site.title}
+        </td>
+        <td>
+          {site.url}
+        </td>
+        <td>
+          <button
+            type='button'
             id='remove'
             onClick={
-              (e) => this.props.onRemove(
-                e,
-                {
-                  title: this.props.site.title,
-                  url: this.props.site.url,
-                }
-              )
+              (e: Event) => {
+                onRemove(
+                  e,
+                  {
+                    title: site.title,
+                    url: site.url,
+                  }
+                )
+              }
             }
           >
             X
-          </a>
+          </button>
         </td>
       </tr>
     );
