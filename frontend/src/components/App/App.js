@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
-import createHistory from "history/createBrowserHistory";
+import createHistory from 'history/createBrowserHistory';
 
 import 'foundation-sites/dist/css/foundation.min.css';
 import 'pnotify/dist/PNotifyBrightTheme.css';
@@ -22,6 +22,7 @@ import type { CurrentUserContext as CurrentUserContextType, CurrentUser } from '
 import type { RouterHistory } from 'react-router-dom';
 
 import $ from 'jquery';
+
 window.$ = window.jQuery = $;
 require('foundation-sites');
 
@@ -55,7 +56,7 @@ class App extends Component<Props, State> {
           name: token ? token.name : undefined,
           username: token ? token.username : undefined,
         },
-        setCurrentUser: function (data: CurrentUser) {
+        setCurrentUser: function setCurrentUser(data: CurrentUser) {
           this.setState((prevState) => {
             return {
               currentUser: Object.assign(prevState.currentUser, {
@@ -64,14 +65,14 @@ class App extends Component<Props, State> {
             };
           });
         }.bind(this),
-        clearCurrentUser: function () {
+        clearCurrentUser: function clearCurrentUser() {
           this.setState((prevState) => {
             return {
               currentUser: Object.assign(prevState.currentUser, {
                 currentUser: {
                   name: undefined,
                   username: undefined,
-                }
+                },
               }),
             };
           });
@@ -81,10 +82,14 @@ class App extends Component<Props, State> {
   }
 
   render() {
+    const {
+      currentUser,
+    } = this.state;
+
     return (
       // $FlowFixMe: React Flow typings are not yet updated to React 16.3
       <React.StrictMode>
-        <CurrentUserContext.Provider value={this.state.currentUser}>
+        <CurrentUserContext.Provider value={currentUser}>
           <Router history={this.history}>
             <FetchInterceptor>
               <Route path='/' component={Layout} />
