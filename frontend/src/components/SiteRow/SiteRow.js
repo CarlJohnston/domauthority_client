@@ -3,12 +3,12 @@
 import React, { Component } from 'react';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
-import type { onSiteRowRemove as onSiteRowRemoveType } from 'components/Sites/onSiteRowRemove.type';
+import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 
 
 type Props = {
   site: SiteType,
-  onRemove: onSiteRowRemoveType,
+  onRemove: onSiteRemoveType,
 };
 
 class SiteRow extends Component<Props> {

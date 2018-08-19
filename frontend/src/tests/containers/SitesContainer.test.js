@@ -131,7 +131,7 @@ describe('SitesContainer', () => {
     })).resolves.toBe(true);
   });
 
-  it('onSiteRowRemove prop passed to Sites removes site when present previously', async () => {
+  it('onSiteRemove prop passed to Sites removes site when present previously', async () => {
     expect.assertions(4);
 
     let sites;
@@ -170,8 +170,8 @@ describe('SitesContainer', () => {
         }
       }, 100);
     });
-    const onSiteRowRemove = component.find(Sites).prop('onSiteRowRemove');
-    onSiteRowRemove({}, siteToRemove);
+    const onSiteRemove = component.find(Sites).prop('onSiteRemove');
+    onSiteRemove({}, siteToRemove);
     request = requests.pop();
     expect(request).toBeDefined();
     expect(request.url).toEqual('/users/current/sites');

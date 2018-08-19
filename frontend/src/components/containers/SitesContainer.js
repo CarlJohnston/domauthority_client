@@ -10,7 +10,7 @@ import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
-import type { onSiteRowRemove as onSiteRowRemoveType } from 'components/Sites/onSiteRowRemove.type';
+import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 
 
 type SitesData = Array<SiteType>;
@@ -32,7 +32,7 @@ class SitesContainer extends Component<Props, State> {
       sites: [],
     };
 
-    this.onSiteRowRemove = this.onSiteRowRemove.bind(this);
+    this.onSiteRemove = this.onSiteRemove.bind(this);
   }
 
   componentDidMount() {
@@ -76,7 +76,7 @@ class SitesContainer extends Component<Props, State> {
       });
   }
 
-  onSiteRowRemove: onSiteRowRemoveType = (e: Event, site: SiteType) => {
+  onSiteRemove: onSiteRemoveType = (e: Event, site: SiteType) => {
     const request: Request = new Request('/users/current/sites', {
       method: 'DELETE',
     });
@@ -126,7 +126,7 @@ class SitesContainer extends Component<Props, State> {
           (
             <Sites
               sites={sites}
-              onSiteRowRemove={this.onSiteRowRemove}
+              onSiteRemove={this.onSiteRemove}
             />
           )
         }

@@ -5,21 +5,21 @@ import React, { PureComponent } from 'react';
 import SiteRow from 'components/SiteRow/SiteRow';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
-import type { onSiteRowRemove as onSiteRowRemoveType } from 'components/Sites/onSiteRowRemove.type';
+import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 
 
 type SitesData = Array<SiteType>;
 
 type Props = {
   sites: SitesData,
-  onSiteRowRemove: onSiteRowRemoveType,
+  onSiteRemove: onSiteRemoveType,
 };
 
 class Sites extends PureComponent<Props> {
   render() {
     const {
       sites,
-      onSiteRowRemove,
+      onSiteRemove,
     } = this.props;
 
     return (
@@ -44,7 +44,7 @@ class Sites extends PureComponent<Props> {
                   <SiteRow
                     key={site.url}
                     site={site}
-                    onRemove={onSiteRowRemove}
+                    onRemove={onSiteRemove}
                   />
                 );
               })

@@ -37,7 +37,7 @@ describe('Sites', () => {
   });
 
   it('renders sites', () => {
-    const onSiteRowRemoveStub = Sinon.stub();
+    const onSiteRemoveStub = Sinon.stub();
 
     let sites;
 
@@ -45,7 +45,7 @@ describe('Sites', () => {
     ];
     createComponent({
       sites: sites,
-      onSiteRowRemove: onSiteRowRemoveStub,
+      onSiteRemove: onSiteRemoveStub,
     });
     expect(component.find(SiteRow)).toHaveLength(0);
 
@@ -61,14 +61,14 @@ describe('Sites', () => {
     ];
     createComponent({
       sites: sites,
-      onSiteRowRemove: onSiteRowRemoveStub,
+      onSiteRemove: onSiteRemoveStub,
     });
     sites.forEach((site) => {
       expect(component.findWhere((node) => {
         return node.type() === SiteRow &&
           node.prop('site').title === site.title &&
           node.prop('site').url === site.url &&
-          node.prop('onRemove') === onSiteRowRemoveStub;
+          node.prop('onRemove') === onSiteRemoveStub;
       })).toHaveLength(1);
     });
   });
