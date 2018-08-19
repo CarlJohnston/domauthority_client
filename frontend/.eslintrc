@@ -41,10 +41,7 @@
       "prefer-single"
     ],
     "no-else-return": 0,
-    "arrow-body-style": [
-      "warn",
-      "always"
-    ],
+    "arrow-body-style": 0,
     "operator-linebreak": [
       "error",
       "after"
