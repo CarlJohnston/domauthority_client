@@ -1,11 +1,13 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-
-import SiteRow from 'components/SiteRow/SiteRow';
+import ReactDataGrid from 'react-data-grid';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
+import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
+
+import './Sites.css';
 
 
 type SitesData = Array<SiteType>;
@@ -13,44 +15,71 @@ type SitesData = Array<SiteType>;
 type Props = {
   sites: SitesData,
   onSiteRemove: onSiteRemoveType,
+  onSiteUpdate: onSiteUpdateType,
 };
 
 class Sites extends PureComponent<Props> {
-  render() {
+  constructor(props) {
+    super(props);
+
+    this.columns = [
+      {
+        key: 'title',
+        name: 'Title',
+        editable: true,
+      },
+      {
+        key: 'url',
+        name: 'URL',
+      },
+    ];
+
+    this.getCellActions = this.getCellActions.bind(this);
+  }
+
+  getCellActions(column, row) {
     const {
-      sites,
       onSiteRemove,
     } = this.props;
 
+    if (column.key === 'url') {
+      return [
+        {
+          icon: 'fi-x',
+          callback: () => {
+            onSiteRemove({ title: row.title, url: row.url });
+          },
+        },
+      ];
+    }
+  }
+
+  render() {
+    const {
+      sites,
+      onSiteUpdate,
+    } = this.props;
+
     return (
-      <div id='sites'>
+      <div>
         Sites
-        <table className='hover'>
-          <thead>
-            <tr>
-              <th>
-                Title
-              </th>
-              <th>
-                URL
-              </th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {
-              sites.map((site) => {
-                return (
-                  <SiteRow
-                    key={site.url}
-                    site={site}
-                    onRemove={onSiteRemove}
-                  />
-                );
-              })
-            }
-          </tbody>
-        </table>
+        <ReactDataGrid
+          enableCellSelect={true}
+          columns={this.columns}
+          rowGetter={i => sites[i]}
+          rowsCount={sites.length}
+          getCellActions={this.getCellActions}
+          onGridRowsUpdated={({ fromRowData: data, fromRowId, toRowId, updated }) => {
+              if (fromRowId === toRowId &&
+                  data.title !== updated.title) {
+                onSiteUpdate({
+                  title: updated.title,
+                  url: data.url,
+                });
+              }
+          }}
+          minHeight={500}
+        />
       </div>
     );
   }

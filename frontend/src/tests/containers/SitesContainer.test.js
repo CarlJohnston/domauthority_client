@@ -27,7 +27,9 @@ describe('SitesContainer', () => {
     }
 
     component = mount(
-      <SitesContainer {...props} />
+      <SitesContainer
+        {...props}
+      />
     );
   };
 
@@ -84,18 +86,7 @@ describe('SitesContainer', () => {
     let sites;
     let request;
 
-//  createComponent();
-//  sites = [
-//  ];
-//  request = requests.pop();
-//  request.respond(
-//    200,
-//    {
-//      'Content-Type': 'application/json',
-//    },
-//    JSON.stringify(sites),
-//  );
-//  component.update();
+    // TODO figure out how to test negative case w/ no sites
 
     createComponent();
     sites = [
@@ -171,7 +162,7 @@ describe('SitesContainer', () => {
       }, 100);
     });
     const onSiteRemove = component.find(Sites).prop('onSiteRemove');
-    onSiteRemove({}, siteToRemove);
+    onSiteRemove(siteToRemove);
     request = requests.pop();
     expect(request).toBeDefined();
     expect(request.url).toEqual('/users/current/sites');
@@ -186,6 +177,79 @@ describe('SitesContainer', () => {
           clearInterval(intervalId);
 
           resolve(true);
+        }
+      }, 100);
+    })).resolves.toBe(true);
+  });
+
+  it('onSiteUpdate prop passed to Sites updates site', async () => {
+    expect.assertions(4);
+
+    let sites;
+    let request;
+
+    createComponent();
+    sites = [
+      {
+        title: 'Site 1',
+        url: 'http://www.site1.com',
+      },
+      {
+        title: 'Site 2',
+        url: 'http://www.site2.com',
+      },
+    ];
+    request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(sites),
+    );
+
+    await new Promise((resolve) => {
+      let sitesComponent;
+      const intervalId = setInterval(() => {
+        component.update();
+        sitesComponent = component.find(Sites);
+        if (sitesComponent.exists()) {
+          clearInterval(intervalId);
+
+          resolve(true);
+        }
+      }, 100);
+    });
+    const onSiteUpdate = component.find(Sites).prop('onSiteUpdate');
+    const siteToUpdateIndex = 0;
+    const siteToBeUpdated = sites[siteToUpdateIndex];
+    siteToBeUpdated.title = 'New Site 1';
+    onSiteUpdate(siteToBeUpdated);
+    request = requests.pop();
+    expect(request).toBeDefined();
+    expect(request.url).toEqual('/users/current/sites');
+    expect(request.method).toEqual('PUT');
+    request.respond(200);
+    await expect(new Promise((resolve) => {
+      const intervalId = setInterval(() => {
+        component.update();
+        const sitesComponent = component.find(Sites);
+        const updatedSites = sitesComponent.prop('sites');
+        const updatedSite = updatedSites[siteToUpdateIndex];
+        if (siteToBeUpdated.title === updatedSite.title &&
+            siteToBeUpdated.url === updatedSite.url) {
+          const restSitesBefore = sites.filter(({ title, url }) => {
+            return url !== updatedSite.url;
+          });
+          const restSitesUpdated = updatedSites.filter(({ title, url }) => {
+            return url !== updatedSite.url;
+          });
+
+          if (JSON.stringify(restSitesBefore) === JSON.stringify(restSitesUpdated)) {
+            clearInterval(intervalId);
+
+            resolve(true);
+          }
         }
       }, 100);
     })).resolves.toBe(true);

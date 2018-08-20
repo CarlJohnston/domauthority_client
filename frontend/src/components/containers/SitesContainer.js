@@ -11,6 +11,7 @@ import ERROR from 'configs/Error';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
+import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
 
 
 type SitesData = Array<SiteType>;
@@ -33,6 +34,7 @@ class SitesContainer extends Component<Props, State> {
     };
 
     this.onSiteRemove = this.onSiteRemove.bind(this);
+    this.onSiteUpdate = this.onSiteUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -76,7 +78,7 @@ class SitesContainer extends Component<Props, State> {
       });
   }
 
-  onSiteRemove: onSiteRemoveType = (e: Event, site: SiteType) => {
+  onSiteRemove: onSiteRemoveType = (site: SiteType) => {
     const request: Request = new Request('/users/current/sites', {
       method: 'DELETE',
     });
@@ -90,6 +92,50 @@ class SitesContainer extends Component<Props, State> {
 
             return {
               sites: sitesFiltered,
+            };
+          });
+        } else {
+          // TODO change error type
+          PNotify.alert({
+            text: ERROR.unexpected,
+            type: STATUS.error,
+            delay: 2000,
+          });
+        }
+      })
+      .catch(() => {
+        // TODO wrapper on this for general case?
+        PNotify.alert({
+          text: ERROR.unexpected,
+          type: STATUS.error,
+          delay: 2000,
+        });
+      });
+  }
+
+  onSiteUpdate: onSiteUpdateType = (site: Site) => {
+    const request: Request = new Request('/users/current/sites', {
+      method: 'PUT',
+    });
+    fetch(request)
+      .then((response: Response) => {
+        if (response.ok) {
+          this.setState((prevState) => {
+            const prevSites = [...prevState.sites];
+            const prevSitesSiteIndex = prevSites.findIndex((prevSite) => {
+              return site.url === prevSite.url;
+            });
+
+            let sitesUpdated;
+            if (prevSitesSiteIndex === -1) {
+              sitesUpdated = prevSites;
+            } else {
+              sitesUpdated = [...prevSites];
+              sitesUpdated.splice(prevSitesSiteIndex, 1, site);
+            }
+
+            return {
+              sites: sitesUpdated,
             };
           });
         } else {
@@ -127,6 +173,7 @@ class SitesContainer extends Component<Props, State> {
             <Sites
               sites={sites}
               onSiteRemove={this.onSiteRemove}
+              onSiteUpdate={this.onSiteUpdate}
             />
           )
         }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Sinon from 'sinon';
 import { mount } from 'enzyme';
+import ReactDataGrid from 'react-data-grid';
 
 import SiteRow from 'components/SiteRow/SiteRow';
 import Sites from 'components/Sites/Sites';
@@ -26,7 +27,9 @@ describe('Sites', () => {
     }
 
     component = mount(
-      <Sites {...props} />
+      <Sites
+        {...props}
+      />
     );
   };
 
@@ -38,6 +41,7 @@ describe('Sites', () => {
 
   it('renders sites', () => {
     const onSiteRemoveStub = Sinon.stub();
+    const onSiteUpdateStub = Sinon.stub();
 
     let sites;
 
@@ -62,14 +66,11 @@ describe('Sites', () => {
     createComponent({
       sites: sites,
       onSiteRemove: onSiteRemoveStub,
+      onSiteUpdate: onSiteUpdateStub,
     });
-    sites.forEach((site) => {
-      expect(component.findWhere((node) => {
-        return node.type() === SiteRow &&
-          node.prop('site').title === site.title &&
-          node.prop('site').url === site.url &&
-          node.prop('onRemove') === onSiteRemoveStub;
-      })).toHaveLength(1);
-    });
+    const reactDataGridComponent = component.find(ReactDataGrid);
+    expect(reactDataGridComponent).toHaveLength(1);
+
+    // TODO possibly test row sites if can access without introducing fragility
   });
 });
