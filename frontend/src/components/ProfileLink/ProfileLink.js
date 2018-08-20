@@ -20,7 +20,7 @@ class ProfileLink extends Component<Props> {
 
     return (
       <Link to={`/users/${currentUser.username}`}>
-        @{this.props.currentUser.username}
+        @{currentUser.username}
       </Link>
     );
   }
