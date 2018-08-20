@@ -55,11 +55,11 @@ class SitesContainer extends Component<Props, State> {
           return Promise.resolve(null);
         }
       })
-      .then((sites: ?SitesData = []) => {
+      .then((sites: ?SitesData) => {
         this.setState(() => {
           return {
             loading: false,
-            sites: sites,
+            sites: sites || [],
           };
         });
       })
