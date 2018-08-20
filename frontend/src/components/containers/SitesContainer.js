@@ -113,7 +113,7 @@ class SitesContainer extends Component<Props, State> {
       });
   }
 
-  onSiteUpdate: onSiteUpdateType = (site: Site) => {
+  onSiteUpdate: onSiteUpdateType = (site: SiteType) => {
     const request: Request = new Request('/users/current/sites', {
       method: 'PUT',
     });
