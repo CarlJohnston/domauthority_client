@@ -15,6 +15,8 @@ type Props = {
 };
 
 class LogoutLink extends Component<Props> {
+  logout: () => void;
+
   constructor(props) {
     super(props);
 
