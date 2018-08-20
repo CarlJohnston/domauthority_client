@@ -3,7 +3,7 @@
 import type { Site } from 'components/Sites/Site.type';
 
 
-type onSiteRemove = (Event, Site) => void;
+type onSiteRemove = (Site) => void;
 
 export type {
   onSiteRemove,
