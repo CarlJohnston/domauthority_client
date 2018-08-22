@@ -3,7 +3,6 @@ import Sinon from 'sinon';
 import { mount } from 'enzyme';
 import ReactDataGrid from 'react-data-grid';
 
-import SiteRow from 'components/SiteRow/SiteRow';
 import Sites from 'components/Sites/Sites';
 
 describe('Sites', () => {
