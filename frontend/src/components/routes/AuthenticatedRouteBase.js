@@ -41,7 +41,13 @@ class AuthenticatedRouteBase extends Component<Props> {
               );
             } else {
               return (
-                <Redirect to='/login' />
+                <React.Fragment>
+                  {authenticated ? (
+                     <Redirect to='/login' />
+                  ) : (
+                     <Redirect to='/' />
+                  )}
+                </React.Fragment>
               );
             }
           }
