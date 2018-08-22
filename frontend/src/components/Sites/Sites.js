@@ -19,7 +19,9 @@ type Props = {
 };
 
 class Sites extends PureComponent<Props> {
-  constructor(props) {
+  getCellActions: () => void;
+
+  constructor(props: Props) {
     super(props);
 
     this.columns = [
