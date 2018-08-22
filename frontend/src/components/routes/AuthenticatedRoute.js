@@ -8,6 +8,9 @@ import AuthenticatedRouteBase from 'components/routes/AuthenticatedRouteBase';
 
 
 type Props = {
+  component: ComponentType<{}>,
+  currentUser: CurrentUserType,
+  path: string,
 };
 
 class AuthenticatedRoute extends Component<Props> {

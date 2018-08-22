@@ -14,6 +14,7 @@ type Props = {
   component: ComponentType<{}>,
   currentUser: CurrentUserType,
   authenticated: boolean,
+  path: string,
 };
 
 class AuthenticatedRouteBase extends Component<Props> {
@@ -22,11 +23,13 @@ class AuthenticatedRouteBase extends Component<Props> {
       component: Child,
       currentUser,
       authenticated,
+      path,
       ...rest
     } = this.props;
 
     return (
       <Route
+        path={path}
         {...rest}
         render={
           (props) => {
