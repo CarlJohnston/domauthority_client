@@ -1,13 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Redirect } from 'react-router';
-import { MemoryRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
-import Login from 'components/Login/Login';
+import Settings from 'components/Settings/Settings';
 
 import AuthenticatedRoute from 'components/routes/AuthenticatedRoute';
-
-import Token from 'helpers/Token';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
@@ -16,15 +15,28 @@ const VALID_CURRENT_USER_DATA = {
   username: 'username',
 };
 
+const AUTHENTICATED_PATH = '/authenticated';
+const LOGIN_PATH = '/login';
+
 describe('authenticated route', () => {
   let component;
   let history;
-  let createComponent = (options) => {
-    let defaultOptions = {
-      props: {},
+  const createComponent = (newOptions) => {
+    const defaultOptions = {
+      props: {
+        path: AUTHENTICATED_PATH,
+        component: Settings,
+      },
       authenticated: false,
     };
-    options = Object.assign(defaultOptions, options);
+    const options = Object.assign(defaultOptions, newOptions);
+
+    history = createMemoryHistory({
+      initialEntries: [
+        options.props.path,
+      ],
+      initialIndex: 0,
+    });
 
     if (component) {
       component.unmount();
@@ -38,18 +50,18 @@ describe('authenticated route', () => {
         currentUserData[key] = null;
       });
     }
-    let currentUser = {
+    const currentUser = {
       currentUser: currentUserData,
       setCurrentUser: null,
       clearCurrentUser: null,
     };
 
     component = mount(
-      <Router>
+      <Router history={history}>
         <CurrentUserContext.Provider value={currentUser}>
-          <AuthenticatedRoute path='/'
-                              component={Login}
-                              {...options.props} />
+          <AuthenticatedRoute
+            {...options.props}
+          />
         </CurrentUserContext.Provider>
       </Router>
     );
@@ -66,14 +78,14 @@ describe('authenticated route', () => {
     createComponent({
       authenticated: false,
     });
-    expect(component.find(Redirect).exists()).toBe(true);
-    expect(component.find(Login).exists()).toBe(false);
+    expect(history.location.pathname).toEqual(LOGIN_PATH);
+    expect(component.find(Settings).exists()).toBe(false);
 
     // authenticated
     createComponent({
       authenticated: true,
     });
-    expect(component.find(Redirect).exists()).toBe(false);
-    expect(component.find(Login).exists()).toBe(true);
+    expect(history.location.pathname).toEqual(AUTHENTICATED_PATH);
+    expect(component.find(Settings).exists()).toBe(true);
   });
 });
