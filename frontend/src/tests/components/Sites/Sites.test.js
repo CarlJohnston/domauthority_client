@@ -44,13 +44,7 @@ describe('Sites', () => {
 
     let sites;
 
-    sites = [
-    ];
-    createComponent({
-      sites: sites,
-      onSiteRemove: onSiteRemoveStub,
-    });
-    expect(component.find(SiteRow)).toHaveLength(0);
+    // TODO test with no site rows once figure out how to test rows
 
     sites = [
       {
@@ -69,7 +63,6 @@ describe('Sites', () => {
     });
     const reactDataGridComponent = component.find(ReactDataGrid);
     expect(reactDataGridComponent).toHaveLength(1);
-
     // TODO possibly test row sites if can access without introducing fragility
   });
 });
