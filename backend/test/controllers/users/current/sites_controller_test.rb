@@ -1,7 +1,7 @@
 require 'uri'
 
 require 'test_helper'
-require 'AuthenticationHelper'
+require 'authentication_helper'
 
 class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
   include AuthenticationHelper
