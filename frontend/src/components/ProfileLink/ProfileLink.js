@@ -19,9 +19,16 @@ class ProfileLink extends Component<Props> {
     } = this.props;
 
     return (
-      <Link to={`/users/${currentUser.username}`}>
-        @{currentUser.username}
-      </Link>
+      <React.Fragment>
+        {
+          currentUser.username &&
+          (
+            <Link to={`/users/${currentUser.username}`}>
+              @{currentUser.username}
+            </Link>
+          )
+        }
+      </React.Fragment>
     );
   }
 }
