@@ -1,18 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import App from 'components/App/App';
-
-import CurrentUserContext from 'contexts/CurrentUserContext';
+import Main from 'components/Main/Main';
 
 import Token from 'helpers/Token';
+
 
 const VALID_CURRENT_USER_DATA = {
   name: 'name',
   username: 'username',
 };
 
-describe('app', () => {
+describe('main', () => {
   let component;
   let createComponent = (props) => {
     if (component) {
@@ -20,7 +19,7 @@ describe('app', () => {
     }
 
     component = shallow(
-      <App {...props} />
+      <Main {...props} />
     );
   };
 

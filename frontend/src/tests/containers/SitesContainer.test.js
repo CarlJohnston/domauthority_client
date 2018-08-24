@@ -407,7 +407,7 @@ describe('SitesContainer', () => {
       {
         'Content-Type': 'application/json',
       },
-      JSON.stringify(newSite)
+      JSON.stringify(newSite),
     );
     // TODO figure out better way to test this without magic number
     await expect(new Promise((resolve, reject) => {
