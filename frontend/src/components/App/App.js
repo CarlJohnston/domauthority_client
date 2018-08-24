@@ -25,8 +25,8 @@ PNotify.defaults = Object.assign(PNotify.defaults, {
     firstpos1: 0,
     spacing1: 0,
   }),
+  delay: 2000,
 });
-
 Modal.setAppElement('#root');
 
 

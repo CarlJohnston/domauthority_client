@@ -43,7 +43,6 @@ class LogoutLink extends Component<Props> {
       title: status,
       text: 'Logged out successfully!',
       type: status,
-      delay: 2000,
     });
   }
 

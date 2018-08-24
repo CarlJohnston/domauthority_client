@@ -88,10 +88,8 @@ class SitesContainer extends Component<Props, State> {
       })
       .finally(() => {
         if (notification) {
-          PNotify.alert(Object.assign({
-            delay: 2000,
-          }, notification));
-        };
+          PNotify.alert(notification);
+        }
       });
   }
 
@@ -144,9 +142,7 @@ class SitesContainer extends Component<Props, State> {
       })
       .finally(() => {
         if (notification) {
-          PNotify.alert(Object.assign({
-            delay: 2000,
-          }, notification));
+          PNotify.alert(notification);
         }
       });
   }
@@ -210,9 +206,7 @@ class SitesContainer extends Component<Props, State> {
       })
       .finally(() => {
         if (notification) {
-          PNotify.alert(Object.assign({
-            delay: 2000,
-          }, notification));
+          PNotify.alert(notification);
         }
       });
   }
@@ -277,9 +271,7 @@ class SitesContainer extends Component<Props, State> {
         callback();
 
         if (notification) {
-          PNotify.alert(Object.assign({
-            delay: 2000,
-          }, notification));
+          PNotify.alert(notification);
         }
       });
   }

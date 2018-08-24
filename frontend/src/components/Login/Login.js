@@ -94,7 +94,6 @@ class Login extends Component<Props> {
             title: status,
             text: message,
             type: status,
-            delay: 2000,
           });
         });
       });
