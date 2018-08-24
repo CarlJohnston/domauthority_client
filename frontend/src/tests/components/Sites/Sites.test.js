@@ -48,10 +48,12 @@ describe('Sites', () => {
 
     sites = [
       {
+        id: 1,
         title: 'Site 1',
         url: 'http://www.site1.com',
       },
       {
+        id: 2,
         title: 'Site 2',
         url: 'http://www.site2.com',
       },

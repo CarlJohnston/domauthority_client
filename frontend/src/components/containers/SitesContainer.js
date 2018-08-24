@@ -79,7 +79,7 @@ class SitesContainer extends Component<Props, State> {
   }
 
   onSiteRemove: onSiteRemoveType = (site: SiteType) => {
-    const request: Request = new Request('/users/current/sites', {
+    const request: Request = new Request(`/users/current/sites/${site.id}`, {
       method: 'DELETE',
     });
     fetch(request)

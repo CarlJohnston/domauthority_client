@@ -56,6 +56,7 @@ describe('SitesContainer', () => {
       },
       JSON.stringify([
         {
+          id: 1,
           title: 'Site 1',
           url: 'http://www.site1.com',
         },
@@ -91,10 +92,12 @@ describe('SitesContainer', () => {
     createComponent();
     sites = [
       {
+        id: 1,
         title: 'Site 1',
         url: 'http://www.site1.com',
       },
       {
+        id: 2,
         title: 'Site 2',
         url: 'http://www.site2.com',
       },
@@ -131,10 +134,12 @@ describe('SitesContainer', () => {
     createComponent();
     sites = [
       {
+        id: 1,
         title: 'Site 1',
         url: 'http://www.site1.com',
       },
       {
+        id: 2,
         title: 'Site 2',
         url: 'http://www.site2.com',
       },
@@ -165,7 +170,7 @@ describe('SitesContainer', () => {
     onSiteRemove(siteToRemove);
     request = requests.pop();
     expect(request).toBeDefined();
-    expect(request.url).toEqual('/users/current/sites');
+    expect(request.url).toEqual(`/users/current/sites/${siteToRemove.id}`);
     expect(request.method).toEqual('DELETE');
     request.respond(200);
     await expect(new Promise((resolve) => {

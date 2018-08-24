@@ -49,7 +49,7 @@ class Sites extends PureComponent<Props> {
         {
           icon: 'fi-x',
           callback: () => {
-            onSiteRemove({ title: row.title, url: row.url });
+            onSiteRemove({ id: row.id, title: row.title, url: row.url });
           },
         },
       ];
