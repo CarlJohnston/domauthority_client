@@ -103,6 +103,13 @@ class SitesContainer extends Component<Props, State> {
               sites: sitesFiltered,
             };
           });
+
+          // TODO wrapper for general case?
+          PNotify.alert({
+            text: 'Site successfully removed!',
+            type: STATUS.success,
+            delay: 2000,
+          });
         } else {
           // TODO change error type
           PNotify.alert({
@@ -146,6 +153,13 @@ class SitesContainer extends Component<Props, State> {
               sitesUpdated = [...prevSites];
               sitesUpdated.splice(prevSitesSiteIndex, 1, site);
             }
+
+            // TODO wrapper for general case?
+            PNotify.alert({
+              text: 'Site successfully updated!',
+              type: STATUS.success,
+              delay: 2000,
+            });
 
             return {
               sites: sitesUpdated,
