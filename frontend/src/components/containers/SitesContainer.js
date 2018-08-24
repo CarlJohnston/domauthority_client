@@ -111,18 +111,18 @@ class SitesContainer extends Component<Props, State> {
               return title !== site.title && url !== site.url;
             });
 
+            // TODO wrapper for general case?
+            const status = STATUS.success;
+            notification = {
+              title: status,
+              text: 'Site successfully removed!',
+              type: status,
+            };
+
             return {
               sites: sitesFiltered,
             };
           });
-
-          // TODO wrapper for general case?
-          const status = STATUS.success;
-          notification = {
-            title: status,
-            text: 'Site successfully removed!',
-            type: status,
-          };
         } else {
           // TODO change error type
           const status = STATUS.error;
