@@ -12,6 +12,7 @@ import ERROR from 'configs/Error';
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
+import type { onSiteCreate as onSiteCreateType } from 'components/Sites/onSiteCreate.type';
 
 
 type SitesData = Array<SiteType>;
@@ -25,6 +26,8 @@ type Props = {
 };
 
 class SitesContainer extends Component<Props, State> {
+  onSiteCreate: onSiteCreateType;
+
   constructor(props: Props) {
     super(props);
 
@@ -35,6 +38,7 @@ class SitesContainer extends Component<Props, State> {
 
     this.onSiteRemove = this.onSiteRemove.bind(this);
     this.onSiteUpdate = this.onSiteUpdate.bind(this);
+    this.onSiteCreate = this.onSiteCreate.bind(this);
   }
 
   componentDidMount() {
@@ -158,6 +162,10 @@ class SitesContainer extends Component<Props, State> {
       });
   }
 
+  onSiteCreate: onSiteCreateType = (site: SiteType, callback: () => void) => {
+    callback();
+  }
+
   render() {
     const {
       sites,
@@ -175,6 +183,7 @@ class SitesContainer extends Component<Props, State> {
               sites={sites}
               onSiteRemove={this.onSiteRemove}
               onSiteUpdate={this.onSiteUpdate}
+              onSiteCreate={this.onSiteCreate}
             />
           )
         }
