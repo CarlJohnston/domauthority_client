@@ -106,6 +106,7 @@ class Sites extends PureComponent<Props, State> {
         } = this.props;
 
         onSiteCreate({
+          id: -1, // no ID assigned until creation
           title: title,
           url: url,
         }, () => {
