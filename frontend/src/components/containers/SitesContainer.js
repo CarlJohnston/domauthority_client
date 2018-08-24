@@ -227,6 +227,7 @@ class SitesContainer extends Component<Props, State> {
         site: site,
       }),
     });
+    let notification: ?Notification;
     fetch(request)
       .then((response: Response) => {
         if (response.ok) {
@@ -234,12 +235,11 @@ class SitesContainer extends Component<Props, State> {
         } else {
           // TODO change error type
           const status = STATUS.error;
-          PNotify.alert({
+          notification = {
             title: status,
             text: ERROR.conflict, // TODO convert from response based on code from backend
             type: status,
-            delay: 2000,
-          });
+          };
 
           return Promise.resolve(null);
         }
@@ -257,26 +257,30 @@ class SitesContainer extends Component<Props, State> {
 
           // TODO wrapper for general case?
           const status = STATUS.success;
-          PNotify.alert({
+          notification = {
             title: status,
             text: 'Site successfully added!',
             type: status,
-            delay: 2000,
-          });
+          };
         }
       })
       .catch(() => {
         // TODO wrapper on this for general case?
         const status = STATUS.error;
-        PNotify.alert({
+        notification = {
           title: status,
           text: ERROR.unexpected,
           type: status,
-          delay: 2000,
-        });
+        };
       })
       .finally(() => {
         callback();
+
+        if (notification) {
+          PNotify.alert(Object.assign({
+            delay: 2000,
+          }, notification));
+        }
       });
   }
 
