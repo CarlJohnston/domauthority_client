@@ -5,6 +5,7 @@ import ReactDataGrid from 'react-data-grid';
 import Modal from 'react-modal';
 import { Toolbar } from 'react-data-grid-addons';
 import $ from 'jquery';
+import { BeatLoader as Loader } from 'react-spinners';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
@@ -30,6 +31,7 @@ type Props = {
 
 type State = {
   isModalOpen: boolean,
+  isModalLoading: boolean,
 }
 
 class Sites extends PureComponent<Props, State> {
@@ -56,6 +58,7 @@ class Sites extends PureComponent<Props, State> {
 
     this.state = {
       isModalOpen: false,
+      isModalLoading: false,
     };
 
     this.createSiteForm = React.createRef();
@@ -85,6 +88,12 @@ class Sites extends PureComponent<Props, State> {
         const title = this.$form.find('#title').val();
         const url = this.$form.find('#url').val();
 
+        this.setState(() => {
+          return {
+            isModalLoading: true,
+          };
+        });
+
         const {
           onSiteCreate,
         } = this.props;
@@ -96,6 +105,7 @@ class Sites extends PureComponent<Props, State> {
           this.setState(() => {
             return {
               isModalOpen: false,
+              isModalLoading: false,
             };
           });
         });
@@ -132,6 +142,7 @@ class Sites extends PureComponent<Props, State> {
 
     const {
       isModalOpen,
+      isModalLoading,
     } = this.state;
 
     return (
@@ -141,27 +152,34 @@ class Sites extends PureComponent<Props, State> {
           onAfterOpen={this.onOpenModal}
           onRequestClose={this.onCloseModal}
         >
-          <div>
-            <form onSubmit={(e) => e.preventDefault()} ref={this.createSiteForm} data-abide noValidate>
-              <label>
-                Title
-                <input id='title' name='title' type='text' placeholder='Title' required />
-              </label>
-              <span className='form-error' data-form-error-for='title'>
-                Please enter a valid title.
-              </span>
-              <label>
-                URL
-                <input id='url' className='input-group-field' placeholder='https://www.site.com/' name='url' type='text' pattern='url' required />
-              </label>
-              <span className='form-error' data-form-error-for='url'>
-                Please enter a valid URL.
-              </span>
-              <button className='button' type='submit'>
-                Submit
-              </button>
-            </form>
-          </div>
+          <Loader
+            loading={isModalLoading}
+          />
+          {!isModalLoading &&
+           (
+             <div>
+               <form onSubmit={(e) => e.preventDefault()} ref={this.createSiteForm} data-abide noValidate>
+                 <label>
+                   Title
+                   <input id='title' name='title' type='text' placeholder='Title' required />
+                 </label>
+                 <span className='form-error' data-form-error-for='title'>
+                   Please enter a valid title.
+                 </span>
+                 <label>
+                   URL
+                   <input id='url' className='input-group-field' placeholder='https://www.site.com/' name='url' type='text' pattern='url' required />
+                 </label>
+                 <span className='form-error' data-form-error-for='url'>
+                   Please enter a valid URL.
+                 </span>
+                 <button className='button' type='submit'>
+                   Submit
+                 </button>
+               </form>
+             </div>
+           )
+          }
         </Modal>
         <div>
           Sites
