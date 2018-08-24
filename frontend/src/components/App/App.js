@@ -10,12 +10,22 @@ import 'pnotify/dist/PNotifyBrightTheme.css';
 
 import 'foundation-icons/foundation-icons.css';
 
+import './PNotify.css';
+
 import Main from 'components/Main/Main';
 
 window.$ = window.jQuery = $;
 require('foundation-sites');
 
-PNotify.defaults.stack.dir1 = 'up';
+PNotify.defaults = Object.assign(PNotify.defaults, {
+  addClass: 'stack-bar-bottom',
+  width: '70%',
+  stack: Object.assign(PNotify.defaults.stack, {
+    dir1: 'up',
+    firstpos1: 0,
+    spacing1: 0,
+  }),
+});
 
 Modal.setAppElement('#root');
 
