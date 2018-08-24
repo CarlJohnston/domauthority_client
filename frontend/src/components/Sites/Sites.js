@@ -156,7 +156,7 @@ class Sites extends PureComponent<Props, State> {
           {!isModalLoading &&
            (
              <div>
-               <form onSubmit={(e) => e.preventDefault()} ref={this.createSiteForm} data-abide noValidate>
+               <form onSubmit={e => e.preventDefault()} ref={this.createSiteForm} data-abide noValidate>
                  <label>
                    Title
                    <input id='title' name='title' type='text' placeholder='Title' required />
