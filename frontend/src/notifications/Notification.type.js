@@ -1,6 +1,6 @@
 // @flow
 
-type Notification {
+type Notification = {
   title: string,
   text: string,
   text: string,
