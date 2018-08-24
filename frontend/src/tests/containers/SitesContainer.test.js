@@ -6,6 +6,7 @@ import { BeatLoader as Loader } from 'react-spinners';
 import SitesContainer from 'components/containers/SitesContainer';
 import Sites from 'components/Sites/Sites';
 
+
 describe('SitesContainer', () => {
   let xhr;
   const requests = [];
@@ -261,5 +262,169 @@ describe('SitesContainer', () => {
         }
       }, 100);
     })).resolves.toBe(true);
+  });
+
+  it('onSiteCreate prop passed to Sites creates site and calls callback', async () => {
+    expect.assertions(6);
+
+    let sites;
+    let request;
+
+    createComponent();
+    sites = [
+      {
+        id: 1,
+        title: 'Site 1',
+        url: 'http://www.site1.com',
+      },
+      {
+        id: 2,
+        title: 'Site 2',
+        url: 'http://www.site2.com',
+      },
+    ];
+    request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(sites),
+    );
+
+    await new Promise((resolve) => {
+      let sitesComponent;
+      const intervalId = setInterval(() => {
+        component.update();
+        sitesComponent = component.find(Sites);
+        if (sitesComponent.exists()) {
+          clearInterval(intervalId);
+
+          resolve(true);
+        }
+      }, 100);
+    });
+    const onSiteCreate = component.find(Sites).prop('onSiteCreate');
+    const newSite = {
+      id: 3,
+      title: 'Site 3',
+      url: 'http://wwww.site3.com',
+    };
+    const callback = Sinon.spy();
+    onSiteCreate(newSite, callback);
+    request = requests.pop();
+    expect(request).toBeDefined();
+    expect(request.url).toEqual('/users/current/sites');
+    expect(request.requestBody).toEqual(JSON.stringify({
+      site: newSite,
+    }));
+    expect(request.method).toEqual('POST');
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(newSite)
+    );
+    await expect(new Promise((resolve) => {
+      const intervalId = setInterval(() => {
+        component.update();
+        const sitesComponent = component.find(Sites);
+        const updatedSites = sitesComponent.prop('sites');
+        const newUpdatedSite = updatedSites[updatedSites.length - 1];
+        if (sites.length + 1 === updatedSites.length &&
+            newSite.id === newUpdatedSite.id &&
+            newSite.title === newUpdatedSite.title &&
+            newSite.url === newUpdatedSite.url) {
+          if (JSON.stringify(sites) === JSON.stringify(updatedSites.slice(0, -1))) {
+            clearInterval(intervalId);
+
+            resolve(true);
+          }
+        }
+      }, 100);
+    })).resolves.toBe(true);
+
+    expect(callback.calledOnce).toBe(true);
+  });
+
+  it('onSiteCreate prop passed to Sites does not create site on invalid data + response but still calls callback', async () => {
+    expect.assertions(6);
+
+    let sites;
+    let request;
+
+    createComponent();
+    sites = [
+      {
+        id: 1,
+        title: 'Site 1',
+        url: 'http://www.site1.com',
+      },
+      {
+        id: 2,
+        title: 'Site 2',
+        url: 'http://www.site2.com',
+      },
+    ];
+    request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(sites),
+    );
+
+    await new Promise((resolve) => {
+      let sitesComponent;
+      const intervalId = setInterval(() => {
+        component.update();
+        sitesComponent = component.find(Sites);
+        if (sitesComponent.exists()) {
+          clearInterval(intervalId);
+
+          resolve(true);
+        }
+      }, 100);
+    });
+    const onSiteCreate = component.find(Sites).prop('onSiteCreate');
+    const newSite = {
+      id: 3,
+      title: 'Site 3',
+    };
+    const callback = Sinon.spy();
+    onSiteCreate(newSite, callback);
+    request = requests.pop();
+    expect(request).toBeDefined();
+    expect(request.url).toEqual('/users/current/sites');
+    expect(request.requestBody).toEqual(JSON.stringify({
+      site: newSite,
+    }));
+    expect(request.method).toEqual('POST');
+    request.respond(
+      409,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(newSite)
+    );
+    // TODO figure out better way to test this without magic number
+    await expect(new Promise((resolve, reject) => {
+      setTimeout(() => {
+        component.update();
+        const sitesComponent = component.find(Sites);
+        const updatedSites = sitesComponent.prop('sites');
+        if (sites.length === updatedSites.length) {
+          if (JSON.stringify(sites) === JSON.stringify(updatedSites)) {
+            reject(false);
+          } else {
+            resolve(true);
+          }
+        }
+      }, 1000);
+    })).rejects.toBe(false);
+
+    expect(callback.calledOnce).toBe(true);
   });
 });
