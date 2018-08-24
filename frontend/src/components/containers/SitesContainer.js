@@ -86,6 +86,9 @@ class SitesContainer extends Component<Props, State> {
 
   onSiteRemove: onSiteRemoveType = (site: SiteType) => {
     const request: Request = new Request(`/users/current/sites/${site.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       method: 'DELETE',
     });
     fetch(request)
@@ -121,6 +124,9 @@ class SitesContainer extends Component<Props, State> {
 
   onSiteUpdate: onSiteUpdateType = (site: SiteType) => {
     const request: Request = new Request(`/users/current/sites/${site.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       method: 'PUT',
       body: JSON.stringify(site),
     });
@@ -165,7 +171,53 @@ class SitesContainer extends Component<Props, State> {
   }
 
   onSiteCreate: onSiteCreateType = (site: SiteType, callback: () => void) => {
-    callback();
+    const request: Request = new Request('/users/current/sites', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        site: site,
+      }),
+    });
+    fetch(request)
+      .then((response: Response) => {
+        if (response.ok) {
+          this.setState((prevState) => {
+            const sitesUpdated = [...prevState.sites];
+            sitesUpdated.push(site);
+
+            return {
+              sites: sitesUpdated,
+            };
+          });
+
+          // TODO wrapper for general case?
+          PNotify.alert({
+            text: 'Site successfully added!',
+            type: STATUS.success,
+            delay: 2000,
+          });
+        } else {
+          // TODO change error type
+          PNotify.alert({
+            text: ERROR.conflict, // TODO convert from response based on code from backend
+            type: STATUS.error,
+            delay: 2000,
+          });
+        }
+      })
+      .catch(() => {
+        // TODO wrapper on this for general case?
+        PNotify.alert({
+          text: ERROR.unexpected,
+          type: STATUS.error,
+          delay: 2000,
+        });
+      })
+      .finally(() => {
+        callback();
+      });
   }
 
   render() {
