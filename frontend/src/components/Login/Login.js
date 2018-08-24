@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import Async from 'async';
+import $ from 'jquery';
 
 import Authenticate from 'helpers/Authenticate';
 import LoginResponse from 'mixins/LoginResponse';
@@ -15,8 +16,6 @@ import withCurrentUser from 'components/hocs/withCurrentUser';
 
 import type { ElementRef } from 'react';
 import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
-
-import $ from 'jquery';
 
 window.jQuery = window.$ = $;
 require('foundation-sites');
