@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import Async from 'async';
+import $ from 'jquery';
 
 import Authenticate from 'helpers/Authenticate';
 import RegisterResponse from 'mixins/RegisterResponse';
@@ -10,8 +11,6 @@ import RegisterResponse from 'mixins/RegisterResponse';
 import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
 import type { RouterHistory } from 'react-router-dom';
 import type { ElementRef } from 'react';
-
-import $ from 'jquery';
 
 window.jQuery = window.$ = $;
 require('foundation-sites');
