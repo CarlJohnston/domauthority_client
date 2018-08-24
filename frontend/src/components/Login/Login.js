@@ -58,6 +58,7 @@ class Login extends Component<Props> {
   validLoginFormSubmit(e) {
     const email = this.$form.find('#email').val();
     const password = this.$form.find('#password').val();
+
     Async.waterfall([
       (callback) => {
         Authenticate.login({
@@ -90,6 +91,7 @@ class Login extends Component<Props> {
       }], (error, messages) => {
         Object.entries(messages).forEach(([message, status]) => {
           PNotify.alert({
+            title: status,
             text: message,
             type: status,
             delay: 2000,

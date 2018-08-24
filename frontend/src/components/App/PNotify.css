@@ -1,3 +1,12 @@
 [ui-pnotify].ui-pnotify.stack-bar-bottom {
   width: 70%;
 }
+
+.ui-pnotify-title {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+[ui-pnotify].ui-pnotify .brighttheme .ui-pnotify-title {
+  margin-bottom: 0.5rem;
+}
