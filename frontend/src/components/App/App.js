@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import 'promise-polyfill';
 import createHistory from 'history/createBrowserHistory';
+import PNotify from 'pnotify/dist/umd/PNotify';
+import $ from 'jquery';
 
 import 'foundation-sites/dist/css/foundation.min.css';
 import 'pnotify/dist/PNotifyBrightTheme.css';
@@ -21,10 +23,10 @@ import Token from 'helpers/Token';
 import type { CurrentUserContext as CurrentUserContextType, CurrentUser } from 'contexts/CurrentUserContext.types';
 import type { RouterHistory } from 'react-router-dom';
 
-import $ from 'jquery';
-
 window.$ = window.jQuery = $;
 require('foundation-sites');
+
+PNotify.defaults.stack.dir1 = 'up';
 
 
 type State = {
