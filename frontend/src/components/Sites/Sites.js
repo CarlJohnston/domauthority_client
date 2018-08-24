@@ -17,8 +17,6 @@ import './Sites.css';
 window.jQuery = window.$ = $;
 require('foundation-sites');
 
-Modal.setAppElement('#root');
-
 
 type SitesData = Array<SiteType>;
 

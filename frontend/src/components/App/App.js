@@ -5,6 +5,7 @@ import 'promise-polyfill';
 import createHistory from 'history/createBrowserHistory';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import $ from 'jquery';
+import Modal from 'react-modal';
 
 import 'foundation-sites/dist/css/foundation.min.css';
 import 'pnotify/dist/PNotifyBrightTheme.css';
@@ -27,6 +28,8 @@ window.$ = window.jQuery = $;
 require('foundation-sites');
 
 PNotify.defaults.stack.dir1 = 'up';
+
+Modal.setAppElement('#root');
 
 
 type State = {
