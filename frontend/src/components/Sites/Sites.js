@@ -75,6 +75,7 @@ class Sites extends PureComponent<Props> {
               if (fromRowId === toRowId &&
                   data.title !== updated.title) {
                 onSiteUpdate({
+                  id: data.id,
                   title: updated.title,
                   url: data.url,
                 });

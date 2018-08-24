@@ -114,8 +114,9 @@ class SitesContainer extends Component<Props, State> {
   }
 
   onSiteUpdate: onSiteUpdateType = (site: SiteType) => {
-    const request: Request = new Request('/users/current/sites', {
+    const request: Request = new Request(`/users/current/sites/${site.id}`, {
       method: 'PUT',
+      body: JSON.stringify(site),
     });
     fetch(request)
       .then((response: Response) => {

@@ -188,7 +188,7 @@ describe('SitesContainer', () => {
   });
 
   it('onSiteUpdate prop passed to Sites updates site', async () => {
-    expect.assertions(4);
+    expect.assertions(5);
 
     let sites;
     let request;
@@ -196,10 +196,12 @@ describe('SitesContainer', () => {
     createComponent();
     sites = [
       {
+        id: 1,
         title: 'Site 1',
         url: 'http://www.site1.com',
       },
       {
+        id: 2,
         title: 'Site 2',
         url: 'http://www.site2.com',
       },
@@ -232,7 +234,8 @@ describe('SitesContainer', () => {
     onSiteUpdate(siteToBeUpdated);
     request = requests.pop();
     expect(request).toBeDefined();
-    expect(request.url).toEqual('/users/current/sites');
+    expect(request.url).toEqual(`/users/current/sites/${siteToBeUpdated.id}`);
+    expect(request.requestBody).toEqual(JSON.stringify(siteToBeUpdated));
     expect(request.method).toEqual('PUT');
     request.respond(200);
     await expect(new Promise((resolve) => {
