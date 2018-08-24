@@ -46,7 +46,7 @@ class SitesContainer extends Component<Props, State> {
 
   componentDidMount() {
     const request: Request = new Request('/users/current/sites');
-    let notification: Notification;
+    let notification: ?Notification;
     fetch(request)
       .then((response: Response) => {
         if (response.ok) {
