@@ -197,9 +197,23 @@ class SitesContainer extends Component<Props, State> {
     fetch(request)
       .then((response: Response) => {
         if (response.ok) {
+          return response.json();
+        } else {
+          // TODO change error type
+          PNotify.alert({
+            text: ERROR.conflict, // TODO convert from response based on code from backend
+            type: STATUS.error,
+            delay: 2000,
+          });
+
+          return Promise.resolve(null);
+        }
+      })
+      .then((newSite: ?Site) => {
+        if (newSite) {
           this.setState((prevState) => {
             const sitesUpdated = [...prevState.sites];
-            sitesUpdated.push(site);
+            sitesUpdated.push(newSite);
 
             return {
               sites: sitesUpdated,
@@ -210,13 +224,6 @@ class SitesContainer extends Component<Props, State> {
           PNotify.alert({
             text: 'Site successfully added!',
             type: STATUS.success,
-            delay: 2000,
-          });
-        } else {
-          // TODO change error type
-          PNotify.alert({
-            text: ERROR.conflict, // TODO convert from response based on code from backend
-            type: STATUS.error,
             delay: 2000,
           });
         }
