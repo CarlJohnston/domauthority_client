@@ -1,10 +1,13 @@
 // @flow
 
 import React, { Component } from 'react';
+import PNotify from 'pnotify/dist/umd/PNotify';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
 
 import Token from 'helpers/Token';
+
+import STATUS from 'configs/Status';
 
 import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
 import type { RouterHistory } from 'react-router-dom';
@@ -34,6 +37,12 @@ class LogoutLink extends Component<Props> {
     Token.clear();
 
     history.push('/');
+
+    PNotify.alert({
+      text: 'Logged out successfully!',
+      type: STATUS.success,
+      delay: 2000,
+    });
   }
 
   render() {
