@@ -76,6 +76,7 @@ class Register extends Component<Props> {
           }], (error, messages) => {
             Object.entries(messages).forEach(([message, status]) => {
               PNotify.alert({
+                title: status,
                 text: message,
                 type: status,
                 delay: 2000,

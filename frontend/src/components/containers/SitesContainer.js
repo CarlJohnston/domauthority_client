@@ -52,9 +52,11 @@ class SitesContainer extends Component<Props, State> {
         } else {
           // TODO resolve past next handler
           // TODO change error message
+          const status = STATUS.error;
           PNotify.alert({
+            title: status,
             text: ERROR.unexpected,
-            type: STATUS.error,
+            type: status,
             delay: 2000,
           });
 
@@ -75,9 +77,11 @@ class SitesContainer extends Component<Props, State> {
             loading: false,
           };
         }, () => {
+          const status = STATUS.error;
           PNotify.alert({
+            title: status,
             text: ERROR.unexpected,
-            type: STATUS.error,
+            type: status,
             delay: 2000,
           });
         });
@@ -105,25 +109,31 @@ class SitesContainer extends Component<Props, State> {
           });
 
           // TODO wrapper for general case?
+          const status = STATUS.success;
           PNotify.alert({
+            title: status,
             text: 'Site successfully removed!',
-            type: STATUS.success,
+            type: status,
             delay: 2000,
           });
         } else {
           // TODO change error type
+          const status = STATUS.error;
           PNotify.alert({
+            title: status,
             text: ERROR.unexpected,
-            type: STATUS.error,
+            type: status,
             delay: 2000,
           });
         }
       })
       .catch(() => {
         // TODO wrapper on this for general case?
+        const status = STATUS.error;
         PNotify.alert({
+          title: status,
           text: ERROR.unexpected,
-          type: STATUS.error,
+          type: status,
           delay: 2000,
         });
       });
@@ -155,9 +165,11 @@ class SitesContainer extends Component<Props, State> {
             }
 
             // TODO wrapper for general case?
+            const status = STATUS.success;
             PNotify.alert({
+              title: status,
               text: 'Site successfully updated!',
-              type: STATUS.success,
+              type: status,
               delay: 2000,
             });
 
@@ -167,18 +179,22 @@ class SitesContainer extends Component<Props, State> {
           });
         } else {
           // TODO change error type
+          const status = STATUS.error;
           PNotify.alert({
+            title: status,
             text: ERROR.unexpected,
-            type: STATUS.error,
+            type: status,
             delay: 2000,
           });
         }
       })
       .catch(() => {
         // TODO wrapper on this for general case?
+        const status = STATUS.error;
         PNotify.alert({
+          title: status,
           text: ERROR.unexpected,
-          type: STATUS.error,
+          type: status,
           delay: 2000,
         });
       });
@@ -200,9 +216,11 @@ class SitesContainer extends Component<Props, State> {
           return response.json();
         } else {
           // TODO change error type
+          const status = STATUS.error;
           PNotify.alert({
+            title: status,
             text: ERROR.conflict, // TODO convert from response based on code from backend
-            type: STATUS.error,
+            type: status,
             delay: 2000,
           });
 
@@ -221,18 +239,22 @@ class SitesContainer extends Component<Props, State> {
           });
 
           // TODO wrapper for general case?
+          const status = STATUS.success;
           PNotify.alert({
+            title: status,
             text: 'Site successfully added!',
-            type: STATUS.success,
+            type: status,
             delay: 2000,
           });
         }
       })
       .catch(() => {
         // TODO wrapper on this for general case?
+        const status = STATUS.error;
         PNotify.alert({
+          title: status,
           text: ERROR.unexpected,
-          type: STATUS.error,
+          type: status,
           delay: 2000,
         });
       })

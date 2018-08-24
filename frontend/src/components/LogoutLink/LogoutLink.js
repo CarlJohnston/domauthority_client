@@ -38,9 +38,11 @@ class LogoutLink extends Component<Props> {
 
     history.push('/');
 
+    const status = STATUS.success;
     PNotify.alert({
+      title: status,
       text: 'Logged out successfully!',
-      type: STATUS.success,
+      type: status,
       delay: 2000,
     });
   }
