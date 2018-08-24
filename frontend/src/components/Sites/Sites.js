@@ -2,12 +2,15 @@
 
 import React, { PureComponent } from 'react';
 import ReactDataGrid from 'react-data-grid';
+import Modal from 'react-modal';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
 
 import './Sites.css';
+
+Modal.setAppElement('#root');
 
 
 type SitesData = Array<SiteType>;
@@ -18,7 +21,11 @@ type Props = {
   onSiteUpdate: onSiteUpdateType,
 };
 
-class Sites extends PureComponent<Props> {
+type State = {
+  isModalOpen: boolean,
+}
+
+class Sites extends PureComponent<Props, State> {
   getCellActions: () => void;
 
   constructor(props: Props) {
@@ -36,7 +43,30 @@ class Sites extends PureComponent<Props> {
       },
     ];
 
+    this.state = {
+      isModalOpen: false,
+    };
+
     this.getCellActions = this.getCellActions.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+  }
+
+  openModal() {
+    this.setState(() => {
+      return {
+        isOpenModal: true,
+      };
+    });
+  }
+
+  onOpenModal() {
+    
+  }
+
+  onCloseModal() {
+    
   }
 
   getCellActions(column, row) {
@@ -62,28 +92,39 @@ class Sites extends PureComponent<Props> {
       onSiteUpdate,
     } = this.props;
 
+    const {
+      isModalOpen,
+    } = this.state;
+
     return (
-      <div>
-        Sites
-        <ReactDataGrid
-          enableCellSelect={true}
-          columns={this.columns}
-          rowGetter={i => sites[i]}
-          rowsCount={sites.length}
-          getCellActions={this.getCellActions}
-          onGridRowsUpdated={({ fromRowData: data, fromRowId, toRowId, updated }) => {
-              if (fromRowId === toRowId &&
-                  data.title !== updated.title) {
-                onSiteUpdate({
-                  id: data.id,
-                  title: updated.title,
-                  url: data.url,
-                });
-              }
-          }}
-          minHeight={500}
+      <React.Fragment>
+        <Modal
+          isOpen={isModalOpen}
+          onAfterOpen={this.onOpenModal}
+          onRequestClose={this.onCloseModal}
         />
-      </div>
+        <div>
+          Sites
+          <ReactDataGrid
+            enableCellSelect={true}
+            columns={this.columns}
+            rowGetter={i => sites[i]}
+            rowsCount={sites.length}
+            getCellActions={this.getCellActions}
+            onGridRowsUpdated={({ fromRowData: data, fromRowId, toRowId, updated }) => {
+                if (fromRowId === toRowId &&
+                    data.title !== updated.title) {
+                  onSiteUpdate({
+                    id: data.id,
+                    title: updated.title,
+                    url: data.url,
+                  });
+                }
+            }}
+            minHeight={500}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }
