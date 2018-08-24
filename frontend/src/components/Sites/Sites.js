@@ -43,6 +43,9 @@ class Sites extends PureComponent<Props, State> {
     name: string,
     editable?: boolean,
   }>
+  createSiteForm: {
+    current: ElementRef<'form'> | null,
+  };
 
   constructor(props: Props) {
     super(props);
