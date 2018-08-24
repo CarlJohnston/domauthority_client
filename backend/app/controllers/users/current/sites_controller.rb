@@ -35,7 +35,10 @@ class Users::Current::SitesController < ApplicationController
       )
 
       if @site_user_site.save
-        render json: @site_user_site, status: :created
+        @site = Site.find_by(url: @site_user_site.url)
+        @site.title = UserSite.find_by(site_id: @site.id).title
+
+        render json: @site, status: :created
       else
         render json: @site_user_site.errors, status: :unprocessable_entity
       end
