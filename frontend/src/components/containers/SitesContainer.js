@@ -102,6 +102,7 @@ class SitesContainer extends Component<Props, State> {
       },
       method: 'DELETE',
     });
+    let notification: ?Notification;
     fetch(request)
       .then((response: Response) => {
         if (response.ok) {
@@ -117,32 +118,36 @@ class SitesContainer extends Component<Props, State> {
 
           // TODO wrapper for general case?
           const status = STATUS.success;
-          PNotify.alert({
+          notification = {
             title: status,
             text: 'Site successfully removed!',
             type: status,
-            delay: 2000,
-          });
+          };
         } else {
           // TODO change error type
           const status = STATUS.error;
-          PNotify.alert({
+          notification = {
             title: status,
             text: ERROR.unexpected,
             type: status,
-            delay: 2000,
-          });
+          };
         }
       })
       .catch(() => {
         // TODO wrapper on this for general case?
         const status = STATUS.error;
-        PNotify.alert({
+        notification = {
           title: status,
           text: ERROR.unexpected,
           type: status,
-          delay: 2000,
-        });
+        };
+      })
+      .finally(() => {
+        if (notification) {
+          PNotify.alert(Object.assign({
+            delay: 2000,
+          }, notification));
+        }
       });
   }
 
