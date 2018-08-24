@@ -38,6 +38,11 @@ class Sites extends PureComponent<Props, State> {
   };
   $form: JQuery;
   getCellActions: () => void;
+  columns: Array<{
+    key: string,
+    name: string,
+    editable?: boolean,
+  }>
 
   constructor(props: Props) {
     super(props);
