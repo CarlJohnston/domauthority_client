@@ -10,6 +10,7 @@ import AuthenticatedRoute from 'components/routes/AuthenticatedRoute';
 
 import CurrentUserContext from 'contexts/CurrentUserContext';
 
+
 const VALID_CURRENT_USER_DATA = {
   name: 'name',
   username: 'username',
