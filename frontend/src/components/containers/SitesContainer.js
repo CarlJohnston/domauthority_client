@@ -238,7 +238,7 @@ class SitesContainer extends Component<Props, State> {
           return Promise.resolve(null);
         }
       })
-      .then((newSite: ?Site) => {
+      .then((newSite: ?SiteType) => {
         if (newSite) {
           this.setState((prevState) => {
             const sitesUpdated = [...prevState.sites];
