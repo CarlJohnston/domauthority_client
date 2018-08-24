@@ -26,6 +26,8 @@ type Props = {
 };
 
 class SitesContainer extends Component<Props, State> {
+  onSiteRemove: onSiteRemoveType;
+  onSiteUpdate: onSiteUpdateType;
   onSiteCreate: onSiteCreateType;
 
   constructor(props: Props) {
