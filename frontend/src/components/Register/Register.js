@@ -40,10 +40,6 @@ class Register extends Component<Props> {
       // $FlowFixMe
       this.$form.foundation();
 
-      this.$form.on('submit', (e) => {
-        e.preventDefault();
-      });
-
       this.$form.on('formvalid.zf.abide', (e) => {
         const email = this.$form.find('#email').val();
         const username = this.$form.find('#username').val();
@@ -94,7 +90,7 @@ class Register extends Component<Props> {
           <h1>
             Register
           </h1>
-          <form ref={this.registerFormNode} data-abide noValidate>
+          <form onSubmit={e => e.preventDefault()} ref={this.registerFormNode} data-abide noValidate>
             <label>
               Email
               <input id='email' name='email' type='email' placeholder='somebody@example.com' required pattern='email' />
