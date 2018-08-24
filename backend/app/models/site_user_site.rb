@@ -9,7 +9,7 @@ class SiteUserSite
     if url.present? && user_id.present?
       ActiveRecord::Base.transaction do
         site = Site.find_or_create_by!(site_params)
-        UserSite.find_or_create_by!(
+        UserSite.create!(
           user_site_params.merge({ site_id: site.id })
         )
       end

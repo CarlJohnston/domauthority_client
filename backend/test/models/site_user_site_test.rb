@@ -103,7 +103,9 @@ class SiteUserSiteTest < ActiveSupport::TestCase
           url: @site.url,
           title: @user_site.title,
         )
-        assert(@site_user_site.save)
+        assert_raises ActiveRecord::RecordNotUnique do
+          @site_user_site.save
+        end
       end
     end
   end
