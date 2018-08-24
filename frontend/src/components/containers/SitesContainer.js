@@ -13,6 +13,7 @@ import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
 import type { onSiteCreate as onSiteCreateType } from 'components/Sites/onSiteCreate.type';
+import type { Notification } from 'notifications/Notification.type';
 
 
 type SitesData = Array<SiteType>;
@@ -45,11 +46,7 @@ class SitesContainer extends Component<Props, State> {
 
   componentDidMount() {
     const request: Request = new Request('/users/current/sites');
-    let notification: {
-      title: string,
-      text: string,
-      type: string,
-    };
+    let notification: Notification;
     fetch(request)
       .then((response: Response) => {
         if (response.ok) {
