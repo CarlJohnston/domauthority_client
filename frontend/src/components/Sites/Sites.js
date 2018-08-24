@@ -7,6 +7,7 @@ import { Toolbar } from 'react-data-grid-addons';
 import $ from 'jquery';
 import { BeatLoader as Loader } from 'react-spinners';
 
+import type { ElementRef } from 'react';
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
