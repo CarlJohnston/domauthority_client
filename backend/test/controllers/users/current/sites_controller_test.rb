@@ -113,6 +113,10 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
       end
     end
     assert_response :created
+    parsed_response = JSON.parse(response.body)
+    assert(parsed_response["id"])
+    assert(parsed_response["title"])
+    assert(parsed_response["url"])
 
     new_user_site = UserSite.last
     assert_equal(new_title, new_user_site.title)
@@ -133,6 +137,10 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
       end
     end
     assert_response :created
+    parsed_response = JSON.parse(response.body)
+    assert(parsed_response["id"])
+    assert(parsed_response["title"])
+    assert(parsed_response["url"])
 
     new_user_site = UserSite.last
     assert_equal(new_title, new_user_site.title)
