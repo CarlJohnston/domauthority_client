@@ -15,6 +15,7 @@ import type { ElementRef } from 'react';
 window.jQuery = window.$ = $;
 require('foundation-sites');
 
+
 type Props = {
   history: RouterHistory,
   ...$Exact<CurrentUserContextType>,
