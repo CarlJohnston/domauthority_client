@@ -3,12 +3,18 @@
 import React, { PureComponent } from 'react';
 import ReactDataGrid from 'react-data-grid';
 import Modal from 'react-modal';
+import { Toolbar } from 'react-data-grid-addons';
+import $ from 'jquery';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
+import type { onSiteCreate as onSiteCreateType } from 'components/Sites/onSiteCreate.type';
 
 import './Sites.css';
+
+window.jQuery = window.$ = $;
+require('foundation-sites');
 
 Modal.setAppElement('#root');
 
@@ -19,6 +25,7 @@ type Props = {
   sites: SitesData,
   onSiteRemove: onSiteRemoveType,
   onSiteUpdate: onSiteUpdateType,
+  onSiteCreate: onSiteCreateType,
 };
 
 type State = {
@@ -26,6 +33,10 @@ type State = {
 }
 
 class Sites extends PureComponent<Props, State> {
+  registerFormNode: {
+    current: ElementRef<'form'> | null,
+  };
+  $form: JQuery;
   getCellActions: () => void;
 
   constructor(props: Props) {
@@ -47,6 +58,8 @@ class Sites extends PureComponent<Props, State> {
       isModalOpen: false,
     };
 
+    this.createSiteForm = React.createRef();
+
     this.getCellActions = this.getCellActions.bind(this);
     this.openModal = this.openModal.bind(this);
     this.onOpenModal = this.onOpenModal.bind(this);
@@ -56,17 +69,42 @@ class Sites extends PureComponent<Props, State> {
   openModal() {
     this.setState(() => {
       return {
-        isOpenModal: true,
+        isModalOpen: true,
       };
     });
   }
 
   onOpenModal() {
-    
+    if (this.createSiteForm.current) {
+      this.$form = $(this.createSiteForm.current);
+
+      // $FlowFixMe
+      this.$form.foundation();
+
+      this.$form.on('formvalid.zf.abide', (e) => {
+        const title = this.$form.find('#title').val();
+        const url = this.$form.find('#url').val();
+
+        const {
+          onSiteCreate,
+        } = this.props;
+
+        onSiteCreate({
+          title: title,
+          url: url,
+        }, () => {
+          this.setState(() => {
+            return {
+              isModalOpen: false,
+            };
+          });
+        });
+      });
+    }
   }
 
   onCloseModal() {
-    
+    // TODO possible remove event handlers here
   }
 
   getCellActions(column, row) {
@@ -102,7 +140,29 @@ class Sites extends PureComponent<Props, State> {
           isOpen={isModalOpen}
           onAfterOpen={this.onOpenModal}
           onRequestClose={this.onCloseModal}
-        />
+        >
+          <div>
+            <form onSubmit={(e) => e.preventDefault()} ref={this.createSiteForm} data-abide noValidate>
+              <label>
+                Title
+                <input id='title' name='title' type='text' placeholder='Title' required />
+              </label>
+              <span className='form-error' data-form-error-for='title'>
+                Please enter a valid title.
+              </span>
+              <label>
+                URL
+                <input id='url' className='input-group-field' placeholder='https://www.site.com/' name='url' type='text' pattern='url' required />
+              </label>
+              <span className='form-error' data-form-error-for='url'>
+                Please enter a valid URL.
+              </span>
+              <button className='button' type='submit'>
+                Submit
+              </button>
+            </form>
+          </div>
+        </Modal>
         <div>
           Sites
           <ReactDataGrid
@@ -111,6 +171,7 @@ class Sites extends PureComponent<Props, State> {
             rowGetter={i => sites[i]}
             rowsCount={sites.length}
             getCellActions={this.getCellActions}
+            toolbar={<Toolbar onAddRow={this.openModal} />}
             onGridRowsUpdated={({ fromRowData: data, fromRowId, toRowId, updated }) => {
                 if (fromRowId === toRowId &&
                     data.title !== updated.title) {
