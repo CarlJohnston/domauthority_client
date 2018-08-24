@@ -44,7 +44,12 @@ class SitesContainer extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const request = new Request('/users/current/sites');
+    const request: Request = new Request('/users/current/sites');
+    let notification: {
+      title: string,
+      text: string,
+      type: string,
+    };
     fetch(request)
       .then((response: Response) => {
         if (response.ok) {
@@ -53,12 +58,11 @@ class SitesContainer extends Component<Props, State> {
           // TODO resolve past next handler
           // TODO change error message
           const status = STATUS.error;
-          PNotify.alert({
+          notification = {
             title: status,
             text: ERROR.unexpected,
             type: status,
-            delay: 2000,
-          });
+          };
 
           return Promise.resolve(null);
         }
@@ -78,13 +82,19 @@ class SitesContainer extends Component<Props, State> {
           };
         }, () => {
           const status = STATUS.error;
-          PNotify.alert({
+          notification = {
             title: status,
             text: ERROR.unexpected,
             type: status,
-            delay: 2000,
-          });
+          };
         });
+      })
+      .finally(() => {
+        if (notification) {
+          PNotify.alert(Object.assign({
+            delay: 2000,
+          }, notification));
+        };
       });
   }
 
