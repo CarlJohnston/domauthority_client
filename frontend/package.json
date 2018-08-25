@@ -18,7 +18,6 @@
     "promise-polyfill": "^8.0.0",
     "react": "^16.4.0",
     "react-data-grid": "^4.0.7",
-    "react-data-grid-addons": "^4.0.8",
     "react-dom": "^16.4.0",
     "react-modal": "^3.4.5",
     "react-router-dom": "^4.2.2",

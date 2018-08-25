@@ -3,7 +3,6 @@
 import React, { PureComponent } from 'react';
 import ReactDataGrid from 'react-data-grid';
 import Modal from 'react-modal';
-import { Toolbar } from 'react-data-grid-addons';
 import $ from 'jquery';
 import { BeatLoader as Loader } from 'react-spinners';
 
@@ -197,7 +196,6 @@ class Sites extends PureComponent<Props, State> {
             rowGetter={i => sites[i]}
             rowsCount={sites.length}
             getCellActions={this.getCellActions}
-            toolbar={<Toolbar onAddRow={this.openModal} />}
             onGridRowsUpdated={({ fromRowData: data, fromRowId, toRowId, updated }) => {
                 if (fromRowId === toRowId &&
                     data.title !== updated.title) {
