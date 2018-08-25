@@ -106,7 +106,7 @@ class SitesContainer extends Component<Props, State> {
         if (response.ok) {
           this.setState((prevState) => {
             const sitesFiltered = prevState.sites.filter(({ title, url }) => {
-              return title !== site.title && url !== site.url;
+              return title !== site.title || url !== site.url;
             });
 
             // TODO wrapper for general case?
