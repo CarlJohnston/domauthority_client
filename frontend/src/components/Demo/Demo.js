@@ -13,6 +13,8 @@ import $ from 'jquery';
 import 'jquery.tipsy';
 window.$ = window.jQuery = $;
 
+const CONTAINER_ID = 'd3-graph';
+
 
 class Demo extends Component {
   componentDidMount() {
@@ -25,7 +27,7 @@ class Demo extends Component {
     const width = 900 - margin.left - margin.right;
     const height = 440 - margin.top - margin.bottom;
 
-    const svg = d3.select('#d3-graph').append('svg')
+    const svg = d3.select('#' + CONTAINER_ID).append('svg')
                 .attr('id', 'chart')
                 .attr('viewBox', '0 0 960 500')
                 .attr('preserveAspectRatio', 'xMidYMid')
@@ -324,7 +326,7 @@ class Demo extends Component {
 
   render() {
     return (
-      <div id='d3-graph'>
+      <div id={CONTAINER_ID}>
       </div>
     );
   }
