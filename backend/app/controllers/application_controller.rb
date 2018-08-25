@@ -7,6 +7,10 @@ class ApplicationController < ActionController::API
     render json: {}, status: :conflict
   end
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render json: {}, status: :not_found
+  end
+
   protected
 
   def configure_permitted_parameters

@@ -3,7 +3,7 @@ require 'uri'
 class Users::Current::SitesController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_site, only: [:destroy]
+  before_action :set_site, only: [:destroy, :update]
 
   # GET users/current/sites
   def index
@@ -41,6 +41,32 @@ class Users::Current::SitesController < ApplicationController
         render json: @site, status: :created
       else
         render json: @site_user_site.errors, status: :unprocessable_entity
+      end
+    else
+      render json: {}, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if params.has_key?(:site) && params[:site].has_key?(:title)
+      if @site.present?
+        @user_site = UserSite.find_by(user_id: current_user.id, site_id: @site.id)
+
+        if @user_site.present?
+          @user_site.title = params[:site][:title]
+
+          if @user_site.save
+            @site.title = @user_site.title
+
+            render json: @site, status: :no_content
+          else
+            render json: {}, status: :not_found
+          end
+        else
+          render json: {}, status: :not_found
+        end
+      else
+        render json: {}, status: :not_found
       end
     else
       render json: {}, status: :unprocessable_entity

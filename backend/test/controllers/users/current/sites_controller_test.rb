@@ -14,6 +14,7 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     @user.confirm
 
     @site = sites(:one)
+    @user_site_one_one = user_sites(:one_one)
   end
 
   test "index should only be available for authenticated users" do
@@ -214,10 +215,87 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_difference('Site.count') do
       assert_no_difference('UserSite.count') do
-        assert_raises(ActiveRecord::RecordNotFound) do
-          authentication_delete @user, users_current_site_url(site_id), as: :json
-        end
+        authentication_delete @user, users_current_site_url(site_id), as: :json
       end
     end
+    assert_response :not_found
+  end
+
+  test "should patch valid site title with valid title when site and user site exists" do
+    site_previous = @site.clone
+    user_site_one_one_previous = @user_site_one_one.clone
+
+    new_title = "new title"
+    assert_not_equal(new_title, @user_site_one_one.title)
+
+    assert_no_difference "Site.count" do
+      assert_no_difference "UserSite.count" do
+        authentication_patch @user, users_current_site_url(@site), params: { site: { title: new_title } }, as: :json
+      end
+    end
+    assert_response :no_content
+
+    assert_equal(site_previous, @site.reload)
+
+    user_site_one_one_expected = user_site_one_one_previous
+    user_site_one_one_expected.title = new_title
+    assert_equal(user_site_one_one_expected, @user_site_one_one.reload)
+  end
+
+  test "should not patch site with invalid information when site and user site exists" do
+    site_previous = @site.clone
+    user_site_one_one_previous = @user_site_one_one.clone
+
+    new_title = "new title"
+    assert_not_equal(new_title, @user_site_one_one.title)
+
+    assert_no_difference "Site.count" do
+      assert_no_difference "UserSite.count" do
+        authentication_patch @user, users_current_site_url(@site), params: { site: { blah: "blah" } }, as: :json
+      end
+    end
+    assert_response :unprocessable_entity
+
+    assert_equal(site_previous, @site.reload)
+
+    assert_equal(user_site_one_one_previous, @user_site_one_one.reload)
+
+    assert_no_difference "Site.count" do
+      assert_no_difference "UserSite.count" do
+        authentication_patch @user, users_current_site_url(@site), params: { blah: "blah" }, as: :json
+      end
+    end
+    assert_response :unprocessable_entity
+
+    assert_equal(site_previous, @site.reload)
+
+    assert_equal(user_site_one_one_previous, @user_site_one_one.reload)
+  end
+
+  test "should not patch site title when site and user site do not exist" do
+    site_id = 99999999999
+    assert_not(Site.find_by(id: site_id))
+    assert_not(UserSite.find_by(site_id: site_id))
+
+    assert_no_difference "Site.count" do
+      assert_no_difference "UserSite.count" do
+        authentication_patch @user, users_current_site_url(site_id), params: { site: { title: 'new' } }, as: :json
+      end
+    end
+    assert_response :not_found
+  end
+
+  test "should not patch site title when site exists but user site does not exist" do
+    @user_sites = UserSite.where(site_id: @site.id, user_id: @user.id)
+    if !@user_sites.empty?
+      @user_sites.destroy_all
+    end
+
+    assert_no_difference "Site.count" do
+      assert_no_difference "UserSite.count" do
+        authentication_patch @user, users_current_site_url(@site.id), params: { site: { title: 'new' } }, as: :json
+      end
+    end
+    assert_response :not_found
   end
 end
