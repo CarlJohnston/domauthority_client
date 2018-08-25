@@ -190,6 +190,14 @@ class Sites extends PureComponent<Props, State> {
         </Modal>
         <div>
           Sites
+          <button
+            type='button'
+            id='add-site'
+            className='button success'
+            onClick={this.openModal}
+          >
+            Add
+          </button>
           <ReactDataGrid
             enableCellSelect={true}
             columns={this.columns}
