@@ -208,7 +208,8 @@ class Home extends Component {
       });
     };
 
-    let initialData = Data.data1;
+    let initialData = Data.data;
+    let currentData = JSON.parse(JSON.stringify(initialData));
 
     updateData(initialData);
 
@@ -257,8 +258,6 @@ class Home extends Component {
     function valBetween(v, min, max) {
       return (Math.min(max, Math.max(min, v)));
     }
-
-    let currentData = JSON.parse(JSON.stringify(Data.data9));
 
     let max = 50;
     let counter = 0;
