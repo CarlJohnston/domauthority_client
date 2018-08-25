@@ -152,8 +152,10 @@ class SitesContainer extends Component<Props, State> {
       headers: {
         'Content-Type': 'application/json',
       },
-      method: 'PUT',
-      body: JSON.stringify(site),
+      method: 'PATCH',
+      body: JSON.stringify({
+        site: site,
+      }),
     });
     let notification: ?Notification;
     fetch(request)

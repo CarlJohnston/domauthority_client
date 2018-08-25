@@ -236,8 +236,10 @@ describe('SitesContainer', () => {
     request = requests.pop();
     expect(request).toBeDefined();
     expect(request.url).toEqual(`/users/current/sites/${siteToBeUpdated.id}`);
-    expect(request.requestBody).toEqual(JSON.stringify(siteToBeUpdated));
-    expect(request.method).toEqual('PUT');
+    expect(request.requestBody).toEqual(JSON.stringify({
+      site: siteToBeUpdated,
+    }));
+    expect(request.method).toEqual('PATCH');
     request.respond(200);
     await expect(new Promise((resolve) => {
       const intervalId = setInterval(() => {
