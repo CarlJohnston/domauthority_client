@@ -199,7 +199,7 @@ class Sites extends PureComponent<Props, State> {
           <button
             type='button'
             id='add-site'
-            className='button success'
+            className='button primary'
             onClick={this.openModal}
           >
             Add
