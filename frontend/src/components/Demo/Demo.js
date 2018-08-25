@@ -210,7 +210,7 @@ class Demo extends Component {
       });
     };
 
-    let initialData = Data.data;
+    let initialData = JSON.parse(JSON.stringify(Data.data));
     let currentData = JSON.parse(JSON.stringify(initialData));
 
     updateData(initialData);
