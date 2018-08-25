@@ -29,7 +29,15 @@ PNotify.defaults = Object.assign(PNotify.defaults, {
 });
 
 Modal.setAppElement('#root');
-Modal.defaultStyles.content.borderRadius = '0px';
+Modal.defaultStyles = Object.assign(Modal.defaultStyles, {
+  content: Object.assign(Modal.defaultStyles.content, {
+    borderRadius: '0px',
+    top: '100px',
+    right: '100px',
+    bottom: '100px',
+    left: '100px',
+  }),
+});
 
 
 type Props = {};
