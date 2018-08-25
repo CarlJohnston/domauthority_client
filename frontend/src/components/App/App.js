@@ -27,7 +27,9 @@ PNotify.defaults = Object.assign(PNotify.defaults, {
   }),
   delay: 2000,
 });
+
 Modal.setAppElement('#root');
+Modal.defaultStyles.content.borderRadius = '0px';
 
 
 type Props = {};
