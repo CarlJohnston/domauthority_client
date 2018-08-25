@@ -189,7 +189,9 @@ class Sites extends PureComponent<Props, State> {
           }
         </Modal>
         <div>
-          Sites
+          <h1>
+            Sites
+          </h1>
           <button
             type='button'
             id='add-site'
