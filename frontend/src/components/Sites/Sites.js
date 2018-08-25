@@ -121,7 +121,11 @@ class Sites extends PureComponent<Props, State> {
   }
 
   onCloseModal() {
-    // TODO possible remove event handlers here
+    this.setState(() => {
+      return {
+        isModalOpen: false,
+      };
+    });
   }
 
   getCellActions(column, row) {
