@@ -34,7 +34,7 @@ class Layout extends Component<Props> {
 
         <Route exact path='/' component={Home} />
 
-        <div id='main' className='grid-container'>
+        <div id='content' className='grid-container'>
           <NotAuthenticatedRoute path='/login' component={Login} />
           <NotAuthenticatedRoute path='/register' component={Register} />
 
