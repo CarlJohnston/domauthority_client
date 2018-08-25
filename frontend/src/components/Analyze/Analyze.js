@@ -9,7 +9,9 @@ class Analyze extends Component<Props> {
   render() {
     return (
       <div>
-        Analyze
+        <h1>
+          Analyze
+        </h1>
       </div>
     );
   }

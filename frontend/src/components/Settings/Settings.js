@@ -10,7 +10,9 @@ class Settings extends Component<Props> {
   render() {
     return (
       <div>
-        Settings
+        <h1>
+          Settings
+        </h1>
       </div>
     );
   }
