@@ -20,6 +20,9 @@ import withCurrentUser from 'components/hocs/withCurrentUser';
 import AuthenticatedRoute from 'components/routes/AuthenticatedRoute';
 import NotAuthenticatedRoute from 'components/routes/NotAuthenticatedRoute';
 
+import './Layout.css';
+
+
 type Props = {
 };
 
@@ -31,7 +34,7 @@ class Layout extends Component<Props> {
 
         <Route exact path='/' component={Home} />
 
-        <div className='grid-container'>
+        <div id='main' className='grid-container'>
           <NotAuthenticatedRoute path='/login' component={Login} />
           <NotAuthenticatedRoute path='/register' component={Register} />
 
