@@ -37,6 +37,7 @@ Modal.defaultStyles = Object.assign(Modal.defaultStyles, {
     right: '100px',
     bottom: '100px',
     left: '100px',
+    padding: '3rem',
   }),
 });
 

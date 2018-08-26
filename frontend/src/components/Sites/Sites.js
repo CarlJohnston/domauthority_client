@@ -182,7 +182,7 @@ class Sites extends PureComponent<Props, State> {
                  </span>
                  <label>
                    URL
-                   <input id='url' className='input-group-field' placeholder='https://www.site.com/' name='url' type='text' pattern='url' required />
+                   <input id='url' className='input-group' placeholder='https://www.site.com/' name='url' type='text' pattern='url' required />
                  </label>
                  <span className='form-error' data-form-error-for='url'>
                    Please enter a valid URL.
