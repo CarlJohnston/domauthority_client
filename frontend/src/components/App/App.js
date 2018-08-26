@@ -10,6 +10,7 @@ import 'pnotify/dist/PNotifyBrightTheme.css';
 
 import 'foundation-icons/foundation-icons.css';
 
+import './App.css';
 import './PNotify.css';
 
 import Main from 'components/Main/Main';
