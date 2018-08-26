@@ -9,7 +9,15 @@ class Users::Current::SitesController < ApplicationController
   def index
     @sites = current_user.sites
 
-    render json: @sites
+    if params.has_key?(:included)
+      if VALID_INCLUDES.include?(params[:included])
+        render json: @sites.as_json({ include: [ "metrics" ] })
+      else
+        render json: {}, status: :unprocessable_entity
+      end
+    else
+      render json: @sites
+    end
   end
 
   # POST users/current/sites

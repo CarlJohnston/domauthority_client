@@ -1,7 +1,7 @@
 class Site < ApplicationRecord
-  VALID_INCLUDES = [
-    :metrics,
-  ]
+  VALID_INCLUDES = {
+    Metric.name.downcase.pluralize => true,
+  }.with_indifferent_access
 
   has_many :user_sites
   has_many :users, through: :user_sites
@@ -18,7 +18,7 @@ class Site < ApplicationRecord
 
     if options.has_key?(:include)
       options[:include].each do |include|
-        if VALID_INCLUDES.include?(include.to_sym)
+        if VALID_INCLUDES[include]
           additional_fields.merge!({
                                      include => self.send(include).as_json,
                                    })
