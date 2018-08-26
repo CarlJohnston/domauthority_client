@@ -44,6 +44,15 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     assert_equal(@user.sites.to_json, response.body)
   end
 
+  test "should be unprocessable when requested included resource not available when requesting sites" do
+  end
+
+  test "should include metrics when querying sites and requesting for metrics" do
+  end
+
+  test "should not include metrics when querying sites and requesting for metrics" do
+  end
+
   test "create only available to logged in users" do
     assert_no_difference('Site.count') do
       post users_current_sites_url, params: { site: { url: 'http://www.newurl.com', title: 'new' } }, as: :json
