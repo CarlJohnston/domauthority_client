@@ -4,4 +4,9 @@
 
 #add-site {
   width: 100%;
+  padding: 1.25rem;
+}
+
+.react-grid-Container {
+  margin-top: 1rem;
 }
