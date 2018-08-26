@@ -14,6 +14,7 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     @user.confirm
 
     @site = sites(:one)
+    @user_sites = @site.user_sites
     @user_site_one_one = user_sites(:one_one)
   end
 
@@ -42,6 +43,20 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_equal(@user.sites.to_json, response.body)
+  end
+
+  test "should include titles based on current user" do
+    # need more user sites for site under test
+    assert_not_equal(@user_sites.length, UserSite.where(site_id: @site.id))
+
+    authentication_get @user, users_current_sites_url, as: :json
+    assert_response :success
+
+    parsed_response = JSON.parse(response.body)
+
+    parsed_response.each do |parsed_response_site|
+      assert_equal(parsed_response_site["title"], UserSite.find_by(site_id: parsed_response_site["id"], user_id: @user.id).title)
+    end
   end
 
   test "should be unprocessable when requested include resource not available when requesting sites" do
