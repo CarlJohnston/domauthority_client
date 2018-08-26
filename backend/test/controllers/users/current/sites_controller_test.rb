@@ -221,6 +221,15 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "unauthorized for unauthenticated requests to patch" do
+    assert_no_difference('Site.count') do
+      assert_no_difference('UserSite.count') do
+        patch users_current_site_url(@site), as: :json
+      end
+    end
+    assert_response :unauthorized
+  end
+
   test "should patch valid site title with valid title when site and user site exists" do
     site_previous = @site.clone
     user_site_one_one_previous = @user_site_one_one.clone
