@@ -1,6 +1,10 @@
 require 'uri'
 
 class Users::Current::SitesController < ApplicationController
+  VALID_INCLUDES = {
+    Metric.name.downcase.pluralize => true,
+  }.with_indifferent_access
+
   before_action :authenticate_user!
 
   before_action :set_site, only: [:destroy, :update]
@@ -9,9 +13,10 @@ class Users::Current::SitesController < ApplicationController
   def index
     @sites = current_user.sites
 
-    if params.has_key?(:included)
-      if VALID_INCLUDES.include?(params[:included])
-        render json: @sites.as_json({ include: [ "metrics" ] })
+    if params.has_key?(:include)
+      includes = params[:include]
+      if includes.all? { |include| VALID_INCLUDES.include?(include) }
+        render json: @sites.as_json({ include: includes })
       else
         render json: {}, status: :unprocessable_entity
       end

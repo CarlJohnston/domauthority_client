@@ -44,13 +44,37 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     assert_equal(@user.sites.to_json, response.body)
   end
 
-  test "should be unprocessable when requested included resource not available when requesting sites" do
+  test "should be unprocessable when requested include resource not available when requesting sites" do
+    authentication_get @user, users_current_sites_url, params: { include: [ "blah" ] }, as: :json
+    assert_response :unprocessable_entity
   end
 
   test "should include metrics when querying sites and requesting for metrics" do
+    sites = @user.sites
+    user_site_ids = sites.map(&:id)
+
+    # xhr: true rather than as: :json for now to prevent Rails 5.x from POSTing due to bug
+    authentication_get @user, users_current_sites_url, params: { include: [ "metrics" ] }, xhr: true
+    assert_response :success
+
+    parsed_response = JSON.parse(response.body)
+
+    assert_equal(user_site_ids, parsed_response.map { |x| x["id"] })
+    sites.each do |site|
+      json_site_with_metrics = site.as_json({ include: [ "metrics" ] }).to_json
+      assert(parsed_response.any? {
+               |parsed_response_site| parsed_response_site.to_json.eql?(json_site_with_metrics)
+             })
+    end
   end
 
   test "should not include metrics when querying sites and requesting for metrics" do
+    authentication_get @user, users_current_sites_url, as: :json
+    assert_response :success
+    parsed_response = JSON.parse(response.body)
+    parsed_response.each do |site|
+      assert_not(site["metrics"])
+    end
   end
 
   test "create only available to logged in users" do
