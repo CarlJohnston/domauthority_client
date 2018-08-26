@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_16_155615) do
+ActiveRecord::Schema.define(version: 2018_08_26_203600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "metrics", force: :cascade do |t|
+    t.bigint "site_id"
+    t.integer "domain_authority"
+    t.integer "page_authority"
+    t.integer "moz_rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_metrics_on_site_id"
+  end
 
   create_table "sites", force: :cascade do |t|
     t.string "url"
@@ -65,6 +75,7 @@ ActiveRecord::Schema.define(version: 2018_06_16_155615) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "metrics", "sites"
   add_foreign_key "user_sites", "sites"
   add_foreign_key "user_sites", "users"
 end
