@@ -12,7 +12,7 @@ import Confirmed from 'components/Confirmed/Confirmed';
 import Home from 'components/Home/Home';
 import Profile from 'components/Profile/Profile';
 import Settings from 'components/Settings/Settings';
-import Analyze from 'components/Analyze/Analyze';
+import AnalyzeContainer from 'components/containers/AnalyzeContainer';
 import SitesContainer from 'components/containers/SitesContainer';
 
 import withCurrentUser from 'components/hocs/withCurrentUser';
@@ -45,7 +45,7 @@ class Layout extends Component<Props> {
           <AuthenticatedRoute path='/settings' component={Settings} />
 
           <AuthenticatedRoute path='/sites' component={SitesContainer} />
-          <AuthenticatedRoute path='/analyze' component={Analyze} />
+          <AuthenticatedRoute path='/analyze' component={AnalyzeContainer} />
         </div>
 
         <Footer {...this.props} />
