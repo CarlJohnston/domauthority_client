@@ -45,7 +45,11 @@ class SitesContainer extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const request: Request = new Request('/users/current/sites');
+    const request: Request = new Request('/users/current/sites', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     let notification: ?Notification;
     fetch(request)
       .then((response: Response) => {
