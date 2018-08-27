@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
-import AnimatedGraph from 'components/AnimatedGraph/AnimatedGraph';
-import Benefits from 'components/Benefits/Benefits';
 
 import 'jquery.tipsy/src/jquery.tipsy.css';
 
@@ -11,6 +7,7 @@ import Data from './Data';
 import d3 from 'd3';
 import $ from 'jquery';
 import 'jquery.tipsy';
+
 window.$ = window.jQuery = $;
 
 const CONTAINER_ID = 'd3-graph';
