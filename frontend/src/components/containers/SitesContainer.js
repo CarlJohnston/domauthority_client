@@ -56,7 +56,6 @@ class SitesContainer extends Component<Props, State> {
         if (response.ok) {
           return response.json();
         } else {
-          // TODO resolve past next handler
           // TODO change error message
           const status = STATUS.error;
           notification = {
