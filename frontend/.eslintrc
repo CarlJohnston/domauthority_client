@@ -67,6 +67,7 @@
     "react/jsx-boolean-value": [
       "error",
       "always"
-    ]
+    ],
+    "lines-between-class-members": 0
   }
 }
