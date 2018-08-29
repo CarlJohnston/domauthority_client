@@ -81,68 +81,26 @@ class SitesContainer extends Component<Props, State> {
   }
 
   onSiteUpdate: onSiteUpdateType = (site: SiteType) => {
-    const request: Request = new Request(`/users/current/sites/${site.id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'PATCH',
-      body: JSON.stringify({
-        site: site,
-      }),
-    });
-    let notification: ?Notification;
-    fetch(request)
-      .then((response: Response) => {
-        if (response.ok) {
-          this.setState((prevState) => {
-            const prevSites = [...prevState.sites];
-            const prevSitesSiteIndex = prevSites.findIndex((prevSite) => {
-              return site.url === prevSite.url;
-            });
-
-            let sitesUpdated;
-            if (prevSitesSiteIndex === -1) {
-              sitesUpdated = prevSites;
-            } else {
-              sitesUpdated = [...prevSites];
-              sitesUpdated.splice(prevSitesSiteIndex, 1, site);
-            }
-
-            // TODO wrapper for general case?
-            const status = STATUS.success;
-            notification = {
-              title: status,
-              text: 'Site successfully updated!',
-              type: status,
-            };
-
-            return {
-              sites: sitesUpdated,
-            };
+    Fetcher.Site.update(site)
+      .then(() => {
+        this.setState((prevState) => {
+          const prevSites = [...prevState.sites];
+          const prevSitesSiteIndex = prevSites.findIndex((prevSite) => {
+            return site.url === prevSite.url;
           });
-        } else {
-          // TODO change error type
-          const status = STATUS.error;
-          notification = {
-            title: status,
-            text: ERROR.unexpected,
-            type: status,
+
+          let sitesUpdated;
+          if (prevSitesSiteIndex === -1) {
+            sitesUpdated = prevSites;
+          } else {
+            sitesUpdated = [...prevSites];
+            sitesUpdated.splice(prevSitesSiteIndex, 1, site);
+          }
+
+          return {
+            sites: sitesUpdated,
           };
-        }
-      })
-      .catch(() => {
-        // TODO wrapper on this for general case?
-        const status = STATUS.error;
-        notification = {
-          title: status,
-          text: ERROR.unexpected,
-          type: status,
-        };
-      })
-      .finally(() => {
-        if (notification) {
-          PNotify.alert(notification);
-        }
+        });
       });
   }
 
