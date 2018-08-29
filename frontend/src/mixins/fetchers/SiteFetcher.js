@@ -144,6 +144,57 @@ class SiteFetcher {
         }
       });
   }
+
+  static update(site: SiteType): void {
+    const request: Request = new Request(`/users/current/sites/${site.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        site: site,
+      }),
+    });
+    let notification: ?Notification;
+    return fetch(request)
+      .then((response: Response) => {
+        if (response.ok) {
+          // TODO wrapper for general case?
+          const status = STATUS.success;
+          notification = {
+            title: status,
+            text: 'Site successfully updated!',
+            type: status,
+          };
+        } else {
+          // TODO change error type
+          const status = STATUS.error;
+          notification = {
+            title: status,
+            text: ERROR.unexpected,
+            type: status,
+          };
+
+          return Promise.reject(null);
+        }
+      })
+      .catch(() => {
+        // TODO wrapper on this for general case?
+        const status = STATUS.error;
+        notification = {
+          title: status,
+          text: ERROR.unexpected,
+          type: status,
+        };
+
+        return Promise.reject(null);
+      })
+      .finally(() => {
+        if (notification) {
+          PNotify.alert(notification);
+        }
+      });
+  }
 }
 
 export default SiteFetcher;
