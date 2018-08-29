@@ -66,56 +66,17 @@ class SitesContainer extends Component<Props, State> {
   }
 
   onSiteRemove: onSiteRemoveType = (site: SiteType) => {
-    const request: Request = new Request(`/users/current/sites/${site.id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'DELETE',
-    });
-    let notification: ?Notification;
-    fetch(request)
-      .then((response: Response) => {
-        if (response.ok) {
-          this.setState((prevState) => {
-            const sitesFiltered = prevState.sites.filter(({ title, url }) => {
-              return title !== site.title || url !== site.url;
-            });
-
-            // TODO wrapper for general case?
-            const status = STATUS.success;
-            notification = {
-              title: status,
-              text: 'Site successfully removed!',
-              type: status,
-            };
-
-            return {
-              sites: sitesFiltered,
-            };
+    Fetcher.Site.delete(site)
+      .then(() => {
+        this.setState((prevState) => {
+          const sitesFiltered = prevState.sites.filter(({ title, url }) => {
+            return title !== site.title || url !== site.url;
           });
-        } else {
-          // TODO change error type
-          const status = STATUS.error;
-          notification = {
-            title: status,
-            text: ERROR.unexpected,
-            type: status,
+
+          return {
+            sites: sitesFiltered,
           };
-        }
-      })
-      .catch(() => {
-        // TODO wrapper on this for general case?
-        const status = STATUS.error;
-        notification = {
-          title: status,
-          text: ERROR.unexpected,
-          type: status,
-        };
-      })
-      .finally(() => {
-        if (notification) {
-          PNotify.alert(notification);
-        }
+        });
       });
   }
 
