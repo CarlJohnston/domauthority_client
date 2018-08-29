@@ -1,10 +1,10 @@
 // @flow
 
-import Site from 'mixins/fetchers/Site';
+import SiteFetcher from 'mixins/fetchers/SiteFetcher';
 
 
 const Fetcher = {
-  Site: Site,
+  Site: SiteFetcher,
 };
 
 export default Fetcher;
