@@ -87,7 +87,7 @@ describe('site fetcher', () => {
     await expect(siteFetcherPromise).resolves.toEqual(sites);
   });
 
-  it('get resolves to empty array on 2xx response', async () => {
+  it('get resolves to empty array on non-2xx response', async () => {
     const siteFetcherPromise = SiteFetcher.get();
 
     const request = requests.pop();
