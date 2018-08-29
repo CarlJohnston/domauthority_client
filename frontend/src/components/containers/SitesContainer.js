@@ -64,14 +64,14 @@ class SitesContainer extends Component<Props, State> {
             type: status,
           };
 
-          return Promise.resolve(null);
+          return Promise.resolve([]);
         }
       })
-      .then((sites: ?SitesData) => {
+      .then((sites: SitesData) => {
         this.setState(() => {
           return {
             loading: false,
-            sites: sites || [],
+            sites: sites,
           };
         });
       })
