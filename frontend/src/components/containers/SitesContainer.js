@@ -6,6 +6,8 @@ import { BeatLoader as Loader } from 'react-spinners';
 
 import Sites from 'components/Sites/Sites';
 
+import Fetcher from 'mixins/Fetcher';
+
 import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
@@ -217,33 +219,8 @@ class SitesContainer extends Component<Props, State> {
   }
 
   onSiteCreate: onSiteCreateType = (site: SiteType, callback: () => void) => {
-    const request: Request = new Request('/users/current/sites', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        site: site,
-      }),
-    });
-    let notification: ?Notification;
-    fetch(request)
-      .then((response: Response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          // TODO change error type
-          const status = STATUS.error;
-          notification = {
-            title: status,
-            text: ERROR.conflict, // TODO convert from response based on code from backend
-            type: status,
-          };
-
-          return Promise.resolve(null);
-        }
-      })
-      .then((newSite: ?SiteType) => {
+    Fetcher.Site.create(site)
+      .then((newSite) => {
         if (newSite) {
           this.setState((prevState) => {
             const sitesUpdated = [...prevState.sites];
@@ -253,31 +230,10 @@ class SitesContainer extends Component<Props, State> {
               sites: sitesUpdated,
             };
           });
-
-          // TODO wrapper for general case?
-          const status = STATUS.success;
-          notification = {
-            title: status,
-            text: 'Site successfully added!',
-            type: status,
-          };
         }
-      })
-      .catch(() => {
-        // TODO wrapper on this for general case?
-        const status = STATUS.error;
-        notification = {
-          title: status,
-          text: ERROR.unexpected,
-          type: status,
-        };
       })
       .finally(() => {
         callback();
-
-        if (notification) {
-          PNotify.alert(notification);
-        }
       });
   }
 
