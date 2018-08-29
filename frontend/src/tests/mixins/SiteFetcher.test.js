@@ -59,4 +59,49 @@ describe('site fetcher', () => {
   it('create rejects on network errors', () => {
     // TODO how to test fetch network errors?
   });
+
+  it('get resolves sites on 2xx response', async () => {
+    const sites = [
+      {
+        id: 1,
+        title: 'Site 1',
+        url: 'http://www.site1.com',
+      },
+      {
+        id: 2,
+        title: 'Site 2',
+        url: 'http://www.site2.com',
+      },
+    ];
+    const siteFetcherPromise = SiteFetcher.get();
+
+    const request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+      JSON.stringify(sites),
+    );
+
+    await expect(siteFetcherPromise).resolves.toEqual(sites);
+  });
+
+  it('get resolves to empty array on 2xx response', async () => {
+    const siteFetcherPromise = SiteFetcher.get();
+
+    const request = requests.pop();
+    request.respond(
+      409,
+      {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    await expect(siteFetcherPromise).resolves.toEqual([]);
+  });
+
+  it('get rejects on network errors', () => {
+    // TODO how to test fetch network errors?
+  });
 });

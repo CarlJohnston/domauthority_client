@@ -10,7 +10,7 @@ import type { Notification } from 'notifications/Notification.type';
 
 
 class SiteFetcher {
-  static create(site: SiteType) {
+  static create(site: SiteType): void {
     const request: Request = new Request('/users/current/sites', {
       headers: {
         'Content-Type': 'application/json',
@@ -50,6 +50,47 @@ class SiteFetcher {
       })
       .catch(() => {
         // TODO wrapper on this for general case?
+        const status = STATUS.error;
+        notification = {
+          title: status,
+          text: ERROR.unexpected,
+          type: status,
+        };
+      })
+      .finally(() => {
+        if (notification) {
+          PNotify.alert(notification);
+        }
+      });
+  }
+
+  static get(): void {
+    const request: Request = new Request('/users/current/sites', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    let notification: ?Notification;
+    return fetch(request)
+      .then((response: Response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          // TODO change error message
+          const status = STATUS.error;
+          notification = {
+            title: status,
+            text: ERROR.unexpected,
+            type: status,
+          };
+
+          return Promise.resolve([]);
+        }
+      })
+      .then((sites: SitesData) => {
+        return sites;
+      })
+      .catch(() => {
         const status = STATUS.error;
         notification = {
           title: status,
