@@ -104,6 +104,46 @@ class SiteFetcher {
         }
       });
   }
+
+  static delete(site: SiteType): void {
+    const request: Request = new Request(`/users/current/sites/${site.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'DELETE',
+    });
+    let notification: ?Notification;
+    return fetch(request)
+      .then((response: Response) => {
+        if (response.ok) {
+          // TODO wrapper for general case?
+          const status = STATUS.success;
+          notification = {
+            title: status,
+            text: 'Site successfully removed!',
+            type: status,
+          };
+        } else {
+          return Promise.reject(null);
+        }
+      })
+      .catch(() => {
+        // TODO wrapper on this for general case?
+        const status = STATUS.error;
+        notification = {
+          title: status,
+          text: ERROR.unexpected,
+          type: status,
+        };
+
+        return Promise.reject(null);
+      })
+      .finally(() => {
+        if (notification) {
+          PNotify.alert(notification);
+        }
+      });
+  }
 }
 
 export default SiteFetcher;

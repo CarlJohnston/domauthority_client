@@ -104,4 +104,46 @@ describe('site fetcher', () => {
   it('get rejects on network errors', () => {
     // TODO how to test fetch network errors?
   });
+
+  it('delete resolves null on 2xx response', async () => {
+    const site = {
+      id: 1,
+      title: 'Site 1',
+      url: 'http://www.site1.com',
+    };
+    const siteFetcherPromise = SiteFetcher.delete(site);
+
+    const request = requests.pop();
+    request.respond(
+      200,
+      {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    await expect(siteFetcherPromise).resolves.toEqual(undefined);
+  });
+
+  it('delete rejects to null on non-2xx response', async () => {
+    const site = {
+      id: 1,
+      title: 'Site 1',
+      url: 'http://www.site1.com',
+    };
+    const siteFetcherPromise = SiteFetcher.delete(site);
+
+    const request = requests.pop();
+    request.respond(
+      409,
+      {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    await expect(siteFetcherPromise).rejects.toEqual(null);
+  });
+
+  it('delete rejects on network errors', () => {
+    // TODO how to test fetch network errors?
+  });
 });
