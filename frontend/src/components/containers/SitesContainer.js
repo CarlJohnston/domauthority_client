@@ -47,29 +47,8 @@ class SitesContainer extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const request: Request = new Request('/users/current/sites', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    let notification: ?Notification;
-    fetch(request)
-      .then((response: Response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          // TODO change error message
-          const status = STATUS.error;
-          notification = {
-            title: status,
-            text: ERROR.unexpected,
-            type: status,
-          };
-
-          return Promise.resolve([]);
-        }
-      })
-      .then((sites: SitesData) => {
+    Fetcher.Site.get()
+      .then((sites: SiteType) => {
         this.setState(() => {
           return {
             loading: false,
@@ -82,19 +61,7 @@ class SitesContainer extends Component<Props, State> {
           return {
             loading: false,
           };
-        }, () => {
-          const status = STATUS.error;
-          notification = {
-            title: status,
-            text: ERROR.unexpected,
-            type: status,
-          };
         });
-      })
-      .finally(() => {
-        if (notification) {
-          PNotify.alert(notification);
-        }
       });
   }
 
