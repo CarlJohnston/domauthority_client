@@ -17,21 +17,6 @@ describe('site fetcher', () => {
     xhr.restore();
   });
 
-  it('create with valid site POSTS to /users/current/sites proper data in proper format', () => {
-    const site = {
-      id: 1,
-      title: 'Site 1',
-      url: 'http://www.site1.com/',
-    };
-    SiteFetcher.create(site);
-
-    const request = requests.pop();
-    expect(request.requestHeaders['content-type']).toContain('application/json');
-    expect(request.requestBody).toEqual(JSON.stringify({ site: site }));
-    expect(request.method).toEqual('POST');
-    request.respond(200);
-  });
-
   it('create resolves created site on 2xx response', async () => {
     const site = {
       id: 1,
