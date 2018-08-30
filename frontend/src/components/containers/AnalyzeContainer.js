@@ -30,7 +30,11 @@ class AnalyzeContainer extends Component<Props, State> {
   }
 
   componentDidMount() {
-    Fetcher.Site.get()
+    Fetcher.Site.get({
+      include: [
+        'metrics',
+      ],
+    })
       .then((sites) => {
         this.setState(() => {
           return {

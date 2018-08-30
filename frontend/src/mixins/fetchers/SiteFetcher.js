@@ -64,12 +64,25 @@ class SiteFetcher {
       });
   }
 
-  static get(): void {
-    const request: Request = new Request('/users/current/sites', {
+  static get(params: ?{ include?: Array<String> } = {}): void {
+    const options = {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    };
+    let url = '/users/current/sites';
+    if (params) {
+      url += '?';
+      Object.entries(params).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          url += `${key}[]=${value}&`;
+        } else {
+          url += `${key}=${value}&`;
+        }
+      });
+      url = url.slice(0, -1);
+    }
+    const request: Request = new Request(url, options);
     let notification: ?Notification;
     return fetch(request)
       .then((response: Response) => {
