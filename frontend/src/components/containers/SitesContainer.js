@@ -1,21 +1,16 @@
 // @flow
 
 import React, { Component } from 'react';
-import PNotify from 'pnotify/dist/umd/PNotify';
 import { BeatLoader as Loader } from 'react-spinners';
 
 import Sites from 'components/Sites/Sites';
 
 import Fetcher from 'mixins/Fetcher';
 
-import STATUS from 'configs/Status';
-import ERROR from 'configs/Error';
-
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
 import type { onSiteCreate as onSiteCreateType } from 'components/Sites/onSiteCreate.type';
-import type { Notification } from 'notifications/Notification.type';
 
 
 type SitesData = Array<SiteType>;
