@@ -2,12 +2,17 @@
   background-color: #E6E6E6;
 }
 
+.top-bar {
+  padding: 0.75rem;
+}
+
 .top-bar li a {
   padding: 2.2rem 1rem;
 }
 
 .top-bar li:first-child a {
   padding-left: 0;
+  font-weight: bold;
 }
 
 .top-bar li:last-child a {
