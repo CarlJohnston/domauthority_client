@@ -2,8 +2,14 @@
 
 import React, { Component } from 'react';
 
+import type { Site as SiteType } from 'components/Sites/Site.type';
 
-type Props = {};
+
+type SitesData = Array<SiteType>;
+
+type Props = {
+  sites: SitesData,
+};
 
 class Analyze extends Component<Props> {
   render() {
