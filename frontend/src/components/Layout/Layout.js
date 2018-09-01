@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Footer from 'components/Footer/Footer';
 import Header from 'components/Header/Header';
@@ -32,21 +32,23 @@ class Layout extends Component<Props> {
       <div>
         <Header {...this.props} />
 
-        <Route exact path='/' component={Home} />
+        <Switch>
+          <Route exact path='/' component={Home} />
 
-        <div id='content' className='grid-container'>
-          <NotAuthenticatedRoute path='/login' component={Login} />
-          <NotAuthenticatedRoute path='/register' component={Register} />
+          <div id='content' className='grid-container'>
+            <NotAuthenticatedRoute path='/login' component={Login} />
+            <NotAuthenticatedRoute path='/register' component={Register} />
 
-          <Route path='/password/forgot' component={Forgot} />
-          <Route path='/auth/confirmed' component={Confirmed} />
+            <Route path='/password/forgot' component={Forgot} />
+            <Route path='/auth/confirmed' component={Confirmed} />
 
-          <Route path='/users/:id' component={Profile} />
-          <AuthenticatedRoute path='/settings' component={Settings} />
+            <Route path='/users/:id' component={Profile} />
+            <AuthenticatedRoute path='/settings' component={Settings} />
 
-          <AuthenticatedRoute path='/sites' component={SitesContainer} />
-          <AuthenticatedRoute path='/analyze' component={AnalyzeContainer} />
-        </div>
+            <AuthenticatedRoute path='/sites' component={SitesContainer} />
+            <AuthenticatedRoute path='/analyze' component={AnalyzeContainer} />
+          </div>
+        </Switch>
 
         <Footer {...this.props} />
       </div>
