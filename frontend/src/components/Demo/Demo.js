@@ -19,196 +19,194 @@ class Demo extends Component {
       top: 20,
       right: 80,
       bottom: 30,
-      left: 50
+      left: 50,
     };
     const width = 900 - margin.left - margin.right;
     const height = 440 - margin.top - margin.bottom;
 
-    const svg = d3.select('#' + CONTAINER_ID).append('svg')
-                .attr('id', 'chart')
-                .attr('viewBox', '0 0 960 500')
-                .attr('preserveAspectRatio', 'xMidYMid')
-                .attr('width', width + margin.left + margin.right)
-                .attr('height', height + margin.top + margin.bottom)
-                .append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    const svg = d3.select(`#${CONTAINER_ID}`)
+      .append('svg')
+      .attr('id', 'chart')
+      .attr('viewBox', '0 0 960 500')
+      .attr('preserveAspectRatio', 'xMidYMid')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     const listOfSiteColors = [];
 
     function updateData(data) {
-      let parseDate = d3.time.format('%Y-%m-%d').parse;
+      const parseDate = d3.time.format('%Y-%m-%d').parse;
 
-      let x = d3.time.scale()
-                .range([0, width]);
+      const x = d3.time.scale()
+        .range([0, width]);
 
-      let y = d3.scale.linear()
-                .range([height, 0]).domain([0,100]);
+      const y = d3.scale.linear()
+        .range([height, 0])
+        .domain([0, 100]);
 
-      let color = d3.scale.category20();
+      const color = d3.scale.category20();
 
-      let xAxis = d3.svg.axis()
-                    .scale(x)
-                    .orient('bottom')
-                    .outerTickSize(0);
+      const xAxis = d3.svg.axis()
+        .scale(x)
+        .orient('bottom')
+        .outerTickSize(0);
 
-      let yAxis = d3.svg.axis()
-                    .scale(y)
-                    .orient('left')
-                    .outerTickSize(0);
+      const yAxis = d3.svg.axis()
+        .scale(y)
+        .orient('left')
+        .outerTickSize(0);
 
-      let line = d3.svg.line()
-                   .interpolate('linear')
-                   .x(function (d) {
-                     return x(d.date);
-                   })
-                   .y(function (d) {
-                     return y(d.da);
-                   });
+      const line = d3.svg.line()
+        .interpolate('linear')
+        .x(d => x(d.date))
+        .y(d => y(d.da));
 
       let fullDataSet = [];
       for (let key in data) {
         fullDataSet = fullDataSet.concat.apply(fullDataSet, data[key]);
       }
 
-      fullDataSet.forEach(function (d) {
+      fullDataSet.forEach((d) => {
         if (!(d.date instanceof Date)) {
           d.date = parseDate(d.date);
         }
         d.da = +d.da;
       });
 
-      x.domain(d3.extent(fullDataSet, function (d) {
-        return d.date;
-      }));
-
-      y.domain(d3.extent(fullDataSet, function (d) {
-        return d.da;
-      }));
+      x.domain(d3.extent(fullDataSet, d => d.date));
+      y.domain(d3.extent(fullDataSet, d => d.da));
 
       if (svg.selectAll('.y.axis')[0].length < 1) {
         svg.append('g')
-           .attr('class', 'y axis')
-           .call(yAxis)
-           .append('text')
-           .attr('transform', 'rotate(-90)')
-           .attr('y', 6)
-           .attr('dy', '.71em')
-           .style('text-anchor', 'end')
-           .text('DA ');
+          .attr('class', 'y axis')
+          .call(yAxis)
+          .append('text')
+          .attr('transform', 'rotate(-90)')
+          .attr('y', 6)
+          .attr('dy', '.71em')
+          .style('text-anchor', 'end')
+          .text('DA ');
       } else {
         svg.selectAll('.y.axis')
-           .transition()
-           .duration(1500)
-           .call(yAxis);
+          .transition()
+          .duration(1500)
+          .call(yAxis);
       }
 
       if (svg.selectAll('.x.axis')[0].length < 1) {
         svg.append('g')
-           .attr('class', 'x axis')
-           .call(xAxis)
-           .attr('transform', 'translate(0,' + height + ')')
-           .call(xAxis);
+          .attr('class', 'x axis')
+          .call(xAxis)
+          .attr('transform', `translate(0, ${height})`)
+          .call(xAxis);
       } else {
-        svg.selectAll('.x.axis').transition().duration(1500).call(xAxis);
+        svg.selectAll('.x.axis')
+          .transition()
+          .duration(1500)
+          .call(xAxis);
       }
 
-      let myNewData = [];
-      let listOfSiteNames = [];
+      const myNewData = [];
+      const listOfSiteNames = [];
       for (let key in data) {
         myNewData.push(data[key]);
         listOfSiteNames.push(key);
       }
 
-      let lines = d3.selectAll('.line');
+      const lines = d3.selectAll('.line');
       if (lines[0] && lines[0].length < 1) {
-        let myNewSvg = svg.selectAll('.line').data(myNewData);
+        const myNewSvg = svg.selectAll('.line').data(myNewData);
         myNewSvg.enter()
-                .append('path')
-                .attr('class', 'line')
-                .style('stroke', function (d, i) {
-                  listOfSiteColors.push(color(i));
-                  return color(i);
-                })
-                .style('fill', 'none')
-                .attr('d', line)
-                .attr('id', function(d, i) { return i; })
-                .append('svg:title')
-                .text(function(d, i) { return listOfSiteNames[i]; });
+          .append('path')
+          .attr('class', 'line')
+          .style('stroke', (d, i) => {
+            listOfSiteColors.push(color(i));
+            return color(i);
+          })
+          .style('fill', 'none')
+          .attr('d', line)
+          .attr('id', (d, i) => i)
+          .append('svg:title')
+          .text((d, i) => listOfSiteNames[i]);
 
-        let legend = svg.append('g')
-                        .attr('class', 'legend')
-                        .selectAll('.color')
-                        .data(listOfSiteColors)
-                        .enter()
-                        .append('g');
+        const legend = svg.append('g')
+          .attr('class', 'legend')
+          .selectAll('.color')
+          .data(listOfSiteColors)
+          .enter()
+          .append('g');
 
         legend.append('text')
-              .attr('x', function(d, i) { return width + 50; })
-              .attr('y', function(d, i) { return 22.21*(i+1); })
-              .style('font-size', '12px')
-              .text(function(d, i) { return listOfSiteNames[i]; });
+          .attr('x', (d, i) => width + 50)
+          .attr('y', (d, i) => 22.21 * (i + 1))
+          .style('font-size', '12px')
+          .text((d, i) => listOfSiteNames[i]);
 
         legend.append('rect')
-              .attr('x', function(d, i) { return width + 25; })
-              .attr('y', function(d, i) { return 12+22*i; })
-              .attr('width', 15)
-              .attr('height', 15)
-              .style('fill', function(d, i) { return d; });
+          .attr('x', (d, i) => width + 25)
+          .attr('y', (d, i) => 12 + 22 * i)
+          .attr('width', 15)
+          .attr('height', 15)
+          .style('fill', (d, i) => d);
 
-        let myCircleGroups = svg.selectAll('circle').data(myNewData)
-                                .enter()
-                                .append('g')
-                                .attr('class', 'dot')
-                                .attr('id', function(d, i) { return i })
-                                .selectAll('circle')
-                                .data(function(d, i) { return myNewData[i]; });
+        const myCircleGroups = svg.selectAll('circle')
+          .data(myNewData)
+          .enter()
+          .append('g')
+          .attr('class', 'dot')
+          .attr('id', (d, i) => i)
+          .selectAll('circle')
+          .data((d, i) => myNewData[i]);
 
         myCircleGroups.enter()
-                      .append('circle')
-                      .attr('cx', function(d) { return x(d.date); })
-                      .attr('cy', function(d) { return y(d.da); })
-                      .attr('fill', function(d, i) { return listOfSiteColors[$(this).closest('g').attr('id')]; })
-                      .attr('r', 4)
-                      .attr('id', function(d) { return d.da; });
+          .append('circle')
+          .attr('cx', d => x(d.date))
+          .attr('cy', d => y(d.da))
+          .attr('fill', (d, i) => {
+            return listOfSiteColors[$(this).closest('g').attr('id')];
+          })
+          .attr('r', 4)
+          .attr('id', d => d.da);
       } else {
-        svg.selectAll('.line').data(myNewData)
-           .transition()
-           .duration(1500)
-           .attr('d', line);
-        let newSvg = svg.selectAll('.dot')
-                        .data(myNewData);
-        let newCircles = newSvg.selectAll('circle')
-                               .data(function(d, i) { return myNewData[i]; });
+        svg.selectAll('.line')
+          .data(myNewData)
+          .transition()
+          .duration(1500)
+          .attr('d', line);
+        const newSvg = svg.selectAll('.dot')
+          .data(myNewData);
+        const newCircles = newSvg.selectAll('circle')
+          .data((d, i) => myNewData[i]);
 
         newCircles.enter()
-                  .append('circle')
-                  .attr('cx', function(d) { return x(d.date); })
-                  .attr('cy', function(d) { return y(d.da); })
-                  .attr('fill', function() { return listOfSiteColors[$(this).closest('g').attr('id')]; })
-                  .attr('r', 4)
-                  .attr('id', function(d) { return d.da; });
+          .append('circle')
+          .attr('cx', d => x(d.date))
+          .attr('cy', d => y(d.da))
+          .attr('fill', () => listOfSiteColors[$(this).closest('g').attr('id')])
+          .attr('r', 4)
+          .attr('id', d => d.da);
 
         newCircles.transition()
-                  .duration(1500)
-                  .attr('cx', function(d) { return x(d.date); })
-                  .attr('cy', function(d) { return y(d.da); });
+          .duration(1500)
+          .attr('cx', d => x(d.date))
+          .attr('cy', d => y(d.da));
 
         newCircles.exit()
-                  .remove();
+          .remove();
       }
 
       $('circle').tipsy({
         gravity: 'w',
         html: true,
-        title: function() {
-          let d = $(this).attr('id');
-          return d;
-        }
+        title: () => $(this).attr('id'),
       });
-    };
+    }
 
-    let initialData = JSON.parse(JSON.stringify(Data.data));
-    let currentData = JSON.parse(JSON.stringify(initialData));
+    const initialData = JSON.parse(JSON.stringify(Data.data));
+
+    const currentData = JSON.parse(JSON.stringify(initialData));
 
     updateData(initialData);
 
@@ -258,19 +256,19 @@ class Demo extends Component {
       return (Math.min(max, Math.max(min, v)));
     }
 
-    let max = 50;
-    let counter = 0;
-    let interval = 2300;
+    const max = 50;
+    const interval = 2300;
 
-    this.timer = setInterval(function () {
+    let counter = 0;
+    this.timer = setInterval(() => {
       if (counter++ >= max) {
         return;
       }
 
       for (let i = 0; i < 4; i++) {
-        let currentSite = currentData['Site' + parseInt(i+1, 10)];
+        const currentSite = currentData[`Site${parseInt(i + 1, 10)}`];
 
-        let lastItemObject = currentSite[currentSite.length-1];
+        const lastItemObject = currentSite[currentSite.length - 1];
 
         let newNumber;
         if (lastItemObject.da === 100) {
@@ -278,38 +276,38 @@ class Demo extends Component {
         } else if (lastItemObject.da === 0) {
           newNumber = getRandomInt(10,15);
         } else {
-          newNumber = valBetween(lastItemObject.da + getRandomInt(-10,10), 0, 100);
+          newNumber = valBetween(lastItemObject.da + getRandomInt(-10, 10), 0, 100);
         }
 
-        let previousDate = lastItemObject.date;
-        let previousYear = previousDate.toString().slice(0,4, 10);
-        let previousMonth = parseInt(previousDate.toString().slice(5,7), 10);
-        let previousDay = parseInt(previousDate.toString().slice(8,10), 10);
+        const previousDate = lastItemObject.date;
+        const previousYear = previousDate.toString().slice(0, 4, 10);
+        const previousMonth = parseInt(previousDate.toString().slice(5, 7), 10);
+        const previousDay = parseInt(previousDate.toString().slice(8, 10), 10);
 
-        let currentDate = new Date(
+        const currentDate = new Date(
           previousYear,
-          previousMonth-1,
-          previousDay
+          previousMonth - 1,
+          previousDay,
         );
         currentDate.addMonths(1);
 
-        currentData['Site' + parseInt(i+1, 10)].push({
+        currentData[`Site${parseInt(i + 1, 10)}`].push({
           da: newNumber,
-          date: currentDate.toISOString().slice(0,10),
+          date: currentDate.toISOString().slice(0, 10),
         });
-      };
+      }
 
-      let copiedData = JSON.parse(JSON.stringify(currentData));
+      const copiedData = JSON.parse(JSON.stringify(currentData));
 
       updateData(copiedData);
     }, interval);
 
-    let chart = $('#chart');
-    let aspect = chart.width() / chart.height();
-    let container = chart.parent();
+    const chart = $('#chart');
+    const aspect = chart.width() / chart.height();
+    const container = chart.parent();
 
-    $(window).on('resize', function() {
-      let targetWidth = container.width();
+    $(window).on('resize', () => {
+      const targetWidth = container.width();
       chart.attr('width', targetWidth);
       chart.attr('height', Math.round(targetWidth / aspect));
     }).trigger('resize');
