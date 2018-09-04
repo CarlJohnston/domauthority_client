@@ -14,6 +14,7 @@
     "foundation-sites": "zurb/foundation-sites#develop",
     "jquery": "^3.3.1",
     "jquery.tipsy": "^1.0.3",
+    "moment": "^2.22.2",
     "pnotify": "^4.0.0-alpha.4",
     "promise-polyfill": "^8.0.0",
     "react": "^16.4.0",
