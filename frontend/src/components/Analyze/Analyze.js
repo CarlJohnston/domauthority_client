@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import d3 from 'd3';
 import $ from 'jquery';
-import Moment from 'moment';
 import 'jquery.tipsy';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
