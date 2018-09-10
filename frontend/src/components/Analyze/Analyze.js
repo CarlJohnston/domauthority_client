@@ -89,7 +89,9 @@ class Analyze extends Component<Props> {
       x.domain(d3.extent(fullDataSet, d => d.created_at));
       y.domain(d3.extent(fullDataSet, d => d.domain_authority));
 
-      if (svg.selectAll('.y.axis')[0].length < 1) {
+      const yAxes = svg.selectAll('.y.axis');
+      if (yAxes[0] &&
+          yAxes[0].length < 1) {
         svg.append('g')
           .attr('class', 'y axis')
           .call(yAxis)
@@ -106,7 +108,9 @@ class Analyze extends Component<Props> {
           .call(yAxis);
       }
 
-      if (svg.selectAll('.x.axis')[0].length < 1) {
+      const xAxes = svg.selectAll('.x.axis');
+      if (xAxes[0] &&
+          xAxes[0].length < 1) {
         svg.append('g')
           .attr('class', 'x axis')
           .call(xAxis)
