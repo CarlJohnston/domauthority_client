@@ -49,7 +49,7 @@ class Users::Current::SitesController < ApplicationController
 
       if @site_user_site.save
         @site = Site.find_by(url: @site_user_site.url)
-        @site.title = UserSite.find_by(site_id: @site.id).title
+        @site.title = UserSite.find_by(site_id: @site.id, user_id: @current_user.id).title
 
         render json: @site, status: :created
       else

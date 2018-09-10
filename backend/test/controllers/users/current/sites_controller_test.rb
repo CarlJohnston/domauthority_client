@@ -16,6 +16,8 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     @site = sites(:one)
     @user_sites = @site.user_sites
     @user_site_one_one = user_sites(:one_one)
+
+    @user_alternate = users(:two)
   end
 
   test "index should only be available for authenticated users" do
@@ -188,7 +190,34 @@ class Users::Current::SitesControllerTest < ActionDispatch::IntegrationTest
     assert_response :created
     parsed_response = JSON.parse(response.body)
     assert(parsed_response["id"])
-    assert(parsed_response["title"])
+    assert_equal(new_title, parsed_response["title"])
+    assert(parsed_response["url"])
+
+    new_user_site = UserSite.last
+    assert_equal(new_title, new_user_site.title)
+    assert_equal(user.id, new_user_site.user_id)
+
+    assert_equal(previous_site, previous_site.reload)
+  end
+
+  test "should return the new current user_site for authenticated user when creating site with previous global site and no previous user_site for user" do
+    new_url = 'http://www.newurl.com'
+    new_title = 'new'
+
+    user = @user
+    other_user = @user_alternate
+
+    previous_site = Site.create(url: new_url)
+    UserSite.create(site_id: previous_site.id, user_id: other_user.id, title: new_title + ' from user_alternate')
+
+    assert_no_difference('Site.count') do
+      assert_difference('UserSite.count') do
+        authentication_post user, users_current_sites_url, params: { site: { url: new_url, title: new_title } }, as: :json
+      end
+    end
+    assert_response :created
+    parsed_response = JSON.parse(response.body)
+    assert_equal(new_title, parsed_response["title"])
     assert(parsed_response["url"])
 
     new_user_site = UserSite.last
