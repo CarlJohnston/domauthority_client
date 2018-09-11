@@ -10,8 +10,8 @@ import 'jquery.tipsy/src/jquery.tipsy.css';
 
 window.$ = window.jQuery = $;
 
-const CONTAINER_ID = 'd3-graph';
 
+const CONTAINER_ID = 'd3-graph';
 
 class Demo extends Component {
   componentDidMount() {
