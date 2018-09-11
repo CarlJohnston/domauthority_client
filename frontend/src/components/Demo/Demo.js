@@ -15,12 +15,12 @@ const CONTAINER_ID = 'd3-graph';
 
 class Demo extends Component {
   componentDidMount() {
-    Date.isLeapYear = function (year) {
+    Date.isLeapYear = (year) => {
       return (((year % 4 === 0) && (year % 100 !== 0)) ||
               (year % 400 === 0));
     };
 
-    Date.getDaysInMonth = function (year, month) {
+    Date.getDaysInMonth = (year, month) => {
       return [
         31,
         (Date.isLeapYear(year) ? 29 : 28),
@@ -37,15 +37,15 @@ class Demo extends Component {
       ][month];
     };
 
-    Date.prototype.isLeapYear = function () {
+    Date.prototype.isLeapYear = () => {
       return Date.isLeapYear(this.getFullYear());
     };
 
-    Date.prototype.getDaysInMonth = function () {
+    Date.prototype.getDaysInMonth = () => {
       return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
     };
 
-    Date.prototype.addMonths = function (value) {
+    Date.prototype.addMonths = (value) => {
       let n = this.getDate();
       this.setDate(1);
       this.setMonth(this.getMonth() + value);
