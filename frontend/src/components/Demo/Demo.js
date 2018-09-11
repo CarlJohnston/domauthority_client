@@ -16,21 +16,21 @@ const CONTAINER_ID = 'd3-graph';
 class Demo extends Component {
   componentDidMount() {
     const margin = {
-      top: 20,
-      right: 80,
+      top: 30,
+      right: 100,
       bottom: 30,
       left: 50,
     };
-    const width = 900 - margin.left - margin.right;
-    const height = 440 - margin.top - margin.bottom;
+    const width = 800;
+    const height = 400;
 
     const svg = d3.select(`#${CONTAINER_ID}`)
       .append('svg')
       .attr('id', 'chart')
-      .attr('viewBox', '0 0 960 500')
+      .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
       .attr('preserveAspectRatio', 'xMidYMid')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', width)
+      .attr('height', height)
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 

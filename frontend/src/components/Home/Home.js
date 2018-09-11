@@ -45,7 +45,7 @@ class Home extends Component {
             <div className='cell'>
               <h2>Visualization</h2>
             </div>
-            <div className='cell large-11 large-offset-1'>
+            <div className='cell large-8 large-offset-2'>
               <Demo />
             </div>
           </div>
