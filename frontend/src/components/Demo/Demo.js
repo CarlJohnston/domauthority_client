@@ -33,7 +33,7 @@ class Demo extends Component {
         30,
         31,
         30,
-        31
+        31,
       ][month];
     };
 
