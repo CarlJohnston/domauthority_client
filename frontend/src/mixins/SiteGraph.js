@@ -112,6 +112,7 @@ class SiteGraph {
 
     const myNewData = [];
     const listOfSiteNames = [];
+
     data.forEach((site) => {
       myNewData.push(site.metrics);
 

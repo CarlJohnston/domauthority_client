@@ -41,11 +41,11 @@ class Demo extends Component {
       return Date.isLeapYear(this.getFullYear());
     };
 
-    Date.prototype.getDaysInMonth = () => {
+    Date.prototype.getDaysInMonth = function () {
       return Date.getDaysInMonth(this.getFullYear(), this.getMonth());
     };
 
-    Date.prototype.addMonths = (value) => {
+    Date.prototype.addMonths = function (value) {
       let n = this.getDate();
       this.setDate(1);
       this.setMonth(this.getMonth() + value);
@@ -91,20 +91,21 @@ class Demo extends Component {
       }
 
       for (let i = 0; i < 4; i++) {
-        const currentSite = currentData[`Site${parseInt(i + 1, 10)}`];
+        const currentSite = currentData[i];
+        const currentMetrics = currentSite.metrics;
 
-        const lastItemObject = currentSite[currentSite.length - 1];
+        const lastItemObject = currentMetrics[currentMetrics.length - 1];
 
         let newNumber;
-        if (lastItemObject.da === 100) {
+        if (lastItemObject.domain_authority === 100) {
           newNumber = this.getRandomInt(85,90);
-        } else if (lastItemObject.da === 0) {
+        } else if (lastItemObject.domain_authority === 0) {
           newNumber = this.getRandomInt(10,15);
         } else {
-          newNumber = this.valBetween(lastItemObject.da + this.getRandomInt(-10, 10), 0, 100);
+          newNumber = this.valBetween(lastItemObject.domain_authority + this.getRandomInt(-10, 10), 0, 100);
         }
 
-        const previousDate = lastItemObject.date;
+        const previousDate = lastItemObject.created_at;
         const previousYear = previousDate.toString().slice(0, 4, 10);
         const previousMonth = parseInt(previousDate.toString().slice(5, 7), 10);
         const previousDay = parseInt(previousDate.toString().slice(8, 10), 10);
@@ -116,9 +117,9 @@ class Demo extends Component {
         );
         currentDate.addMonths(1);
 
-        currentData[`Site${parseInt(i + 1, 10)}`].push({
-          da: newNumber,
-          date: currentDate.toISOString().slice(0, 10),
+        currentMetrics.push({
+          domain_authority: newNumber,
+          created_at: currentDate.toISOString().slice(0, 10),
         });
       }
 

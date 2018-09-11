@@ -1,272 +1,279 @@
 export default {
-  data: {
-    Site1: [{
-      da: 22.0,
-      date: '2014-09-01',
+  data: [{
+    title: 'Site 1',
+    metrics: [{
+      domain_authority: 22.0,
+      created_at: '2014-09-01',
     }, {
-      da: 29.0,
-      date: '2014-10-01',
+      domain_authority: 29.0,
+      created_at: '2014-10-01',
     }, {
-      da: 24.0,
-      date: '2014-11-01',
+      domain_authority: 24.0,
+      created_at: '2014-11-01',
     }, {
-      da: 38.0,
-      date: '2014-12-01',
+      domain_authority: 38.0,
+      created_at: '2014-12-01',
     }, {
-      da: 37,
-      date: '2015-01-01',
+      domain_authority: 37,
+      created_at: '2015-01-01',
     }, {
-      da: 38.0,
-      date: '2015-02-01',
+      domain_authority: 38.0,
+      created_at: '2015-02-01',
     }, {
-      da: 52.0,
-      date: '2015-03-01',
+      domain_authority: 52.0,
+      created_at: '2015-03-01',
     }, {
-      da: 49.0,
-      date: '2015-04-01',
+      domain_authority: 49.0,
+      created_at: '2015-04-01',
     }, {
-      da: 55,
-      date: '2015-05-01',
+      domain_authority: 55,
+      created_at: '2015-05-01',
     }, {
-      da: 54.0,
-      date: '2015-06-01',
+      domain_authority: 54.0,
+      created_at: '2015-06-01',
     }, {
-      da: 62.0,
-      date: '2015-07-01',
+      domain_authority: 62.0,
+      created_at: '2015-07-01',
     }, {
-      da: 54,
-      date: '2015-08-01',
+      domain_authority: 54,
+      created_at: '2015-08-01',
     }, {
-      da: 72,
-      date: '2015-09-01',
+      domain_authority: 72,
+      created_at: '2015-09-01',
     }, {
-      da: 65.0,
-      date: '2015-10-01',
+      domain_authority: 65.0,
+      created_at: '2015-10-01',
     }, {
-      da: 60.0,
-      date: '2015-11-01',
+      domain_authority: 60.0,
+      created_at: '2015-11-01',
     }, {
-      da: 72.0,
-      date: '2015-12-01',
+      domain_authority: 72.0,
+      created_at: '2015-12-01',
     }, {
-      da: 77.0,
-      date: '2016-01-01',
+      domain_authority: 77.0,
+      created_at: '2016-01-01',
     }, {
-      da: 78.0,
-      date: '2016-02-01',
+      domain_authority: 78.0,
+      created_at: '2016-02-01',
     }, {
-      da: 55.0,
-      date: '2016-03-01',
+      domain_authority: 55.0,
+      created_at: '2016-03-01',
     }, {
-      da: 63.0,
-      date: '2016-04-01',
+      domain_authority: 63.0,
+      created_at: '2016-04-01',
     }, {
-      da: 72.0,
-      date: '2016-05-09',
+      domain_authority: 72.0,
+      created_at: '2016-05-09',
     }, {
-      da: 64.0,
-      date: '2016-06-01',
+      domain_authority: 64.0,
+      created_at: '2016-06-01',
     }],
-    Site2: [{
-      da: 68.0,
-      date: '2014-09-01',
+  }, {
+    title: 'Site 2',
+    metrics: [{
+      domain_authority: 68.0,
+      created_at: '2014-09-01',
     }, {
-      da: 60.0,
-      date: '2014-10-01',
+      domain_authority: 60.0,
+      created_at: '2014-10-01',
     }, {
-      da: 64.0,
-      date: '2014-11-01',
+      domain_authority: 64.0,
+      created_at: '2014-11-01',
     }, {
-      da: 78.0,
-      date: '2014-12-01',
+      domain_authority: 78.0,
+      created_at: '2014-12-01',
     }, {
-      da: 78,
-      date: '2015-01-01',
+      domain_authority: 78,
+      created_at: '2015-01-01',
     }, {
-      da: 77.0,
-      date: '2015-02-01',
+      domain_authority: 77.0,
+      created_at: '2015-02-01',
     }, {
-      da: 79.0,
-      date: '2015-03-01',
+      domain_authority: 79.0,
+      created_at: '2015-03-01',
     }, {
-      da: 81.0,
-      date: '2015-04-01',
+      domain_authority: 81.0,
+      created_at: '2015-04-01',
     }, {
-      da: 83,
-      date: '2015-05-01',
+      domain_authority: 83,
+      created_at: '2015-05-01',
     }, {
-      da: 85.0,
-      date: '2015-06-01',
+      domain_authority: 85.0,
+      created_at: '2015-06-01',
     }, {
-      da: 74.0,
-      date: '2015-07-01',
+      domain_authority: 74.0,
+      created_at: '2015-07-01',
     }, {
-      da: 85,
-      date: '2015-08-01',
+      domain_authority: 85,
+      created_at: '2015-08-01',
     }, {
-      da: 86,
-      date: '2015-09-01',
+      domain_authority: 86,
+      created_at: '2015-09-01',
     }, {
-      da: 82.0,
-      date: '2015-10-01',
+      domain_authority: 82.0,
+      created_at: '2015-10-01',
     }, {
-      da: 75.0,
-      date: '2015-11-01',
+      domain_authority: 75.0,
+      created_at: '2015-11-01',
     }, {
-      da: 73.0,
-      date: '2015-12-01',
+      domain_authority: 73.0,
+      created_at: '2015-12-01',
     }, {
-      da: 82.0,
-      date: '2016-01-01',
+      domain_authority: 82.0,
+      created_at: '2016-01-01',
     }, {
-      da: 90.0,
-      date: '2016-02-01',
+      domain_authority: 90.0,
+      created_at: '2016-02-01',
     }, {
-      da: 92.0,
-      date: '2016-03-01',
+      domain_authority: 92.0,
+      created_at: '2016-03-01',
     }, {
-      da: 93.0,
-      date: '2016-04-01',
+      domain_authority: 93.0,
+      created_at: '2016-04-01',
     }, {
-      da: 90.0,
-      date: '2016-05-09',
+      domain_authority: 90.0,
+      created_at: '2016-05-09',
     }, {
-      da: 73.0,
-      date: '2016-06-01',
+      domain_authority: 73.0,
+      created_at: '2016-06-01',
     }],
-    Site3: [{
-      da: 14.0,
-      date: '2014-09-01',
+  }, {
+    title: 'Site 3',
+    metrics: [{
+      domain_authority: 14.0,
+      created_at: '2014-09-01',
     }, {
-      da: 12.0,
-      date: '2014-10-01',
+      domain_authority: 12.0,
+      created_at: '2014-10-01',
     }, {
-      da: 13.0,
-      date: '2014-11-01',
+      domain_authority: 13.0,
+      created_at: '2014-11-01',
     }, {
-      da: 14.0,
-      date: '2014-12-01',
+      domain_authority: 14.0,
+      created_at: '2014-12-01',
     }, {
-      da: 17,
-      date: '2015-01-01',
+      domain_authority: 17,
+      created_at: '2015-01-01',
     }, {
-      da: 15.0,
-      date: '2015-02-01',
+      domain_authority: 15.0,
+      created_at: '2015-02-01',
     }, {
-      da: 24.0,
-      date: '2015-03-01',
+      domain_authority: 24.0,
+      created_at: '2015-03-01',
     }, {
-      da: 32.0,
-      date: '2015-04-01',
+      domain_authority: 32.0,
+      created_at: '2015-04-01',
     }, {
-      da: 29,
-      date: '2015-05-01',
+      domain_authority: 29,
+      created_at: '2015-05-01',
     }, {
-      da: 27.0,
-      date: '2015-06-01',
+      domain_authority: 27.0,
+      created_at: '2015-06-01',
     }, {
-      da: 25.0,
-      date: '2015-07-01',
+      domain_authority: 25.0,
+      created_at: '2015-07-01',
     }, {
-      da: 35,
-      date: '2015-08-01',
+      domain_authority: 35,
+      created_at: '2015-08-01',
     }, {
-      da: 34,
-      date: '2015-09-01',
+      domain_authority: 34,
+      created_at: '2015-09-01',
     }, {
-      da: 45.0,
-      date: '2015-10-01',
+      domain_authority: 45.0,
+      created_at: '2015-10-01',
     }, {
-      da: 52.0,
-      date: '2015-11-01',
+      domain_authority: 52.0,
+      created_at: '2015-11-01',
     }, {
-      da: 56.0,
-      date: '2015-12-01',
+      domain_authority: 56.0,
+      created_at: '2015-12-01',
     }, {
-      da: 62.0,
-      date: '2016-01-01',
+      domain_authority: 62.0,
+      created_at: '2016-01-01',
     }, {
-      da: 67.0,
-      date: '2016-02-01',
+      domain_authority: 67.0,
+      created_at: '2016-02-01',
     }, {
-      da: 72.0,
-      date: '2016-03-01',
+      domain_authority: 72.0,
+      created_at: '2016-03-01',
     }, {
-      da: 47.0,
-      date: '2016-04-01',
+      domain_authority: 47.0,
+      created_at: '2016-04-01',
     }, {
-      da: 48.0,
-      date: '2016-05-09',
+      domain_authority: 48.0,
+      created_at: '2016-05-09',
     }, {
-      da: 52.0,
-      date: '2016-06-01',
+      domain_authority: 52.0,
+      created_at: '2016-06-01',
     }],
-    Site4: [{
-      da: 36.0,
-      date: '2014-09-01',
+  }, {
+    title: 'Site 4',
+    metrics: [{
+      domain_authority: 36.0,
+      created_at: '2014-09-01',
     }, {
-      da: 34.0,
-      date: '2014-10-01',
+      domain_authority: 34.0,
+      created_at: '2014-10-01',
     }, {
-      da: 36.0,
-      date: '2014-11-01',
+      domain_authority: 36.0,
+      created_at: '2014-11-01',
     }, {
-      da: 35.0,
-      date: '2014-12-01',
+      domain_authority: 35.0,
+      created_at: '2014-12-01',
     }, {
-      da: 32,
-      date: '2015-01-01',
+      domain_authority: 32,
+      created_at: '2015-01-01',
     }, {
-      da: 39.0,
-      date: '2015-02-01',
+      domain_authority: 39.0,
+      created_at: '2015-02-01',
     }, {
-      da: 37.0,
-      date: '2015-03-01',
+      domain_authority: 37.0,
+      created_at: '2015-03-01',
     }, {
-      da: 42.0,
-      date: '2015-04-01',
+      domain_authority: 42.0,
+      created_at: '2015-04-01',
     }, {
-      da: 36,
-      date: '2015-05-01',
+      domain_authority: 36,
+      created_at: '2015-05-01',
     }, {
-      da: 36.0,
-      date: '2015-06-01',
+      domain_authority: 36.0,
+      created_at: '2015-06-01',
     }, {
-      da: 38.0,
-      date: '2015-07-01',
+      domain_authority: 38.0,
+      created_at: '2015-07-01',
     }, {
-      da: 39,
-      date: '2015-08-01',
+      domain_authority: 39,
+      created_at: '2015-08-01',
     }, {
-      da: 37,
-      date: '2015-09-01',
+      domain_authority: 37,
+      created_at: '2015-09-01',
     }, {
-      da: 23.0,
-      date: '2015-10-01',
+      domain_authority: 23.0,
+      created_at: '2015-10-01',
     }, {
-      da: 20.0,
-      date: '2015-11-01',
+      domain_authority: 20.0,
+      created_at: '2015-11-01',
     }, {
-      da: 28.0,
-      date: '2015-12-01',
+      domain_authority: 28.0,
+      created_at: '2015-12-01',
     }, {
-      da: 42.0,
-      date: '2016-01-01',
+      domain_authority: 42.0,
+      created_at: '2016-01-01',
     }, {
-      da: 28.0,
-      date: '2016-02-01',
+      domain_authority: 28.0,
+      created_at: '2016-02-01',
     }, {
-      da: 45.0,
-      date: '2016-03-01',
+      domain_authority: 45.0,
+      created_at: '2016-03-01',
     }, {
-      da: 66.0,
-      date: '2016-04-01',
+      domain_authority: 66.0,
+      created_at: '2016-04-01',
     }, {
-      da: 78.0,
-      date: '2016-05-09',
+      domain_authority: 78.0,
+      created_at: '2016-05-09',
     }, {
-      da: 70.0,
-      date: '2016-06-01',
+      domain_authority: 70.0,
+      created_at: '2016-06-01',
     }],
-  },
+  }],
 }
