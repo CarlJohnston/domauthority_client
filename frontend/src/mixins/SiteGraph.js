@@ -3,7 +3,11 @@ import $ from 'jquery';
 
 
 class SiteGraph {
-  constructor(id) {
+  constructor(id, options) {
+    this.options = Object.assign({
+      time: '%Y-%m-%d',
+    }, options);
+
     const margin = {
       top: 30,
       right: 100,
@@ -33,7 +37,7 @@ class SiteGraph {
   }
 
   update(data) {
-    const parseDate = d3.time.format('%Y-%m-%d').parse;
+    const parseDate = d3.time.format(this.options.time).parse;
 
     const x = d3.time.scale()
       .range([0, this.width]);
@@ -56,25 +60,25 @@ class SiteGraph {
 
     const line = d3.svg.line()
       .interpolate('linear')
-      .x(d => x(d.date))
-      .y(d => y(d.da));
+      .x(d => x(d.created_at))
+      .y(d => y(d.domain_authority));
 
     let fullDataSet = [];
     for (let key in data) {
-      fullDataSet = fullDataSet.concat.apply(fullDataSet, data[key]);
+      fullDataSet = fullDataSet.concat.apply(fullDataSet, data[key].metrics);
     }
 
     fullDataSet.forEach((d) => {
-      if (!(d.date instanceof Date)) {
-        d.date = parseDate(d.date);
-      }
-      d.da = +d.da;
+      d.created_at = parseDate(d.created_at);
+      d.domain_authority = +d.domain_authority;
     });
 
-    x.domain(d3.extent(fullDataSet, d => d.date));
-    y.domain(d3.extent(fullDataSet, d => d.da));
+    x.domain(d3.extent(fullDataSet, d => d.created_at));
+    y.domain(d3.extent(fullDataSet, d => d.domain_authority));
 
-    if (this.svg.selectAll('.y.axis')[0].length < 1) {
+    const yAxes = this.svg.selectAll('.y.axis');
+    if (yAxes[0] &&
+        yAxes[0].length < 1) {
       this.svg.append('g')
         .attr('class', 'y axis')
         .call(yAxis)
@@ -91,7 +95,9 @@ class SiteGraph {
         .call(yAxis);
     }
 
-    if (this.svg.selectAll('.x.axis')[0].length < 1) {
+    const xAxes = this.svg.selectAll('.x.axis');
+    if (xAxes[0] &&
+        xAxes[0].length < 1) {
       this.svg.append('g')
         .attr('class', 'x axis')
         .call(xAxis)
@@ -106,10 +112,11 @@ class SiteGraph {
 
     const myNewData = [];
     const listOfSiteNames = [];
-    for (let key in data) {
-      myNewData.push(data[key]);
-      listOfSiteNames.push(key);
-    }
+    data.forEach((site) => {
+      myNewData.push(site.metrics);
+
+      listOfSiteNames.push(site.title);
+    });
 
     const lines = d3.selectAll('.line');
     if (lines[0] && lines[0].length < 1) {
@@ -158,13 +165,13 @@ class SiteGraph {
 
       myCircleGroups.enter()
         .append('circle')
-        .attr('cx', d => x(d.date))
-        .attr('cy', d => y(d.da))
+        .attr('cx', d => x(d.created_at))
+        .attr('cy', d => y(d.domain_authority))
         .attr('fill', (d, i) => {
           return this.listOfSiteColors[$(this).closest('g').attr('id')];
         })
         .attr('r', 4)
-        .attr('id', d => d.da);
+        .attr('id', d => d.domain_authority);
     } else {
       this.svg.selectAll('.line')
         .data(myNewData)
@@ -178,16 +185,16 @@ class SiteGraph {
 
       newCircles.enter()
         .append('circle')
-        .attr('cx', d => x(d.date))
-        .attr('cy', d => y(d.da))
+        .attr('cx', d => x(d.created_at))
+        .attr('cy', d => y(d.domain_authority))
         .attr('fill', () => this.listOfSiteColors[$(this).closest('g').attr('id')])
         .attr('r', 4)
-        .attr('id', d => d.da);
+        .attr('id', d => d.domain_authority);
 
       newCircles.transition()
         .duration(1500)
-        .attr('cx', d => x(d.date))
-        .attr('cy', d => y(d.da));
+        .attr('cx', d => x(d.created_at))
+        .attr('cy', d => y(d.domain_authority));
 
       newCircles.exit()
         .remove();
