@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import d3 from 'd3';
 import $ from 'jquery';
 import 'jquery.tipsy';
 
@@ -21,6 +20,8 @@ type Props = {
 const CONTAINER_ID = 'd3-graph';
 
 class Analyze extends Component<Props> {
+  siteGraph: SiteGraph;
+
   componentDidMount() {
     const {
       sites,
