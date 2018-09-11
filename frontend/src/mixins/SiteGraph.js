@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 
 class SiteGraph {
-  constructor(id, options) {
+  constructor(selector, options) {
     this.options = Object.assign({
       time: '%Y-%m-%d',
     }, options);
@@ -17,7 +17,7 @@ class SiteGraph {
     this.width = 800;
     this.height = 400;
 
-    this.svg = d3.select(`#${id}`)
+    this.svg = d3.select(`#${selector}`)
       .append('svg')
       .attr('id', 'chart')
       .attr('viewBox', `0 0 ${this.width + margin.left + margin.right} ${this.height + margin.top + margin.bottom}`)
