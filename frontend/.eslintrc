@@ -68,6 +68,7 @@
       "error",
       "always"
     ],
-    "lines-between-class-members": 0
+    "lines-between-class-members": 0,
+    "consistent-return": 0
   }
 }
