@@ -153,7 +153,7 @@ class SiteGraph {
       legend.append('text')
         .attr('x', (d, i) => this.width + 50)
         .attr('y', (d, i) => 22.21 * (i + 1))
-        .style('font-size', '12px')
+        .style('font-size', '0.8rem')
         .text((d, i) => siteNames[i]);
 
       legend.append('rect')
