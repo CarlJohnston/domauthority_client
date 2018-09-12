@@ -38,13 +38,15 @@ class SiteFetcher {
         }
       })
       .then((newSite: ?SiteType) => {
-        // TODO wrapper for general case?
-        const status = STATUS.success;
-        notification = {
-          title: status,
-          text: 'Site successfully added!',
-          type: status,
-        };
+        if (newSite) {
+          // TODO wrapper for general case?
+          const status = STATUS.success;
+          notification = {
+            title: status,
+            text: 'Site successfully added!',
+            type: status,
+          };
+        }
 
         return newSite;
       })
