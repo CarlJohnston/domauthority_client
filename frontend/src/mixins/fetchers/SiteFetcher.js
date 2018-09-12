@@ -182,14 +182,6 @@ class SiteFetcher {
             type: status,
           };
         } else {
-          // TODO change error type
-          const status = STATUS.error;
-          notification = {
-            title: status,
-            text: ERROR.unexpected,
-            type: status,
-          };
-
           return Promise.reject(null);
         }
       })
