@@ -38,6 +38,9 @@ class Sites extends PureComponent<Props, State> {
   };
   $form: JQuery;
   getCellActions: () => void;
+  openModal: () => void;
+  onOpenModal: () => void;
+  onCloseModal: () => void;
   columns: Array<{
     key: string,
     name: string,
@@ -83,7 +86,7 @@ class Sites extends PureComponent<Props, State> {
     });
   }
 
-  onOpenModal() {
+  onOpenModal(): void {
     if (this.createSiteForm.current) {
       this.$form = $(this.createSiteForm.current);
 
