@@ -1,6 +1,10 @@
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
+import flatMap from 'array.prototype.flatmap';
+
+Array.prototype.flatMap = flatMap.shim();
+
 Enzyme.configure({ adapter: new Adapter() });
 
 import $ from 'jquery';
