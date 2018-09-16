@@ -40,7 +40,6 @@ describe('withDocumentTitle', () => {
     createComponent({}, title);
 
     const documentTitleComponent = component.find(DocumentTitle);
-    console.log(component.html());
     expect(documentTitleComponent.exists()).toBe(true);
     expect(documentTitleComponent.prop('title')).toEqual(`${title} | domauthority`);
 
