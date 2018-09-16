@@ -12,6 +12,8 @@ type Props = {
 
 class Footer extends Component<Props> {
   render() {
+    const contactEmail = 'info@domauthority.com';
+
     return (
       <div className='footer-container'>
         <div className='grid-container bottom-bar'>
@@ -19,9 +21,9 @@ class Footer extends Component<Props> {
             <div className='small-12 medium-shrink cell'>
               <ul className='menu'>
                 <li>
-                  <Link to='/'>
-                    Home
-                  </Link>
+                  <a href={`mailto:${contactEmail}`}>
+                    {contactEmail}
+                  </a>
                 </li>
                 <li>
                   <Link to='/about'>
