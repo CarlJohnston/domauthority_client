@@ -4,6 +4,7 @@ import 'promise-polyfill';
 import PNotify from 'pnotify/dist/umd/PNotify';
 import $ from 'jquery';
 import Modal from 'react-modal';
+import DocumentTitle from 'react-document-title';
 
 import 'foundation-sites/dist/css/foundation.min.css';
 import 'pnotify/dist/PNotifyBrightTheme.css';
@@ -49,7 +50,9 @@ class App extends Component<Props> {
     return (
       // $FlowFixMe: React Flow typings are not yet updated to React 16.3
       <React.StrictMode>
-        <Main />
+        <DocumentTitle title='domauthority'>
+          <Main />
+        </DocumentTitle>
       </React.StrictMode>
     );
   }
