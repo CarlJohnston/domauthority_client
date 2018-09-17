@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import 'jquery.tipsy';
 
+import withDocumentTitle from 'components/hocs/withDocumentTitle';
+
 import SiteGraph from 'mixins/SiteGraph';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
@@ -47,4 +49,4 @@ class Analyze extends Component<Props> {
   }
 }
 
-export default Analyze;
+export default withDocumentTitle(Analyze, 'Analyze');
