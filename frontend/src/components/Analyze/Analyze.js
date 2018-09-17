@@ -37,12 +37,26 @@ class Analyze extends Component<Props> {
   }
 
   render() {
+    const mozLogoSize = '100px';
+
     return (
       <div>
         <h1>
           Analyze
         </h1>
         <div id='d3-graph'>
+        </div>
+        <div>
+          <p>
+            Data provided by Moz, Inc.
+          </p>
+          <a href='https://moz.com' target='_blank'>
+            <img
+              src='moz.svg'
+              width={mozLogoSize}
+              height={mozLogoSize}
+            />
+          </a>
         </div>
       </div>
     );
