@@ -8,6 +8,8 @@ import $ from 'jquery';
 import Authenticate from 'helpers/Authenticate';
 import RegisterResponse from 'mixins/RegisterResponse';
 
+import withDocumentTitle from 'components/hocs/withDocumentTitle';
+
 import type { CurrentUserContext as CurrentUserContextType } from 'contexts/CurrentUserContext.types';
 import type { RouterHistory } from 'react-router-dom';
 import type { ElementRef } from 'react';
@@ -132,4 +134,4 @@ class Register extends Component<Props> {
   }
 }
 
-export default Register;
+export default withDocumentTitle(Register, 'Register');
