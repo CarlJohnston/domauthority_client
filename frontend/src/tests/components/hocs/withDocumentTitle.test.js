@@ -2,6 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import DocumentTitle from 'react-document-title';
 
+import APPLICATION from 'configs/Application';
+
 import withDocumentTitle from 'components/hocs/withDocumentTitle';
 
 
@@ -41,7 +43,7 @@ describe('withDocumentTitle', () => {
 
     const documentTitleComponent = component.find(DocumentTitle);
     expect(documentTitleComponent.exists()).toBe(true);
-    expect(documentTitleComponent.prop('title')).toEqual(`${title} | domauthority`);
+    expect(documentTitleComponent.prop('title')).toEqual(`${title} | ${APPLICATION.title}`);
 
     expect(component.find(TestComponent).exists()).toBe(true);
   });

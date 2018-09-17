@@ -14,6 +14,8 @@ import 'foundation-icons/foundation-icons.css';
 import './App.css';
 import './PNotify.css';
 
+import APPLICATION from 'configs/Application';
+
 import Main from 'components/Main/Main';
 
 window.$ = window.jQuery = $;
@@ -50,7 +52,7 @@ class App extends Component<Props> {
     return (
       // $FlowFixMe: React Flow typings are not yet updated to React 16.3
       <React.StrictMode>
-        <DocumentTitle title='domauthority'>
+        <DocumentTitle title={`${APPLICATION.title}`}>
           <Main />
         </DocumentTitle>
       </React.StrictMode>
