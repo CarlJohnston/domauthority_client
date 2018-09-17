@@ -16,10 +16,10 @@ class SiteGraph {
     }, options);
 
     const margin = {
-      top: 30,
-      right: 100,
-      bottom: 30,
-      left: 50,
+      top: 50,
+      right: 150,
+      bottom: 50,
+      left: 100,
     };
     this.width = 800;
     this.height = 400;
@@ -91,10 +91,9 @@ class SiteGraph {
         .call(yAxis)
         .append('text')
         .attr('transform', 'rotate(-90)')
-        .attr('y', 6)
-        .attr('dy', '.71em')
-        .style('text-anchor', 'end')
-        .text('DA ');
+        .attr('x', 0 - this.height / 2)
+        .attr('dy', '-60px')
+        .text('Domain Authority');
     } else {
       this.svg.selectAll('.y.axis')
         .transition()
@@ -109,7 +108,11 @@ class SiteGraph {
         .attr('class', 'x axis')
         .call(xAxis)
         .attr('transform', `translate(0, ${this.height})`)
-        .call(xAxis);
+        .call(xAxis)
+        .append('text')
+        .attr('x', this.width / 2)
+        .attr('dy', '60px')
+        .text('Date');
     } else {
       this.svg.selectAll('.x.axis')
         .transition()
