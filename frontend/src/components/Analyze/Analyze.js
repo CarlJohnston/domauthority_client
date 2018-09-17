@@ -37,7 +37,7 @@ class Analyze extends Component<Props> {
   }
 
   render() {
-    const mozLogoSize = '100px';
+    const mozLogoSize = '75px';
 
     return (
       <div>
@@ -47,9 +47,9 @@ class Analyze extends Component<Props> {
         <div id='d3-graph'>
         </div>
         <div>
-          <p>
-            Data provided by Moz, Inc.
-          </p>
+          <span>
+            Powered by
+          </span>
           <a
             href='https://moz.com'
             target='_blank'
