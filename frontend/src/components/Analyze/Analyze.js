@@ -50,11 +50,16 @@ class Analyze extends Component<Props> {
           <p>
             Data provided by Moz, Inc.
           </p>
-          <a href='https://moz.com' target='_blank'>
+          <a
+            href='https://moz.com'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <img
               src='moz.svg'
               width={mozLogoSize}
               height={mozLogoSize}
+              alt='Moz, Inc.'
             />
           </a>
         </div>
