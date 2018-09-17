@@ -6,6 +6,8 @@ import Modal from 'react-modal';
 import $ from 'jquery';
 import { BeatLoader as Loader } from 'react-spinners';
 
+import withDocumentTitle from 'components/hocs/withDocumentTitle';
+
 import type { ElementRef } from 'react';
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
@@ -234,4 +236,4 @@ class Sites extends PureComponent<Props, State> {
   }
 }
 
-export default Sites;
+export default withDocumentTitle(Sites, 'Sites');
