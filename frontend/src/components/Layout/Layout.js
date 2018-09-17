@@ -29,24 +29,26 @@ type Props = {
 class Layout extends Component<Props> {
   render() {
     return (
-      <div>
+      <div id='layout'>
         <Header {...this.props} />
 
         <Switch>
           <Route exact path='/' component={Home} />
 
-          <div id='content' className='grid-container'>
-            <NotAuthenticatedRoute path='/login' component={Login} />
-            <NotAuthenticatedRoute path='/register' component={Register} />
+          <div id='content'>
+            <div className='grid-container'>
+              <NotAuthenticatedRoute path='/login' component={Login} />
+              <NotAuthenticatedRoute path='/register' component={Register} />
 
-            <Route path='/password/forgot' component={Forgot} />
-            <Route path='/auth/confirmed' component={Confirmed} />
+              <Route path='/password/forgot' component={Forgot} />
+              <Route path='/auth/confirmed' component={Confirmed} />
 
-            <Route path='/users/:id' component={Profile} />
-            <AuthenticatedRoute path='/settings' component={Settings} />
+              <Route path='/users/:id' component={Profile} />
+              <AuthenticatedRoute path='/settings' component={Settings} />
 
-            <AuthenticatedRoute path='/sites' component={SitesContainer} />
-            <AuthenticatedRoute path='/analyze' component={AnalyzeContainer} />
+              <AuthenticatedRoute path='/sites' component={SitesContainer} />
+              <AuthenticatedRoute path='/analyze' component={AnalyzeContainer} />
+            </div>
           </div>
         </Switch>
 
