@@ -5,6 +5,8 @@ import AnimatedGraph from 'components/AnimatedGraph/AnimatedGraph';
 import Benefits from 'components/Benefits/Benefits';
 import Demo from 'components/Demo/Demo';
 
+import withDocumentTitle from 'components/hocs/withDocumentTitle';
+
 import './Home.css';
 
 
@@ -55,4 +57,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withDocumentTitle(Home, 'Home');
