@@ -63,11 +63,23 @@ class Analyze extends Component<Props> {
         <h1>
           Analyze
         </h1>
-        <div id={DOMAIN_AUTHORITY_CONTAINER_ID}>
+        <div className='grid-x'>
+          <div className='cell large-8 large-offset-2'>
+            <div id={DOMAIN_AUTHORITY_CONTAINER_ID}>
+            </div>
+          </div>
         </div>
-        <div id={PAGE_AUTHORITY_CONTAINER_ID}>
+        <div className='grid-x'>
+          <div className='cell large-8 large-offset-2'>
+            <div id={PAGE_AUTHORITY_CONTAINER_ID}>
+            </div>
+          </div>
         </div>
-        <div id={MOZ_RANK_CONTAINER_ID}>
+        <div className='grid-x'>
+          <div className='cell large-8 large-offset-2'>
+            <div id={MOZ_RANK_CONTAINER_ID}>
+            </div>
+          </div>
         </div>
         <div>
           <span>
