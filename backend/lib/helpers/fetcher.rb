@@ -11,7 +11,7 @@ class Fetcher
 
   MAX_BATCH = 10
 
-  EXPIRES_OFFSET	= 300
+  EXPIRES_OFFSET  = 300
 
   # Root Domain      - 16
   # Moz Rank         - 65536
