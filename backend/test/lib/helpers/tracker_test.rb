@@ -52,7 +52,7 @@ class TrackerTest < ActiveSupport::TestCase
 
       stub_request(:post, //)
         .with(body: /#{requested_sites_regex_string}/)
-        .to_return(body: returned_data)
+        .to_return(body: returned_data.to_json)
     end
 
     Tracker.stub(:sleep, nil) do

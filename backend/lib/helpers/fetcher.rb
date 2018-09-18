@@ -42,7 +42,7 @@ class Fetcher
 
       case response
       when Net::HTTPSuccess
-        response.body
+        JSON.parse(response.body, symbolize_names: true)
       when Net::HTTPUnauthorized
         raise Fetcher::Exceptions::Unauthorized
       when Net::HTTPInternalServerError

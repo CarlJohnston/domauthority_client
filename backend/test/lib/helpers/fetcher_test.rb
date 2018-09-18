@@ -74,7 +74,7 @@ class FetcherTest < ActiveSupport::TestCase
     ]
 
     stub_request(:post, //)
-      .to_return(status: 200, body: expected_data)
+      .to_return(status: 200, body: expected_data.to_json)
 
     sites = [
       'http://www.site1.com',
@@ -104,7 +104,7 @@ class FetcherTest < ActiveSupport::TestCase
     end
 
     stub_request(:post, //)
-      .to_return(status: 200, body: expected_data)
+      .to_return(status: 200, body: expected_data.to_json)
 
     response_data = Fetcher.url_metrics(sites)
 
@@ -131,7 +131,7 @@ class FetcherTest < ActiveSupport::TestCase
     end
 
     stub_request(:post, //)
-      .to_return(status: 200, body: expected_data)
+      .to_return(status: 200, body: expected_data.to_json)
 
     response_data = Fetcher.url_metrics(sites)
 
@@ -162,7 +162,7 @@ class FetcherTest < ActiveSupport::TestCase
     sites.push(1)
 
     stub_request(:post, //)
-      .to_return(status: 200, body: expected_data)
+      .to_return(status: 200, body: expected_data.to_json)
 
     response_data = Fetcher.url_metrics(sites)
 
@@ -191,7 +191,7 @@ class FetcherTest < ActiveSupport::TestCase
     sites.push(nil)
 
     stub_request(:post, //)
-      .to_return(status: 200, body: expected_data)
+      .to_return(status: 200, body: expected_data.to_json)
 
     response_data = Fetcher.url_metrics(sites)
 
