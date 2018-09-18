@@ -13,6 +13,7 @@ class SiteGraph {
   constructor(selector, options) {
     this.options = Object.assign({
       time: '%Y-%m-%d',
+      property: 'domain_authority',
     }, options);
 
     const margin = {
@@ -70,18 +71,18 @@ class SiteGraph {
     const lineInterpolator = d3.svg.line()
       .interpolate('linear')
       .x(d => xInterpolator(d.created_at))
-      .y(d => yInterpolator(d.domain_authority));
+      .y(d => yInterpolator(d[this.options.property]));
 
     const metrics = sites.flatMap((site) => {
       return site.metrics;
     });
     metrics.forEach((metric) => {
       metric.created_at = parseDate(metric.created_at);
-      metric.domain_authority = parseInt(metric.domain_authority, 10);
+      metric[this.options.property] = parseInt(metric[this.options.property], 10);
     });
 
     xInterpolator.domain(d3.extent(metrics, d => d.created_at));
-    yInterpolator.domain(d3.extent(metrics, d => d.domain_authority));
+    yInterpolator.domain(d3.extent(metrics, d => d[this.options.property]));
 
     const yAxes = this.svg.selectAll('.y.axis');
     if (yAxes[0] &&
@@ -178,12 +179,12 @@ class SiteGraph {
       myCircleGroups.enter()
         .append('circle')
         .attr('cx', d => xInterpolator(d.created_at))
-        .attr('cy', d => yInterpolator(d.domain_authority))
+        .attr('cy', d => yInterpolator(d[this.options.property]))
         .attr('fill', (d, i) => {
           return this.siteColors[$(this).closest('g').attr('id')];
         })
         .attr('r', 4)
-        .attr('id', d => d.domain_authority);
+        .attr('id', d => d[this.options.property]);
     } else {
       this.svg.selectAll('.line')
         .data(transformedSites)
@@ -198,15 +199,15 @@ class SiteGraph {
       dataCircles.enter()
         .append('circle')
         .attr('cx', d => xInterpolator(d.created_at))
-        .attr('cy', d => yInterpolator(d.domain_authority))
+        .attr('cy', d => yInterpolator(d[this.options.property]))
         .attr('fill', () => this.siteColors[$(this).closest('g').attr('id')])
         .attr('r', 4)
-        .attr('id', d => d.domain_authority);
+        .attr('id', d => d[this.options.property]);
 
       dataCircles.transition()
         .duration(1500)
         .attr('cx', d => xInterpolator(d.created_at))
-        .attr('cy', d => yInterpolator(d.domain_authority));
+        .attr('cy', d => yInterpolator(d[this.options.property]));
 
       dataCircles.exit()
         .remove();
