@@ -14,6 +14,7 @@ class SiteGraph {
     this.options = Object.assign({
       time: '%Y-%m-%d',
       property: 'domain_authority',
+      xAxis: 'Domain Authority',
     }, options);
 
     const margin = {
@@ -94,7 +95,7 @@ class SiteGraph {
         .attr('transform', 'rotate(-90)')
         .attr('x', 0 - this.height / 2)
         .attr('dy', '-60px')
-        .text('Domain Authority');
+        .text(this.options.xAxis);
     } else {
       this.svg.selectAll('.y.axis')
         .transition()
