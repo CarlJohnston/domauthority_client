@@ -21,7 +21,7 @@ class Tracker
             new_metric_site = new_metric_sites[0]
             Metric.create(
               site_id: new_metric_site.id,
-              moz_rank: new_metric[:ptrp],
+              moz_rank: new_metric[:pmrp],
               domain_authority: new_metric[:upa],
               page_authority: new_metric[:pda],
             )

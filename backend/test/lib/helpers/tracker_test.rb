@@ -39,7 +39,7 @@ class TrackerTest < ActiveSupport::TestCase
         returned_data.push(
           {
             upl: root_domain,
-            ptrp: counter,
+            pmrp: counter,
             upa: counter,
             pda: counter,
           }
