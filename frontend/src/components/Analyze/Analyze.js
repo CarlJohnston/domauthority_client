@@ -21,6 +21,7 @@ type Props = {
 
 const DOMAIN_AUTHORITY_CONTAINER_ID = 'domain-authority-graph';
 const PAGE_AUTHORITY_CONTAINER_ID = 'page-authority-graph';
+const MOZ_RANK_CONTAINER_ID = 'moz-rank-graph';
 
 class Analyze extends Component<Props> {
   siteGraph: SiteGraph;
@@ -42,9 +43,16 @@ class Analyze extends Component<Props> {
       property: 'page_authority',
       xAxis: 'Page Authority',
     });
+    this.mozRankSiteGraph = new SiteGraph({
+      selector: `#${MOZ_RANK_CONTAINER_ID}`,
+      time: '%Y-%m-%dT%H:%M:%S.%LZ',
+      property: 'moz_rank',
+      xAxis: 'Moz Rank',
+    });
 
     this.domainAuthoritySiteGraph.update(sites);
     this.pageAuthoritySiteGraph.update(sites);
+    this.mozRankSiteGraph.update(sites);
   }
 
   render() {
@@ -58,6 +66,8 @@ class Analyze extends Component<Props> {
         <div id={DOMAIN_AUTHORITY_CONTAINER_ID}>
         </div>
         <div id={PAGE_AUTHORITY_CONTAINER_ID}>
+        </div>
+        <div id={MOZ_RANK_CONTAINER_ID}>
         </div>
         <div>
           <span>
