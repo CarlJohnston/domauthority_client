@@ -49,6 +49,8 @@ class SiteGraph {
   }
 
   update(sites) {
+    sites = JSON.parse(JSON.stringify(sites));
+
     const parseDate = d3.time.format(this.options.time).parse;
 
     const xInterpolator = d3.time.scale()
