@@ -21,7 +21,7 @@ class FetcherTest < ActiveSupport::TestCase
     sites = [
       'http://wwww.site.com',
     ]
-    assert_raises Fetcher::Exceptions::Unauthorized do
+    assert_raises Fetcher::Exception::Unauthorized do
       Fetcher.url_metrics(sites)
     end
 
@@ -38,7 +38,7 @@ class FetcherTest < ActiveSupport::TestCase
     sites = [
       'http://wwww.site.com',
     ]
-    assert_raises Fetcher::Exceptions::Unauthorized do
+    assert_raises Fetcher::Exception::Unauthorized do
       Fetcher.url_metrics(sites)
     end
   end
@@ -50,14 +50,14 @@ class FetcherTest < ActiveSupport::TestCase
     sites = [
       'http://wwww.site.com',
     ]
-    assert_raises Fetcher::Exceptions::ServerError do
+    assert_raises Fetcher::Exception::ServerError do
       Fetcher.url_metrics(sites)
     end
   end
 
   test "fetcher with empty array of sites throws no sites to fetch error when environment variables set" do
     sites = []
-    assert_raises Fetcher::Exceptions::RequestError do
+    assert_raises Fetcher::Exception::RequestError do
       Fetcher.url_metrics(sites)
     end
   end
@@ -208,7 +208,7 @@ class FetcherTest < ActiveSupport::TestCase
       sites.push("http://www.#{root_domain}")
     end
 
-    assert_raises Fetcher::Exceptions::RequestError do
+    assert_raises Fetcher::Exception::RequestError do
       Fetcher.url_metrics(sites)
     end
   end

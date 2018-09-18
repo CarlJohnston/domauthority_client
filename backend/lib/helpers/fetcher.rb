@@ -21,9 +21,9 @@ class Fetcher
 
   def self.url_metrics sites
     if ACCESS_ID.nil? || SECRET_KEY.nil?
-      raise Fetcher::Exceptions::Unauthorized
+      raise Fetcher::Exception::Unauthorized
     elsif sites.empty? || sites.length > MAX_BATCH
-      raise Fetcher::Exceptions::RequestError
+      raise Fetcher::Exception::RequestError
     else
       string_to_sign = "#{ACCESS_ID}\n#{expires}"
 
@@ -44,16 +44,16 @@ class Fetcher
       when Net::HTTPSuccess
         JSON.parse(response.body, symbolize_names: true)
       when Net::HTTPUnauthorized
-        raise Fetcher::Exceptions::Unauthorized
+        raise Fetcher::Exception::Unauthorized
       when Net::HTTPInternalServerError
-        raise Fetcher::Exceptions::ServerError
+        raise Fetcher::Exception::ServerError
       else
-        raise Fetcher::Exceptions::UnexpectedError
+        raise Fetcher::Exception::UnexpectedError
       end
     end
   end
 
-  module Exceptions
+  class Exception < ::Exception
     class RequestError < Exception
     end
 
