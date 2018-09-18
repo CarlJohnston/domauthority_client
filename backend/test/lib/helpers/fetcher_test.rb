@@ -94,7 +94,7 @@ class FetcherTest < ActiveSupport::TestCase
       expected_data.push(
         {
           upl: root_domain,
-          ptrp: '1',
+          pmrp: '1',
           upa: '1',
           pda: '1',
         }
@@ -121,7 +121,7 @@ class FetcherTest < ActiveSupport::TestCase
       expected_data.push(
         {
           upl: root_domain,
-          ptrp: '1',
+          pmrp: '1',
           upa: '1',
           pda: '1',
         }
@@ -148,7 +148,7 @@ class FetcherTest < ActiveSupport::TestCase
       expected_data.push(
         {
           upl: root_domain,
-          ptrp: '1',
+          pmrp: '1',
           upa: '1',
           pda: '1',
         }
@@ -179,7 +179,7 @@ class FetcherTest < ActiveSupport::TestCase
       expected_data.push(
         {
           upl: root_domain,
-          ptrp: '1',
+          pmrp: '1',
           upa: '1',
           pda: '1',
         }
