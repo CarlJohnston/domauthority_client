@@ -11,7 +11,7 @@ import 'jquery.tipsy/src/jquery.tipsy.css';
 window.$ = window.jQuery = $;
 
 
-const CONTAINER_ID = 'd3-graph';
+const DOMAIN_AUTHORITY_CONTAINER_ID = 'graph';
 
 class Demo extends Component {
   componentDidMount() {
@@ -53,7 +53,12 @@ class Demo extends Component {
       return this;
     };
 
-    this.siteGraph = new SiteGraph(CONTAINER_ID);
+    this.siteGraph = new SiteGraph({
+      selector: `#${DOMAIN_AUTHORITY_CONTAINER_ID}`,
+      time: '%Y-%m-%d',
+      property: 'domain_authority',
+      xAxis: 'Domain Authority',
+    });
 
     this.generateRandomData();
 
@@ -139,7 +144,7 @@ class Demo extends Component {
 
   render() {
     return (
-      <div id={CONTAINER_ID}>
+      <div id={DOMAIN_AUTHORITY_CONTAINER_ID}>
       </div>
     );
   }
