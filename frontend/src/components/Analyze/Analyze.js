@@ -19,7 +19,8 @@ type Props = {
   sites: SitesData,
 };
 
-const CONTAINER_ID = 'd3-graph';
+const DOMAIN_AUTHORITY_CONTAINER_ID = 'domain-authority-graph';
+const PAGE_AUTHORITY_CONTAINER_ID = 'page-authority-graph';
 
 class Analyze extends Component<Props> {
   siteGraph: SiteGraph;
@@ -29,11 +30,21 @@ class Analyze extends Component<Props> {
       sites,
     } = this.props;
 
-    this.siteGraph = new SiteGraph(CONTAINER_ID, {
+    this.domainAuthoritySiteGraph = new SiteGraph({
+      selector: `#${DOMAIN_AUTHORITY_CONTAINER_ID}`,
       time: '%Y-%m-%dT%H:%M:%S.%LZ',
+      property: 'domain_authority',
+      xAxis: 'Domain Authority',
+    });
+    this.pageAuthoritySiteGraph = new SiteGraph({
+      selector: `#${PAGE_AUTHORITY_CONTAINER_ID}`,
+      time: '%Y-%m-%dT%H:%M:%S.%LZ',
+      property: 'page_authority',
+      xAxis: 'Page Authority',
     });
 
-    this.siteGraph.update(sites);
+    this.domainAuthoritySiteGraph.update(sites);
+    this.pageAuthoritySiteGraph.update(sites);
   }
 
   render() {
@@ -44,7 +55,9 @@ class Analyze extends Component<Props> {
         <h1>
           Analyze
         </h1>
-        <div id='d3-graph'>
+        <div id={DOMAIN_AUTHORITY_CONTAINER_ID}>
+        </div>
+        <div id={PAGE_AUTHORITY_CONTAINER_ID}>
         </div>
         <div>
           <span>
