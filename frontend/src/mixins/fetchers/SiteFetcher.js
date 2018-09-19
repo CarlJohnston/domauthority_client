@@ -8,9 +8,11 @@ import ERROR from 'configs/Error';
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { Notification } from 'notifications/Notification.type';
 
+type SitesData = Array<SiteType>;
+
 
 class SiteFetcher {
-  static create(site: SiteType): Promise {
+  static create(site: SiteType): Promise<?SiteType> {
     const request: Request = new Request('/users/current/sites', {
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +68,7 @@ class SiteFetcher {
       });
   }
 
-  static get(params: ?{ include?: Array<string> } = {}): Promise {
+  static get(params: ?{ include?: Array<string> } = {}): Promise<?SitesData> {
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -120,7 +122,7 @@ class SiteFetcher {
       });
   }
 
-  static delete(site: SiteType): Promise {
+  static delete(site: SiteType) {
     const request: Request = new Request(`/users/current/sites/${site.id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -160,7 +162,7 @@ class SiteFetcher {
       });
   }
 
-  static update(site: SiteType): Promise {
+  static update(site: SiteType) {
     const request: Request = new Request(`/users/current/sites/${site.id}`, {
       headers: {
         'Content-Type': 'application/json',
