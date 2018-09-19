@@ -10,6 +10,8 @@ import SiteGraph from 'mixins/SiteGraph';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 
+import './Analyze.css';
+
 window.$ = window.jQuery = $;
 
 
@@ -66,24 +68,24 @@ class Analyze extends Component<Props> {
           Analyze
         </h1>
         <div className='grid-x'>
-          <div className='cell large-8 large-offset-2'>
+          <div className='cell large-10 large-offset-1'>
             <div id={DOMAIN_AUTHORITY_CONTAINER_ID}>
             </div>
           </div>
         </div>
         <div className='grid-x'>
-          <div className='cell large-8 large-offset-2'>
+          <div className='cell large-10 large-offset-1'>
             <div id={PAGE_AUTHORITY_CONTAINER_ID}>
             </div>
           </div>
         </div>
         <div className='grid-x'>
-          <div className='cell large-8 large-offset-2'>
+          <div className='cell large-10 large-offset-1'>
             <div id={MOZ_RANK_CONTAINER_ID}>
             </div>
           </div>
         </div>
-        <div>
+        <div className='powered-by'>
           <span>
             Powered by
           </span>
