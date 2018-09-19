@@ -24,7 +24,9 @@ const PAGE_AUTHORITY_CONTAINER_ID = 'page-authority-graph';
 const MOZ_RANK_CONTAINER_ID = 'moz-rank-graph';
 
 class Analyze extends Component<Props> {
-  siteGraph: SiteGraph;
+  domainAuthoritySiteGraph: SiteGraph;
+  pageAuthoritySiteGraph: SiteGraph;
+  mozRankSiteGraph: SiteGraph;
 
   componentDidMount() {
     const {
