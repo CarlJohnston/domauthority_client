@@ -16,6 +16,8 @@ class SiteGraph {
       time: '%Y-%m-%d',
       property: 'domain_authority',
       xAxis: 'Domain Authority',
+      width: 1000,
+      height: 600,
     }, options);
 
     const margin = {
@@ -24,18 +26,18 @@ class SiteGraph {
       bottom: 50,
       left: 100,
     };
-    this.width = 1000;
-    this.height = 600;
-    const viewBoxWidth = this.width + margin.left + margin.right;
-    const viewBoxHeight = this.height + margin.top + margin.bottom;
+    this.options.width = 1000;
+    this.options.height = 600;
+    const viewBoxWidth = this.options.width + margin.left + margin.right;
+    const viewBoxHeight = this.options.height + margin.top + margin.bottom;
 
     this.svg = d3.select(`${this.options.selector}`)
       .append('svg')
       .attr('id', 'chart')
       .attr('viewBox', `0 0 ${viewBoxWidth} ${viewBoxHeight}`)
       .attr('preserveAspectRatio', 'xMidYMid')
-      .attr('width', this.width)
-      .attr('height', this.height)
+      .attr('width', this.options.width)
+      .attr('height', this.options.height)
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
@@ -54,11 +56,11 @@ class SiteGraph {
     const parseDate = d3.time.format(this.options.time).parse;
 
     const xInterpolator = d3.time.scale()
-      .range([X_MIN, this.width]);
+      .range([X_MIN, this.options.width]);
 
     const yInterpolator = d3.scale.linear()
       .domain([Y_MIN, Y_MAX])
-      .range([this.height, Y_MIN]);
+      .range([this.options.height, Y_MIN]);
 
     const colorInterpolator = d3.scale.category20();
 
@@ -96,7 +98,7 @@ class SiteGraph {
         .call(yAxis)
         .append('text')
         .attr('transform', 'rotate(-90)')
-        .attr('x', 0 - this.height / 2)
+        .attr('x', 0 - this.options.height / 2)
         .attr('dy', '-60px')
         .text(this.options.xAxis);
     } else {
@@ -112,10 +114,10 @@ class SiteGraph {
       this.svg.append('g')
         .attr('class', 'x axis')
         .call(xAxis)
-        .attr('transform', `translate(0, ${this.height})`)
+        .attr('transform', `translate(0, ${this.options.height})`)
         .call(xAxis)
         .append('text')
-        .attr('x', this.width / 2)
+        .attr('x', this.options.width / 2)
         .attr('dy', '60px')
         .text('Date');
     } else {
@@ -159,13 +161,13 @@ class SiteGraph {
         .append('g');
 
       legend.append('text')
-        .attr('x', (d, i) => this.width + 50)
+        .attr('x', (d, i) => this.options.width + 50)
         .attr('y', (d, i) => 22.21 * (i + 1))
         .style('font-size', '0.8rem')
         .text((d, i) => siteNames[i]);
 
       legend.append('rect')
-        .attr('x', (d, i) => this.width + 25)
+        .attr('x', (d, i) => this.options.width + 25)
         .attr('y', (d, i) => 12 + 22 * i)
         .attr('width', 15)
         .attr('height', 15)

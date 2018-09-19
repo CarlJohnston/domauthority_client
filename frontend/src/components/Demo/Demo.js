@@ -58,6 +58,8 @@ class Demo extends Component {
       time: '%Y-%m-%d',
       property: 'domain_authority',
       xAxis: 'Domain Authority',
+      width: 777,
+      height: 466,
     });
 
     this.generateRandomData();
