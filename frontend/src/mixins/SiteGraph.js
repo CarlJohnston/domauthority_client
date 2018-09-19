@@ -182,12 +182,13 @@ class SiteGraph {
         .selectAll(`${this.options.selector} circle`)
         .data((d, i) => transformedSites[i]);
 
+      const that = this;
       myCircleGroups.enter()
         .append('circle')
         .attr('cx', d => xInterpolator(d.created_at))
         .attr('cy', d => yInterpolator(d[this.options.property]))
-        .attr('fill', (d, i) => {
-          return this.siteColors[$(this).closest('g').attr('id')];
+        .attr('fill', function (d, i) {
+          return that.siteColors[$(this).closest('g').attr('id')];
         })
         .attr('r', 4)
         .attr('id', d => d[this.options.property]);
@@ -202,11 +203,14 @@ class SiteGraph {
       const dataCircles = dataSvg.selectAll(`${this.options.selector} circle`)
         .data((d, i) => transformedSites[i]);
 
+      const that = this;
       dataCircles.enter()
         .append('circle')
         .attr('cx', d => xInterpolator(d.created_at))
         .attr('cy', d => yInterpolator(d[this.options.property]))
-        .attr('fill', () => this.siteColors[$(this).closest('g').attr('id')])
+        .attr('fill', function () {
+          return that.siteColors[$(this).closest('g').attr('id')];
+        })
         .attr('r', 4)
         .attr('id', d => d[this.options.property]);
 
