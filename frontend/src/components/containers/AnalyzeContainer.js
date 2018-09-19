@@ -35,11 +35,11 @@ class AnalyzeContainer extends Component<Props, State> {
         'metrics',
       ],
     })
-      .then((sites) => {
+      .then((sites: ?SitesData) => {
         this.setState(() => {
           return {
             loading: false,
-            sites: sites,
+            sites: sites || [],
           };
         });
       })
