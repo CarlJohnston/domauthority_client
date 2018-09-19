@@ -8,17 +8,15 @@ import withDocumentTitle from 'components/hocs/withDocumentTitle';
 
 import SiteGraph from 'mixins/SiteGraph';
 
-import type { Site as SiteType } from 'components/Sites/Site.type';
+import type { Sites as SitesType } from 'components/Sites/Site.type';
 
 import './Analyze.css';
 
 window.$ = window.jQuery = $;
 
 
-type SitesData = Array<SiteType>;
-
 type Props = {
-  sites: SitesData,
+  sites: SitesType,
 };
 
 const DOMAIN_AUTHORITY_CONTAINER_ID = 'domain-authority-graph';

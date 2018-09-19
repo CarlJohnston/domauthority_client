@@ -7,16 +7,14 @@ import Fetcher from 'mixins/Fetcher';
 
 import Analyze from 'components/Analyze/Analyze';
 
-import type { Site as SiteType } from 'components/Sites/Site.type';
+import type { Sites as SitesType } from 'components/Sites/Site.type';
 
-
-type SitesData = Array<SiteType>;
 
 type Props = {};
 
 type State = {
   loading: boolean,
-  sites: SitesData,
+  sites: SitesType,
 };
 
 class AnalyzeContainer extends Component<Props, State> {
@@ -35,7 +33,7 @@ class AnalyzeContainer extends Component<Props, State> {
         'metrics',
       ],
     })
-      .then((sites: ?SitesData) => {
+      .then((sites: ?SitesType) => {
         this.setState(() => {
           return {
             loading: false,

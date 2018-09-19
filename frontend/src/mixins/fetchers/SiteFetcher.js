@@ -8,9 +8,8 @@ import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
+import type { Sites as SitesType } from 'components/Sites/Sites.type';
 import type { Notification } from 'notifications/Notification.type';
-
-type SitesData = Array<SiteType>;
 
 
 class SiteFetcher {
@@ -70,7 +69,7 @@ class SiteFetcher {
       });
   }
 
-  static get(params: ?{ include?: Array<string> } = {}): Promise<?SitesData> {
+  static get(params: ?{ include?: Array<string> } = {}): Promise<?SitesType> {
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +97,7 @@ class SiteFetcher {
           return Promise.resolve([]);
         }
       })
-      .then((sites: SitesData) => {
+      .then((sites: SitesType) => {
         return sites;
       })
       .catch(() => {

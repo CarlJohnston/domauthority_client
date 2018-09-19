@@ -7,17 +7,15 @@ import Sites from 'components/Sites/Sites';
 
 import Fetcher from 'mixins/Fetcher';
 
-import type { Site as SiteType } from 'components/Sites/Site.type';
+import type { Sites as SitesType } from 'components/Sites/Site.type';
 import type { onSiteRemove as onSiteRemoveType } from 'components/Sites/onSiteRemove.type';
 import type { onSiteUpdate as onSiteUpdateType } from 'components/Sites/onSiteUpdate.type';
 import type { onSiteCreate as onSiteCreateType } from 'components/Sites/onSiteCreate.type';
 
 
-type SitesData = Array<SiteType>;
-
 type State = {
   loading: boolean,
-  sites: SitesData,
+  sites: SitesType,
 };
 
 type Props = {
@@ -43,7 +41,7 @@ class SitesContainer extends Component<Props, State> {
 
   componentDidMount() {
     Fetcher.Site.get()
-      .then((sites: ?SitesData) => {
+      .then((sites: ?SitesType) => {
         this.setState(() => {
           return {
             loading: false,
