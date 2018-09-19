@@ -2,6 +2,8 @@
 
 import PNotify from 'pnotify/dist/umd/PNotify';
 
+import QueryString from 'mixins/QueryString';
+
 import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
 
@@ -76,15 +78,7 @@ class SiteFetcher {
     };
     let url = '/users/current/sites';
     if (params) {
-      url += '?';
-      Object.entries(params).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          url += `${key}[]=${value}&`;
-        } else {
-          url += `${key}=${value}&`;
-        }
-      });
-      url = url.slice(0, -1);
+      url += QueryString.generate(params);
     }
     const request: Request = new Request(url, options);
     let notification: ?Notification;

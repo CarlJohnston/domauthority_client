@@ -10,7 +10,8 @@ class QueryString {
 
     Object.entries(params).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        queryString += `${key}[]=${value}&`;
+        const values = value.toString();
+        queryString += `${key}[]=${values}&`;
       } else {
         queryString += `${key}=${value}&`;
       }
