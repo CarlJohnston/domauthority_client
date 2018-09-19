@@ -1,9 +1,9 @@
 // @flow
 
-import type { Sites as SitesType } from 'components/Sites/Site.type';
+import type { Site as SiteType } from 'components/Sites/Site.type';
 
 
-type Sites = Array<SitesType>;
+type Sites = Array<SiteType>;
 
 export type {
   Sites,
