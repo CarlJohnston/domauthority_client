@@ -26,13 +26,13 @@ class SiteGraph {
     };
     this.width = 1000;
     this.height = 600;
-    const viewportWidth = this.width + margin.left + margin.right;
-    const viewportHeight = this.height + margin.top + margin.bottom;
+    const viewBoxWidth = this.width + margin.left + margin.right;
+    const viewBoxHeight = this.height + margin.top + margin.bottom;
 
     this.svg = d3.select(`${this.options.selector}`)
       .append('svg')
       .attr('id', 'chart')
-      .attr('viewBox', `0 0 ${viewportWidth} ${viewportHeight}`)
+      .attr('viewBox', `0 0 ${viewBoxWidth} ${viewBoxHeight}`)
       .attr('preserveAspectRatio', 'xMidYMid')
       .attr('width', this.width)
       .attr('height', this.height)
