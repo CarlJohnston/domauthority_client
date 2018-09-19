@@ -66,7 +66,7 @@ class SiteFetcher {
       });
   }
 
-  static get(params: ?{ include?: Array<String> } = {}): Promise {
+  static get(params: ?{ include?: Array<string> } = {}): Promise {
     const options = {
       headers: {
         'Content-Type': 'application/json',
