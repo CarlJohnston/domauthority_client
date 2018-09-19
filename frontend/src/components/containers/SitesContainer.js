@@ -43,11 +43,11 @@ class SitesContainer extends Component<Props, State> {
 
   componentDidMount() {
     Fetcher.Site.get()
-      .then((sites: SitesData) => {
+      .then((sites: ?SitesData) => {
         this.setState(() => {
           return {
             loading: false,
-            sites: sites,
+            sites: sites || [],
           };
         });
       })
