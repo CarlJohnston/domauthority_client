@@ -10,7 +10,7 @@ import type { Notification } from 'notifications/Notification.type';
 
 
 class SiteFetcher {
-  static create(site: SiteType): void {
+  static create(site: SiteType): Promise {
     const request: Request = new Request('/users/current/sites', {
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ class SiteFetcher {
       });
   }
 
-  static get(params: ?{ include?: Array<String> } = {}): void {
+  static get(params: ?{ include?: Array<String> } = {}): Promise {
     const options = {
       headers: {
         'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ class SiteFetcher {
       });
   }
 
-  static delete(site: SiteType): void {
+  static delete(site: SiteType): Promise {
     const request: Request = new Request(`/users/current/sites/${site.id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ class SiteFetcher {
       });
   }
 
-  static update(site: SiteType): void {
+  static update(site: SiteType): Promise {
     const request: Request = new Request(`/users/current/sites/${site.id}`, {
       headers: {
         'Content-Type': 'application/json',
