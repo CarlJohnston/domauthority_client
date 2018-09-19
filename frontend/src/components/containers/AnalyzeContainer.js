@@ -7,7 +7,7 @@ import Fetcher from 'mixins/Fetcher';
 
 import Analyze from 'components/Analyze/Analyze';
 
-import type { Sites as SitesType } from 'components/Sites/Site.type';
+import type { Sites as SitesType } from 'components/Sites/Sites.type';
 
 
 type Props = {};
