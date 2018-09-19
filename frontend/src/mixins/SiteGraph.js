@@ -20,12 +20,12 @@ class SiteGraph {
 
     const margin = {
       top: 50,
-      right: 150,
+      right: 100,
       bottom: 50,
       left: 100,
     };
-    this.width = 800;
-    this.height = 400;
+    this.width = 1000;
+    this.height = 600;
     const viewportWidth = this.width + margin.left + margin.right;
     const viewportHeight = this.height + margin.top + margin.bottom;
 
