@@ -48,6 +48,20 @@ class SiteGraph {
       html: true,
       title: () => $(this).attr('id'),
     });
+
+    const chart = $(`${this.options.selector} #chart`);
+    const aspect = chart.width() / chart.height();
+    const container = chart.parent();
+
+    $(window).on('resize', () => {
+      const targetWidth = container.width();
+      chart.attr('width', targetWidth);
+      chart.attr('height', Math.round(targetWidth / aspect));
+    }).trigger('resize');
+  }
+
+  componentWillUnmount() {
+    $(window).off('resize');
   }
 
   update(sites) {

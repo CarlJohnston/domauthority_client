@@ -63,22 +63,10 @@ class Demo extends Component {
     });
 
     this.generateRandomData();
-
-    const chart = $('#chart');
-    const aspect = chart.width() / chart.height();
-    const container = chart.parent();
-
-    $(window).on('resize', () => {
-      const targetWidth = container.width();
-      chart.attr('width', targetWidth);
-      chart.attr('height', Math.round(targetWidth / aspect));
-    }).trigger('resize');
   }
 
   componentWillUnmount() {
     clearInterval(this.timer);
-
-    $(window).off('resize');
   }
 
   generateRandomData() {
