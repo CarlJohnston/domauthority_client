@@ -29,9 +29,9 @@ A tracking tool for domain authority SEO metrics over time. Features include aut
     export DOMAUTHORITY_DB_PASSWORD_DEVELOPMENT=password
     ```
 
-4. Navigate to backend.
+4. Navigate to server.
 
-    ```$ cd domauthority/backend```
+    ```$ cd domauthority/server```
 
 5. Install project gems.
 
@@ -44,13 +44,13 @@ A tracking tool for domain authority SEO metrics over time. Features include aut
     $ rake db:migrate && RAILS_ENV=test rake db:migrate
     ```
 
-7. Start the backend server on port 4000.
+7. Start the server server on port 4000.
 
     ```$ rails s -p 4000```
 
-8. Open a new shell and navigate to the frontend.
+8. Open a new shell and navigate to the client.
 
-    ```$ cd domauthority/frontend```
+    ```$ cd domauthority/client```
 
 9. Install node modules.
 
@@ -80,9 +80,9 @@ A tracking tool for domain authority SEO metrics over time. Features include aut
 
 4. Verify tests.
 
-    ```$ cd backend && rails t```
+    ```$ cd server && rails t```
 
-    ```$ cd frontend && yarn test```
+    ```$ cd client && yarn test```
 
 5. Push to branch.
 
