@@ -83,7 +83,7 @@ class AnimatedGraph extends Component<Props> {
             values='50;20;20;30;30;50;50'
           />
         </circle>
-        <line x1='250' y1='50' x2='300' y2='80' style={{ stroke: 'black' }}>
+        <line x1='250' y1='50' x2='300' y2='25' style={{ stroke: 'black' }}>
           <AnimatedGraphLine
             attributeName='y1'
             values='50;20;20;30;30;50;50'
