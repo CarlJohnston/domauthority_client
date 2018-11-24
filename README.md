@@ -21,17 +21,17 @@ A tracking tool for domain authority SEO metrics over time. Features include aut
 3. Setup necessary environment variables.
 
     ```
-    export SIMPLICIFY_DB_NAME_TEST=name
-    export SIMPLICIFY_DB_USERNAME_TEST=username
-    export SIMPLICIFY_DB_PASSWORD_TEST=password
-    export SIMPLICIFY_DB_NAME_DEVELOPMENT=name
-    export SIMPLICIFY_DB_USERNAME_DEVELOPMENT=username
-    export SIMPLICIFY_DB_PASSWORD_DEVELOPMENT=password
+    export DOMAUTHORITY_DB_NAME_TEST=name
+    export DOMAUTHORITY_DB_USERNAME_TEST=username
+    export DOMAUTHORITY_DB_PASSWORD_TEST=password
+    export DOMAUTHORITY_DB_NAME_DEVELOPMENT=name
+    export DOMAUTHORITY_DB_USERNAME_DEVELOPMENT=username
+    export DOMAUTHORITY_DB_PASSWORD_DEVELOPMENT=password
     ```
 
 4. Navigate to cloned directory.
 
-    ```$ cd simplicify```
+    ```$ cd domauthority```
 
 5. Navigate to backend at `/backend`.
 

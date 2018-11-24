@@ -5,18 +5,18 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV["SIMPLICIFY_DB_NAME_DEVELOPMENT"] %>
-  username: <%= ENV["SIMPLICIFY_DB_USERNAME_DEVELOPMENT"] %>
-  password: <%= ENV["SIMPLICIFY_DB_PASSWORD_DEVELOPMENT"] %>
+  database: <%= ENV["DOMAUTHORITY_DB_NAME_DEVELOPMENT"] %>
+  username: <%= ENV["DOMAUTHORITY_DB_USERNAME_DEVELOPMENT"] %>
+  password: <%= ENV["DOMAUTHORITY_DB_PASSWORD_DEVELOPMENT"] %>
 
 test:
   <<: *default
-  database: <%= ENV["SIMPLICIFY_DB_NAME_TEST"] %>
-  username: <%= ENV["SIMPLICIFY_DB_USERNAME_TEST"] %>
-  password: <%= ENV["SIMPLICIFY_DB_PASSWORD_TEST"] %>
+  database: <%= ENV["DOMAUTHORITY_DB_NAME_TEST"] %>
+  username: <%= ENV["DOMAUTHORITY_DB_USERNAME_TEST"] %>
+  password: <%= ENV["DOMAUTHORITY_DB_PASSWORD_TEST"] %>
 
 production:
   <<: *default
-  database: <%= ENV["SIMPLICIFY_DB_NAME_PRODUCTION"] %>
-  username: <%= ENV["SIMPLICIFY_DB_USERNAME_PRODUCTION"] %>
-  password: <%= ENV["SIMPLICIFY_DB_PASSWORD_PRODUCTION"] %>
+  database: <%= ENV["DOMAUTHORITY_DB_NAME_PRODUCTION"] %>
+  username: <%= ENV["DOMAUTHORITY_DB_USERNAME_PRODUCTION"] %>
+  password: <%= ENV["DOMAUTHORITY_DB_PASSWORD_PRODUCTION"] %>
