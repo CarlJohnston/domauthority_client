@@ -64,6 +64,10 @@ A tracking tool for domain authority SEO metrics over time. Features include aut
 
     ```http://localhost:3000```
 
+12. Update domain authority metrics (optionally scheduling via your scheduler of choice!)
+
+    ```rails runner lib/script/update_metrics.rb```
+
 # Contributing
 
 1. Fork.
