@@ -104,7 +104,7 @@ class SiteGraph {
     xInterpolator.domain(d3.extent(metrics, d => d.created_at));
     yInterpolator.domain(d3.extent(metrics, d => d[this.options.property]));
 
-    const yAxes = this.svg.selectAll(`${this.options.selector} .y.axis`);
+    const yAxes = this.svg.selectAll(`.y.axis`);
     if (yAxes[0] &&
         yAxes[0].length < 1) {
       this.svg.append('g')
@@ -116,13 +116,13 @@ class SiteGraph {
         .attr('dy', '-60px')
         .text(this.options.xAxis);
     } else {
-      this.svg.selectAll(`${this.options.selector} .y.axis`)
+      this.svg.selectAll(`.y.axis`)
         .transition()
         .duration(1500)
         .call(yAxis);
     }
 
-    const xAxes = this.svg.selectAll(`${this.options.selector} .x.axis`);
+    const xAxes = this.svg.selectAll(`.x.axis`);
     if (xAxes[0] &&
         xAxes[0].length < 1) {
       this.svg.append('g')
@@ -135,7 +135,7 @@ class SiteGraph {
         .attr('dy', '60px')
         .text('Date');
     } else {
-      this.svg.selectAll(`${this.options.selector} .x.axis`)
+      this.svg.selectAll(`.x.axis`)
         .transition()
         .duration(1500)
         .call(xAxis);
@@ -151,7 +151,7 @@ class SiteGraph {
 
     const lines = d3.selectAll(`${this.options.selector} .line`);
     if (lines[0] && lines[0].length < 1) {
-      const dataSvg = this.svg.selectAll(`${this.options.selector} .line`)
+      const dataSvg = this.svg.selectAll(`.line`)
         .data(transformedSites);
       dataSvg.enter()
         .append('path')
@@ -169,7 +169,7 @@ class SiteGraph {
 
       const legend = this.svg.append('g')
         .attr('class', 'legend')
-        .selectAll(`${this.options.selector} .color`)
+        .selectAll(`.color`)
         .data(this.siteColors)
         .enter()
         .append('g');
@@ -187,13 +187,13 @@ class SiteGraph {
         .attr('height', 15)
         .style('fill', (d, i) => d);
 
-      const myCircleGroups = this.svg.selectAll(`${this.options.selector} circle`)
+      const myCircleGroups = this.svg.selectAll(`circle`)
         .data(transformedSites)
         .enter()
         .append('g')
         .attr('class', 'dot')
         .attr('id', (d, i) => i)
-        .selectAll(`${this.options.selector} circle`)
+        .selectAll(`circle`)
         .data((d, i) => transformedSites[i]);
 
       const that = this;
@@ -207,14 +207,14 @@ class SiteGraph {
         .attr('r', 4)
         .attr('id', d => d[this.options.property]);
     } else {
-      this.svg.selectAll(`${this.options.selector} .line`)
+      this.svg.selectAll(`.line`)
         .data(transformedSites)
         .transition()
         .duration(1500)
         .attr('d', lineInterpolator);
-      const dataSvg = this.svg.selectAll(`${this.options.selector} .dot`)
+      const dataSvg = this.svg.selectAll(`.dot`)
         .data(transformedSites);
-      const dataCircles = dataSvg.selectAll(`${this.options.selector} circle`)
+      const dataCircles = dataSvg.selectAll(`circle`)
         .data((d, i) => transformedSites[i]);
 
       const that = this;
