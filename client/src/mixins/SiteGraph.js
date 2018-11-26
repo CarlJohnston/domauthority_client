@@ -187,6 +187,7 @@ class SiteGraph {
         .attr('height', 15)
         .style('fill', (d, i) => d);
 
+      const that = this;
       const myCircleGroups = this.svg.selectAll(`circle`)
         .data(transformedSites)
         .enter()
@@ -194,10 +195,8 @@ class SiteGraph {
         .attr('class', 'dot')
         .attr('id', (d, i) => i)
         .selectAll(`circle`)
-        .data((d, i) => transformedSites[i]);
-
-      const that = this;
-      myCircleGroups.enter()
+        .data((d, i) => transformedSites[i])
+        .enter()
         .append('circle')
         .attr('cx', d => xInterpolator(d.created_at))
         .attr('cy', d => yInterpolator(d[this.options.property]))
