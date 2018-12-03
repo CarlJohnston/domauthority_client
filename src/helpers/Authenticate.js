@@ -3,6 +3,7 @@
 import URL from 'url';
 
 import ERROR from 'configs/Error';
+import API from 'configs/API';
 
 import type { ParsedResponse } from 'mixins/ParsedResponse.type';
 import type { TokenData } from 'helpers/Token.type';
@@ -24,7 +25,7 @@ type LoginData = {
  * Promise API to request against
  * backend authentication server
  */
-const urlPrefix = '/auth';
+const urlPrefix = `/${API.prefix}/auth`;
 class Authenticate {
   /*
    * Validate data from token and issue/return a promise for a new
