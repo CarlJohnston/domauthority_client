@@ -1,0 +1,7 @@
+{
+  "proxies": {
+    "/api/": {
+      "origin": "${DOMAUTHORITY_SERVER_URL}"
+    }
+  }
+}
