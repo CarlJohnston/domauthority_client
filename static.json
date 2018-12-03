@@ -1,8 +1,9 @@
 {
+  "root": "build/",
+  "https_only": true,
   "proxies": {
     "/api/": {
       "origin": "${DOMAUTHORITY_SERVER_URL}"
     }
-  },
-  "https_only": true
+  }
 }

@@ -2,7 +2,14 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000/",
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:4000",
+      "pathRewrite": {
+        "/api": ""
+      }
+    }
+  },
   "dependencies": {
     "async": "^2.6.1",
     "d3": "3.5.6",
