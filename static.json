@@ -3,5 +3,6 @@
     "/api/": {
       "origin": "${DOMAUTHORITY_SERVER_URL}"
     }
-  }
+  },
+  "https_only": true
 }
