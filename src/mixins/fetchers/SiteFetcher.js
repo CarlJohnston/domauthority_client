@@ -6,15 +6,16 @@ import QueryString from 'mixins/QueryString';
 
 import STATUS from 'configs/Status';
 import ERROR from 'configs/Error';
+import API from 'configs/API';
 
 import type { Site as SiteType } from 'components/Sites/Site.type';
 import type { Sites as SitesType } from 'components/Sites/Sites.type';
 import type { Notification } from 'notifications/Notification.type';
 
-
+const urlPrefix = `/${API.prefix}`
 class SiteFetcher {
   static create(site: SiteType): Promise<?SiteType> {
-    const request: Request = new Request('/users/current/sites', {
+    const request: Request = new Request(`${urlPrefix}/users/current/sites`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -75,7 +76,7 @@ class SiteFetcher {
         'Content-Type': 'application/json',
       },
     };
-    let url = '/users/current/sites';
+    let url = `${urlPrefix}/users/current/sites`;
     if (params) {
       url += QueryString.generate(params);
     }
@@ -116,7 +117,7 @@ class SiteFetcher {
   }
 
   static delete(site: SiteType) {
-    const request: Request = new Request(`/users/current/sites/${site.id}`, {
+    const request: Request = new Request(`${urlPrefix}/users/current/sites/${site.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -156,7 +157,7 @@ class SiteFetcher {
   }
 
   static update(site: SiteType) {
-    const request: Request = new Request(`/users/current/sites/${site.id}`, {
+    const request: Request = new Request(`${urlPrefix}/users/current/sites/${site.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },
